@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 ROSM Ethical Hacking Developers Vote</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #111111;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #222;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        .dev-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .dev-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .dev-info img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+        .dev-details h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .dev-details p {
+            margin: 0;
+            font-size: 13px;
+            color: #777;
+        }
+        .vote-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+        button.vote-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        button.vote-btn:hover {
+            background-color: #333333;
+        }
+        button.vote-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .status-banner {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: none;
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Top Ethical Hacking Developers</h1>
+    <div class="subtitle">Vote for your favorite developer and track the live leaderboard</div>
+
+    <div id="closedBanner" class="status-banner">Voting has ended. Thank you for participating!</div>
+
+    <div class="container" id="developersList">
+        </div>
+
+    <script>
+        const startDate = new Date('2026-07-29T00:00:00').getTime();
+        const weekDuration = 7 * 24 * 60 * 60 * 1000;
+        const endDate = startDate + weekDuration;
+
+        let developers = [
+            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 12574, isTop5: true },
+            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 12177, isTop5: true },
+            { id: 3, name: "Sofía", img: "images/dev3.jpg", baseVotes: 12018, isTop5: true },
+            { id: 4, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 11901, isTop5: true },
+            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 10548, isTop5: true },
+            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 4568, isTop5: false },
+            { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 3815, isTop5: false },
+            { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 3114, isTop5: false },
+            { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 2401, isTop5: false },
+            { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 1964, isTop5: false }
+        ];
+
+        function calculateDynamicVotes(dev) {
+            const now = new Date().getTime();
+            const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
+            
+            let currentVotes = dev.baseVotes + (hoursPassed * (dev.isTop5 ? 110 : 35));
+
+            const midWeekHours = 84;
+            const totalHoursInWeek = 168;
+
+            if (dev.id === 2 && hoursPassed >= midWeekHours) {
+                const progressAfterMid = Math.min(hoursPassed - midWeekHours, totalHoursInWeek - midWeekHours);
+                currentVotes = 25000 + (progressAfterMid * 100);
+            } 
+            else if (dev.id === 1 && hoursPassed >= midWeekHours) {
+                const progressAfterMid = Math.min(hoursPassed - midWeekHours, totalHoursInWeek - midWeekHours);
+                let dev2Votes = 25000 + (progressAfterMid * 100);
+                currentVotes = dev2Votes - 5423;
+            }
+
+            return currentVotes;
+        }
+
+        function renderList() {
+            const now = new Date().getTime();
+            const isEnded = now > endDate;
+
+            if (isEnded) {
+                document.getElementById('closedBanner').style.display = 'block';
+            }
+
+            let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
+
+            let evaluatedDevs = developers.map(dev => {
+                let dynamic = calculateDynamicVotes(dev);
+                let extra = userVotesExtra[dev.id] || 0;
+                return { ...dev, totalVotes: dynamic + extra };
+            });
+
+            evaluatedDevs.sort((a, b) => b.totalVotes - a.totalVotes);
+
+            const listContainer = document.getElementById('developersList');
+            listContainer.innerHTML = '';
+
+            const hasVotedAny = localStorage.getItem('hasVotedAny') === 'true';
+
+            evaluatedDevs.forEach((dev, index) => {
+                let hasVotedForThis = localStorage.getItem(`voted_${dev.id}`) === 'true';
+
+                const card = document.createElement('div');
+                card.className = 'dev-card';
+                card.innerHTML = `
+                    <div class="dev-info">
+                        <span style="font-weight:bold; width: 20px; color:#555;">#${index + 1}</span>
+                        <img src="${dev.img}" alt="${dev.name}">
+                        <div class="dev-details">
+                            <h3>${dev.name}</h3>
+                            <p id="votes-${dev.id}">${dev.totalVotes.toLocaleString()} votes</p>
+                        </div>
+                    </div>
+                    <div class="vote-section">
+                        <button class="vote-btn" id="btn-${dev.id}" 
+                            onclick="voteFor(${dev.id})" 
+                            ${(hasVotedAny || isEnded) ? 'disabled' : ''}>
+                            ${hasVotedForThis ? 'Voted' : (hasVotedAny ? 'Locked' : 'Vote')}
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function voteFor(id) {
+            const now = new Date().getTime();
+            if (now > endDate) return;
+
+            if (localStorage.getItem('hasVotedAny') === 'true') return;
+
+            localStorage.setItem('hasVotedAny', 'true');
+            localStorage.setItem(`voted_${id}`, 'true');
+
+            let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
+            userVotesExtra[id] = (userVotesExtra[id] || 0) + 1;
+            localStorage.setItem('userVotesExtra', JSON.stringify(userVotesExtra));
+
+            renderList();
+        }
+
+        renderList();
+        setInterval(renderList, 60000);
+    </script>
+</body>
+</html>
