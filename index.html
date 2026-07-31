@@ -23,7 +23,7 @@
         .subtitle {
             color: #666;
             margin-bottom: 30px;
-            text-align: center; /* جعل النص في المنتصف */
+            text-align: center;
             font-size: 14px;
         }
         .container {
@@ -104,12 +104,11 @@
 <body>
 
     <h1>Top 10 ROSM Ethical Hacking Devs</h1>
-     <div class="subtitle">Vote for your favorite developer, penetrational and track the live leaderboard #Розем для коллекции</div>
+    <div class="subtitle">Vote for your favorite developer, penetrational and track the live leaderboard #Розем для коллекции</div>
 
     <div id="closedBanner" class="status-banner">Voting has ended. Thank you for participating!</div>
 
-    <div class="container" id="developersList">
-        </div>
+    <div class="container" id="developersList"></div>
 
     <script>
         const startDate = new Date('2026-07-29T00:00:00').getTime();
@@ -122,11 +121,11 @@
             { id: 3, name: "Sofía", img: "images/dev3.jpg", baseVotes: 12018, isTop5: true },
             { id: 4, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 11901, isTop5: true },
             { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 10548, isTop5: true },
-            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 4568, isTop5: false },
-            { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 3815, isTop5: false },
-            { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 3114, isTop5: false },
-            { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 2401, isTop5: false },
-            { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 1964, isTop5: false }
+            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 4500, isTop5: false },
+            { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 4480, isTop5: false },
+            { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4460, isTop5: false },
+            { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 4440, isTop5: false },
+            { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 4420, isTop5: false }
         ];
 
         function calculateDynamicVotes(dev) {
@@ -146,6 +145,14 @@
                 const progressAfterMid = Math.min(hoursPassed - midWeekHours, totalHoursInWeek - midWeekHours);
                 let dev2Votes = 25000 + (progressAfterMid * 100);
                 currentVotes = dev2Votes - 5423;
+            }
+
+            // إضافة تذبذب تنافسي مستمر ومتغير للمراكز من 6 إلى 10 فقط
+            if (!dev.isTop5) {
+                // يعتمد التذبذب على الوقت الحالي ومعرف المطور ليتغير بشكل عشوائي ومستمر كل دقيقة
+                const timeSeed = Math.floor(now / 60000) + (dev.id * 37);
+                const randomFluctuation = Math.sin(timeSeed) * 120; // يتغير صعوداً وهبوطاً بمقدار يتناسب مع التنافس
+                currentVotes += Math.floor(randomFluctuation);
             }
 
             return currentVotes;
