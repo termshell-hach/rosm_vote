@@ -118,8 +118,8 @@
         let developers = [
             { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 12574, isTop5: true },
             { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 12177, isTop5: true },
-            { id: 3, name: "Sofía", img: "images/dev3.jpg", baseVotes: 12018, isTop5: true },
-            { id: 4, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 11901, isTop5: true },
+            { id: 3, name: "Sofía", img: "images/dev3.jpg", baseVotes: 11950, isTop5: true },
+            { id: 4, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 11940, isTop5: true },
             { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 10548, isTop5: true },
             { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 4500, isTop5: false },
             { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 4480, isTop5: false },
@@ -137,6 +137,13 @@
             const midWeekHours = 84;
             const totalHoursInWeek = 168;
 
+            // إحداث زيادة بفارق كبير (حوالي 3200 صوت وكسور) للمركز الأول والثاني عن بقية المنافسين في الساعات الحالية
+            if (dev.id === 1) {
+                currentVotes += 3452;
+            } else if (dev.id === 2) {
+                currentVotes += 3210;
+            }
+
             if (dev.id === 2 && hoursPassed >= midWeekHours) {
                 const progressAfterMid = Math.min(hoursPassed - midWeekHours, totalHoursInWeek - midWeekHours);
                 currentVotes = 25000 + (progressAfterMid * 100);
@@ -147,11 +154,17 @@
                 currentVotes = dev2Votes - 5423;
             }
 
-            // إضافة تذبذب تنافسي مستمر ومتغير للمراكز من 6 إلى 10 فقط
+            // تذبذب تنافسي بين المركز الثالث (3) والرابع (4)
+            if (dev.id === 3 || dev.id === 4) {
+                const timeSeed = Math.floor(now / 60000) + (dev.id * 53);
+                const randomFluctuation = Math.sin(timeSeed) * 80;
+                currentVotes += Math.floor(randomFluctuation);
+            }
+
+            // تذبذب تنافسي مستمر ومتغير للمراكز من 6 إلى 10
             if (!dev.isTop5) {
-                // يعتمد التذبذب على الوقت الحالي ومعرف المطور ليتغير بشكل عشوائي ومستمر كل دقيقة
                 const timeSeed = Math.floor(now / 60000) + (dev.id * 37);
-                const randomFluctuation = Math.sin(timeSeed) * 120; // يتغير صعوداً وهبوطاً بمقدار يتناسب مع التنافس
+                const randomFluctuation = Math.sin(timeSeed) * 120;
                 currentVotes += Math.floor(randomFluctuation);
             }
 
