@@ -173,12 +173,12 @@
         const endDate = startDate + weekDuration;
 
         let developers = [
-            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  // يبدأ بالمقدمة في البداية
-            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, // يبدأ ثانياً، ثم يرتفع بمعدل أسرع ليلاحقه
-            { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },
-            { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14200, growthRate: 80 },
-            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 13000, growthRate: 70 },
-            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5000, growthRate: 40 },
+            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  // يبدأ بالمقدمة
+            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, // يلحق به وياخذ المقدمة بمنتصف الأسبوع
+            { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },  // يتنافس بقوة مع صوفيا
+            { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14450, growthRate: 86 },  // ينافس يوجيش بندية وتبادل بالمراكز
+            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12000, growthRate: 65 }, // تنافس بقوة على توب 6
+            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 11800, growthRate: 67 }, // تنافس بقوة على توب 6 مع باتريشيا
             { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 4800, growthRate: 38 },
             { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4600, growthRate: 35 },
             { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 4400, growthRate: 32 },
@@ -191,16 +191,28 @@
             
             let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
 
-            // منطق منتصف الأسبوع: بعد مرور 84 ساعة، يحصل أوليفياس (id: 2) على دفعة قوية لتجاوز نيشايل بسلاسة وبفارق بسيط
+            // سيطرة وتنافس نيشايل وأوليفياس في القمة
             const midWeekHours = 84;
             if (dev.id === 2 && hoursPassed >= midWeekHours) {
                 const extraHours = hoursPassed - midWeekHours;
-                currentVotes += extraHours * 55; // دفعة تسارعية تجعله يتخطى نيشايل ويستقر في المركز الأول حتى النهاية
+                currentVotes += extraHours * 55; 
             }
 
-            // تذبذب عشوائي طفيف نحو الأعلى فقط لإعطاء حيوية للعدّاد
+            // تنافس حيوي ومتقارب جداً بين يوجيش (3) وصوفيا (4)
+            if (dev.id === 3 || dev.id === 4) {
+                const shiftSeed = Math.floor(now / 1800000) + (dev.id * 31);
+                currentVotes += (shiftSeed % 2 === 0) ? 120 : 0;
+            }
+
+            // تنافس قوي ومتقارب بين باتريشيا (5) وريشا (6) على توب 6
+            if (dev.id === 5 || dev.id === 6) {
+                const subSeed = Math.floor(now / 1400000) + (dev.id * 13);
+                currentVotes += (subSeed % 2 === 0) ? 150 : 0;
+            }
+
+            // تذبذب عشوائي طبيعي وخفيف لبقية العدّادات
             const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
-            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 30;
+            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 25;
             currentVotes += Math.floor(positiveFluctuation);
 
             return Math.floor(currentVotes);
