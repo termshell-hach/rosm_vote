@@ -1,4 +1,4 @@
-            <!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -175,11 +175,11 @@
         const endDate = startDate + weekDuration;
 
         let developers = [
-            { id: 1, name: "Olivias", img: "images/dev2.jpg", baseVotes: 18000, growthRate: 140 }, // المركز الأول يرتفع بشكل أسرع
-            { id: 2, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 15000, growthRate: 90 },
-            { id: 3, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14800, growthRate: 85 },
-            { id: 4, name: "Patricia", img: "images/dev5.jpg", baseVotes: 13500, growthRate: 75 },
-            { id: 5, name: "Nishail", img: "images/dev1.jpg", baseVotes: 13000, growthRate: 110 }, // نيشايل يرتفع بنمط تصاعدي قوي وثابت
+            { id: 1, name: "Olivias", img: "images/dev2.jpg", baseVotes: 24000, growthRate: 150 }, // المركز الأول بأعلى معدل صعود مستمر
+            { id: 2, name: "Nishail", img: "images/dev1.jpg", baseVotes: 22000, growthRate: 115 }, // نيشايل يعود لأرقامه العالية ويرتفع بثبات
+            { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },
+            { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14200, growthRate: 80 },
+            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 13000, growthRate: 70 },
             { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5000, growthRate: 40 },
             { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 4800, growthRate: 38 },
             { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4600, growthRate: 35 },
@@ -191,12 +191,12 @@
             const now = new Date().getTime();
             const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
             
-            // زيادة تراكمية مستمرة وثابتة تعتمد على معدل النمو لكل مطور دون أي انخفاض
+            // زيادة تراكمية تصاعدية بحتة دون أي هبوط أو نقصان
             let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
 
-            // إضافة تذبذب طفيف وعشوائي تصاعدي فقط لتبدو الحركات حية وطبيعية
-            const timeSeed = Math.floor(now / 300000) + (dev.id * 17);
-            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 50;
+            // إضافة تذبذب طفيف عشوائي نحو الأعلى فقط لإعطاء حيوية للعدّاد
+            const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
+            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 40;
             currentVotes += Math.floor(positiveFluctuation);
 
             return Math.floor(currentVotes);
