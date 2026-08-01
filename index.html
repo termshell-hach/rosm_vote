@@ -137,7 +137,6 @@
             const midWeekHours = 84;
             const totalHoursInWeek = 168;
 
-            // إحداث زيادة بفارق كبير (حوالي 3200 صوت وكسور) للمركز الأول والثاني عن بقية المنافسين في الساعات الحالية
             if (dev.id === 1) {
                 currentVotes += 3452;
             } else if (dev.id === 2) {
@@ -154,18 +153,17 @@
                 currentVotes = dev2Votes - 5423;
             }
 
-            // تذبذب تنافسي بين المركز الثالث (3) والرابع (4)
+            // استخدام القيمة المطلقة (Math.abs) لضمان أن تكون التغيرات تصاعدية فقط ولا تنخفض أبداً
             if (dev.id === 3 || dev.id === 4) {
-                const timeSeed = Math.floor(now / 60000) + (dev.id * 53);
-                const randomFluctuation = Math.sin(timeSeed) * 80;
-                currentVotes += Math.floor(randomFluctuation);
+                const timeSeed = Math.floor(now / 600000) + (dev.id * 53);
+                const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 90;
+                currentVotes += Math.floor(positiveFluctuation);
             }
 
-            // تذبذب تنافسي مستمر ومتغير للمراكز من 6 إلى 10
             if (!dev.isTop5) {
-                const timeSeed = Math.floor(now / 60000) + (dev.id * 37);
-                const randomFluctuation = Math.sin(timeSeed) * 120;
-                currentVotes += Math.floor(randomFluctuation);
+                const timeSeed = Math.floor(now / 600000) + (dev.id * 37);
+                const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 140;
+                currentVotes += Math.floor(positiveFluctuation);
             }
 
             return currentVotes;
