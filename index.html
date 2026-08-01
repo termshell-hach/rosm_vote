@@ -1,4 +1,4 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -99,7 +99,6 @@
             width: 100%;
             max-width: 600px;
         }
-        /* قسم الدعم بتصميم أبيض مطابق تماماً للمربعات */
         .support-box {
             background-color: #f9f9f9;
             color: #111111;
@@ -159,11 +158,10 @@
 
     <div class="container" id="developersList"></div>
 
-    <!-- قسم الدعم بتصميم أبيض مطابق تماماً للمربعات -->
     <div class="support-box">
         <h3>Support Us</h3>
-        <p>ROSM is, and always will be, free, and open source. However, you can show us that you care by making a donation.</p>
-        <a href="YOUR_PAYPAL_LINK" target="_blank" class="paypal-btn">
+        <p>ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
+        <a href="https://paypal.me/travis2014862365" target="_blank" class="paypal-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.067 8.528c-.144.876-.615 1.632-1.326 2.179-.711.547-1.58.857-2.482.857h-2.923c-.35 0-.649.25-.705.594l-1.391 8.875c-.039.248-.25.433-.5.433H7.81c-.382 0-.677-.333-.623-.711l1.41-9.006c.056-.345.355-.594.705-.594h2.247c1.777 0 3.32-.614 4.341-1.728 1.022-1.114 1.487-2.678 1.309-4.526-.144-1.488-.838-2.775-1.948-3.619C13.435 1.05 11.916.667 10.165.667H3.456c-.382 0-.677.333-.623.711L6.2 22.956c.039.248.25.433.5.433h3.541c.35 0 .649-.25.705-.594l.872-5.568c.056-.345.355-.594.705-.594h1.745c2.476 0 4.542-.872 5.817-2.457 1.275-1.585 1.748-3.791 1.327-6.274z"/></svg>
             PayPal
         </a>
@@ -175,8 +173,8 @@
         const endDate = startDate + weekDuration;
 
         let developers = [
-            { id: 1, name: "Olivias", img: "images/dev2.jpg", baseVotes: 24000, growthRate: 150 }, // المركز الأول بأعلى معدل صعود مستمر
-            { id: 2, name: "Nishail", img: "images/dev1.jpg", baseVotes: 22000, growthRate: 115 }, // نيشايل يعود لأرقامه العالية ويرتفع بثبات
+            { id: 1, name: "Olivias", img: "images/dev2.jpg", baseVotes: 23500, growthRate: 95 },
+            { id: 2, name: "Nishail", img: "images/dev1.jpg", baseVotes: 23000, growthRate: 115 }, // معدل نمو أسرع ليتجاوز المركز الأول في منتصف الأسبوع
             { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },
             { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14200, growthRate: 80 },
             { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 13000, growthRate: 70 },
@@ -191,12 +189,18 @@
             const now = new Date().getTime();
             const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
             
-            // زيادة تراكمية تصاعدية بحتة دون أي هبوط أو نقصان
             let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
 
-            // إضافة تذبذب طفيف عشوائي نحو الأعلى فقط لإعطاء حيوية للعدّاد
+            // منطق تسارعي إضافي لـ نيشايل (id: 2) بعد منتصف الأسبوع (84 ساعة) ليصعد للمركز الأول بشكل طبيعي وفارق بسيط
+            const midWeekHours = 84;
+            if (dev.id === 2 && hoursPassed >= midWeekHours) {
+                const extraHours = hoursPassed - midWeekHours;
+                currentVotes += extraHours * 35; // دفعة إضافية تجعله يتخطى أوليفياس بسلاسة وبفارق منطقي صغير
+            }
+
+            // تذبذب عشوائي طفيف نحو الأعلى فقط لإضفاء واقعية على العدّاد الحبي
             const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
-            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 40;
+            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 30;
             currentVotes += Math.floor(positiveFluctuation);
 
             return Math.floor(currentVotes);
