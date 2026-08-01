@@ -173,46 +173,41 @@
         const endDate = startDate + weekDuration;
 
         let developers = [
-            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  // يبدأ بالمقدمة
-            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, // يلحق به وياخذ المقدمة بمنتصف الأسبوع
-            { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },  // يتنافس بقوة مع صوفيا
-            { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14450, growthRate: 86 },  // ينافس يوجيش بندية وتبادل بالمراكز
-            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12500, growthRate: 65 }, // في المركز الخامس بأمان
-            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5200, growthRate: 40 },  // تنافس على توب 6 مع بقية الأسفل
-            { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 5000, growthRate: 39 },  // تنافس حيوي بالأسفل
-            { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4800, growthRate: 38 },  // تنافس حيوي بالأسفل
-            { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 4600, growthRate: 35 },  // تنافس حيوي بالأسفل
-            { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 4400, growthRate: 33 }  // تنافس حيوي بالأسفل
+            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  
+            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, 
+            { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },  
+            { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14450, growthRate: 86 },  
+            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12500, growthRate: 68 }, // معدل نمو مستقر وصاعد دائماً بلا أي نزول
+            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5200, growthRate: 40 },  
+            { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 5000, growthRate: 39 },  
+            { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4800, growthRate: 38 },  
+            { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 4600, growthRate: 35 },  
+            { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 4400, growthRate: 33 }  
         ];
 
         function calculateDynamicVotes(dev) {
             const now = new Date().getTime();
             const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
             
+            // جميع النقاط تعتمد على النمو التصاعدي البحت دون نقصان نهائياً
             let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
 
-            // سيطرة وتنافس نيشايل وأوليفياس في القمة
+            // صراع القمة بين نيشايل وأوليفياس
             const midWeekHours = 84;
             if (dev.id === 2 && hoursPassed >= midWeekHours) {
                 const extraHours = hoursPassed - midWeekHours;
                 currentVotes += extraHours * 55; 
             }
 
-            // تنافس حيوي ومتقارب جداً بين يوجيش (3) وصوفيا (4)
+            // تنافس حيوي ومتقارب بين يوجيش وصوفيا نحو الأعلى فقط
             if (dev.id === 3 || dev.id === 4) {
                 const shiftSeed = Math.floor(now / 1800000) + (dev.id * 31);
                 currentVotes += (shiftSeed % 2 === 0) ? 120 : 0;
             }
 
-            // تنافس مبرمج للمجموعة الأخيرة (من ريشا إلى خيس) على توب 6 والمراكز الأخيرة بشكل طبيعي
-            if (dev.id >= 6 && dev.id <= 10) {
-                const lowSeed = Math.floor(now / 1200000) + (dev.id * 17);
-                currentVotes += (lowSeed % 3 === 0) ? 90 : 0;
-            }
-
-            // تذبذب عشوائي طبيعي وخفيف لبقية العدّادات
+            // تذبذب إيجابي نحو الأعلى فقط لجميع المطورين لضمان عدم حدوث أي هبوط أبداً
             const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
-            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 25;
+            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 30;
             currentVotes += Math.floor(positiveFluctuation);
 
             return Math.floor(currentVotes);
