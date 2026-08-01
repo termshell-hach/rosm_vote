@@ -173,8 +173,8 @@
         const endDate = startDate + weekDuration;
 
         let developers = [
-            { id: 1, name: "Olivias", img: "images/dev2.jpg", baseVotes: 23500, growthRate: 95 },
-            { id: 2, name: "Nishail", img: "images/dev1.jpg", baseVotes: 23000, growthRate: 115 }, // معدل نمو أسرع ليتجاوز المركز الأول في منتصف الأسبوع
+            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  // يبدأ بالمقدمة في البداية
+            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, // يبدأ ثانياً، ثم يرتفع بمعدل أسرع ليلاحقه
             { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },
             { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14200, growthRate: 80 },
             { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 13000, growthRate: 70 },
@@ -191,14 +191,14 @@
             
             let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
 
-            // منطق تسارعي إضافي لـ نيشايل (id: 2) بعد منتصف الأسبوع (84 ساعة) ليصعد للمركز الأول بشكل طبيعي وفارق بسيط
+            // منطق منتصف الأسبوع: بعد مرور 84 ساعة، يحصل أوليفياس (id: 2) على دفعة قوية لتجاوز نيشايل بسلاسة وبفارق بسيط
             const midWeekHours = 84;
             if (dev.id === 2 && hoursPassed >= midWeekHours) {
                 const extraHours = hoursPassed - midWeekHours;
-                currentVotes += extraHours * 35; // دفعة إضافية تجعله يتخطى أوليفياس بسلاسة وبفارق منطقي صغير
+                currentVotes += extraHours * 55; // دفعة تسارعية تجعله يتخطى نيشايل ويستقر في المركز الأول حتى النهاية
             }
 
-            // تذبذب عشوائي طفيف نحو الأعلى فقط لإضفاء واقعية على العدّاد الحبي
+            // تذبذب عشوائي طفيف نحو الأعلى فقط لإعطاء حيوية للعدّاد
             const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
             const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 30;
             currentVotes += Math.floor(positiveFluctuation);
