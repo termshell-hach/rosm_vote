@@ -532,7 +532,17 @@
             localStorage.setItem('userVotesExtra', JSON.stringify(userVotesExtra));
 
             renderList();
-        }
+
+setInterval(renderList, 60000);
+
+// تحديث أوقات التعليقات تلقائياً وهي مفتوحة
+setInterval(() => {
+    const modal = document.getElementById('commentsModal');
+    if (modal && modal.style.display === 'flex') {
+        updateCommentsUI();
+    }
+}, 60000);
+
 
         function timeAgo(timestamp) {
             const seconds = Math.floor((new Date().getTime() - timestamp) / 1000);
