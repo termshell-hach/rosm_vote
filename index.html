@@ -25,9 +25,29 @@
         }
         .subtitle {
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
             font-size: 14px;
+        }
+        /* خانة إجمالي المصوتين الجديدة */
+        .total-votes-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f1f3f5;
+            border: 1px solid #dcdcdc;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .total-votes-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: #333;
         }
         .container {
             width: 100%;
@@ -326,6 +346,12 @@
     <h1>Top 10 ROSM Ethical Hacking Devs</h1>
     <div class="subtitle">Vote for your favorite developer, penetrational and track the live leaderboard #Розем для коллекции</div>
 
+    <!-- خانة إجمالي المصوتين مع أيقونة -->
+    <div class="total-votes-badge">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <span id="globalTotalVotes">Total Votes: 0</span>
+    </div>
+
     <div id="closedBanner" class="status-banner">Voting has ended. Thank you for participating</div>
 
     <div class="container" id="developersList"></div>
@@ -402,10 +428,12 @@
             { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 4400, growthRate: 33 }  
         ];
 
+        // دالة تضمن عدم انخفاض الأصوات أبداً وتصاعدها بشكل مستقر ودقيق
         function calculateDynamicVotes(dev) {
             const now = new Date().getTime();
             const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
             
+            // حساب تصاعدي ثابت لا يتراجع أبداً بناءً على الوقت المنقضي
             let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
 
             const midWeekHours = 84;
@@ -414,16 +442,22 @@
                 currentVotes += extraHours * 55; 
             }
 
-            if (dev.id === 3 || dev.id === 4) {
-                const shiftSeed = Math.floor(now / 1800000) + (dev.id * 31);
-                currentVotes += (shiftSeed % 2 === 0) ? 120 : 0;
-            }
-
+            // ضمان عدم وجود تذبذب سلبي (استخدام القيمة المطلقة والجمع فقط لضمان الصعود أو الثبات حصراً)
             const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
-            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 30;
+            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 35;
             currentVotes += Math.floor(positiveFluctuation);
 
-            return Math.floor(currentVotes);
+            // حفظ واسترجاع أعلى قيمة وصل لها المطور محلياً لضمان عدم حدوث أي هبوط نهائياً تحت أي ظرف
+            let maxVotesStorage = JSON.parse(localStorage.getItem('maxVotesStorage') || '{}');
+            let previousMax = maxVotesStorage[dev.id] || currentVotes;
+            
+            if (currentVotes > previousMax) {
+                maxVotesStorage[dev.id] = currentVotes;
+                localStorage.setItem('maxVotesStorage', JSON.stringify(maxVotesStorage));
+                return currentVotes;
+            } else {
+                return previousMax;
+            }
         }
 
         function renderList() {
@@ -444,6 +478,13 @@
             });
 
             evaluatedDevs.sort((a, b) => b.totalVotes - a.totalVotes);
+
+            // حساب الإجمالي الكلي لكل أصوات المطورين وعرضه في الخانة المخصصة بدقة
+            let grandTotalVotes = evaluatedDevs.reduce((sum, dev) => sum + dev.totalVotes, 0);
+            const globalBadge = document.getElementById('globalTotalVotes');
+            if (globalBadge) {
+                globalBadge.textContent = `Total Votes: ${grandTotalVotes.toLocaleString()}`;
+            }
 
             const listContainer = document.getElementById('developersList');
             if(!listContainer) return;
@@ -506,7 +547,6 @@
 
         let allCommentsCache = [];
 
-        // 43 تعليقاً باللغة الروسية بدون إيموجي وبفواصل زمنيّة مختلفة
         const baseHistoricalPool = [
             { name: "Anonymous", text: "Отличная борьба за лидерство каждый голос имеет значение", timestamp: Date.now() - (43 * 60 * 1000) },
             { name: "Anonymous", text: "Прекрасный открытый проект респект команде ROSM", timestamp: Date.now() - (42 * 60 * 1000) },
@@ -607,7 +647,7 @@
                             <span class="comment-author">${item.name}</span>
                             <span class="comment-time">${timeAgo(item.timestamp)}</span>
                         </div>
-                        <div class="comment-body">${item.text}</div>
+                        <div class="comment-body">${item.text.replace(/#\d+/g, '').trim()}</div>
                     `;
                     listEl.appendChild(div);
                 });
@@ -670,7 +710,7 @@
             push(commentsRef, newComment);
 
             localStorage.setItem('hasCommented', 'true');
-            input.value = '';
+            input.value.trim();
             updateCommentsUI();
         }
 
