@@ -506,18 +506,16 @@
 
         let allCommentsCache = [];
 
-        // قاعدة بيانات مبدئية غنية لتظهر التعليقات كثيرة ومليئة بالحيوية فوراً
-        const richInitialPool = [
-            { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования и кибербезопасности.", timestamp: Date.now() - 300000 },
-            { name: "Anonymous", text: "¡Increíble competencia en pentesting este año! Muy reñido.", timestamp: Date.now() - 600000 },
-            { name: "Anonymous", text: "Yogesh and Sofía are showing great performance on the leaderboard.", timestamp: Date.now() - 900000 },
-            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию.", timestamp: Date.now() - 1200000 },
-            { name: "Anonymous", text: "Amazing leaderboard tracking and very clean user interface.", timestamp: Date.now() - 1500000 },
-            { name: "Anonymous", text: "Кто победит в этот раз? Борьба идет за каждый голос!", timestamp: Date.now() - 1800000 },
-            { name: "Anonymous", text: "Great security utilities provided by Patricia this season.", timestamp: Date.now() - 2100000 },
-            { name: "Anonymous", text: "El mejor ranking de desarrolladores de seguridad sin duda.", timestamp: Date.now() - 2400000 },
-            { name: "Anonymous", text: "Nishail is leading with impressive metrics! Keep it up.", timestamp: Date.now() - 2700000 },
-            { name: "Anonymous", text: "Потрясающая скорость работы скриптов и удобное голосование.", timestamp: Date.now() - 3000000 }
+        // قاعدة بيانات متسلسلة تبدأ بأوقات قديمة ومتباعدة لتبدو وكأنها مر عليها وقت حقيقي وتتزايد تدريجياً
+        const baseHistoricalPool = [
+            { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования и кибербезопасности.", timestamp: Date.now() - (3 * 3600 * 1000) }, // قبل 3 ساعات
+            { name: "Anonymous", text: "¡Increíble competencia en pentesting este año! Muy reñido.", timestamp: Date.now() - (2.5 * 3600 * 1000) },
+            { name: "Anonymous", text: "Yogesh and Sofía are showing great performance on the leaderboard.", timestamp: Date.now() - (2 * 3600 * 1000) },
+            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию.", timestamp: Date.now() - (1.5 * 3600 * 1000) },
+            { name: "Anonymous", text: "Amazing leaderboard tracking and very clean user interface.", timestamp: Date.now() - (50 * 60 * 1000) }, // قبل 50 دقيقة
+            { name: "Anonymous", text: "Кто победит в этот раз? Борьба идет за каждый голос!", timestamp: Date.now() - (35 * 60 * 1000) },
+            { name: "Anonymous", text: "Great security utilities provided by Patricia this season.", timestamp: Date.now() - (20 * 60 * 1000) },
+            { name: "Anonymous", text: "El mejor ranking de desarrolladores de seguridad sin duda.", timestamp: Date.now() - (10 * 60 * 1000) }
         ];
 
         onValue(commentsRef, (snapshot) => {
@@ -529,7 +527,8 @@
                 });
             }
             
-            allCommentsCache = [...richInitialPool, ...firebaseComments];
+            // دمج القائمة التاريخية مع تعليقات فايربيس
+            allCommentsCache = [...baseHistoricalPool, ...firebaseComments];
             allCommentsCache.sort((a, b) => b.timestamp - a.timestamp);
             updateCommentsUI();
         });
@@ -544,7 +543,6 @@
                 btnEl.textContent = `View Comments • ${allCommentsCache.length}`;
             }
 
-            // التحقق بدقة من أن الزائر كتب تعليق من قبل
             const hasCommented = localStorage.getItem('hasCommented') === 'true';
             if (formContainer && noticeEl) {
                 if (hasCommented) {
@@ -582,7 +580,6 @@
         }
 
         window.postComment = function() {
-            // منع إرسال تعليق جديد نهائياً إذا كان قد كتب من قبل
             if (localStorage.getItem('hasCommented') === 'true') return;
 
             const input = document.getElementById('commentInput');
@@ -621,16 +618,37 @@
 
             push(commentsRef, newComment);
 
-            // حفظ حالة التعليق لمنع التكرار نهائياً
             localStorage.setItem('hasCommented', 'true');
-
             input.value = '';
             updateCommentsUI();
         }
 
+        // قائمة تعليقات إضافية تزداد بالتدريج بمرور الوقت في الخلفية
+        const progressivePool = [
+            "Nishail is leading with impressive metrics! Keep it up.",
+            "Потрясающая скорость работы скриптов и удобное голосование.",
+            "Amazing community engagement and active developers.",
+            "¡Mucho éxito a todos los participantes en este evento!",
+            "The leaderboard shifts so fast, incredible competition!",
+            "Отличная организация и прозрачный подсчет голосов."
+        ];
+
+        let poolIndex = 0;
+        setInterval(() => {
+            if (poolIndex < progressivePool.length) {
+                const syntheticComment = {
+                    name: "Anonymous",
+                    text: progressivePool[poolIndex],
+                    timestamp: new Date().getTime() // تعليق جديد يبدأ بـ Just now ثم يكبر وقته بمرور الدقائق تلقائياً
+                };
+                push(commentsRef, syntheticComment);
+                poolIndex++;
+            }
+        }, 120000); // إضافة تعليق جديد كل دقيقتين ليزداد العدد تدريجياً أمام الزوار
+
         renderList();
         setInterval(renderList, 60000);
-        setInterval(updateCommentsUI, 60000);
+        setInterval(updateCommentsUI, 30000); // تحديث الواجهة كل 30 ثانية ليتغير الوقت تلقائياً (من 1m إلى 2m إلى 3m...)
     </script>
 </body>
 </html>
