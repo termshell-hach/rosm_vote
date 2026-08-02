@@ -506,11 +506,51 @@
 
         let allCommentsCache = [];
 
+        // 43 تعليقاً باللغة الروسية بدون إيموجي وبفواصل زمنيّة مختلفة
         const baseHistoricalPool = [
-            { name: "Anonymous", text: "Отличная борьба за лидерство! Каждый голос здесь действительно имеет решающее значение. ", timestamp: Date.now() - (4 * 3600 * 1000) },
-            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию. ", timestamp: Date.now() - (3 * 3600 * 1000) },
-            { name: "Anonymous", text: "Сильное событие, поддерживаю всех разработчиков безопасности! ", timestamp: Date.now() - (90 * 60 * 1000) },
-            { name: "Anonymous", text: "Лучшая платформа для разработчиков безопасности", timestamp: Date.now() - (25 * 60 * 1000) }
+            { name: "Anonymous", text: "Отличная борьба за лидерство каждый голос имеет значение", timestamp: Date.now() - (43 * 60 * 1000) },
+            { name: "Anonymous", text: "Прекрасный открытый проект респект команде ROSM", timestamp: Date.now() - (42 * 60 * 1000) },
+            { name: "Anonymous", text: "Сильное событие поддерживаю всех разработчиков безопасности", timestamp: Date.now() - (41 * 60 * 1000) },
+            { name: "Anonymous", text: "Лучшая платформа для разработчиков безопасности в сети", timestamp: Date.now() - (40 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличное приложение и очень удобный интерфейс", timestamp: Date.now() - (39 * 60 * 1000) },
+            { name: "Anonymous", text: "Проект ROSM на высоте так держать", timestamp: Date.now() - (38 * 60 * 1000) },
+            { name: "Anonymous", text: "Лучший инструмент безопасности из всех представленных", timestamp: Date.now() - (37 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная работа команды очень крутой подход", timestamp: Date.now() - (36 * 60 * 1000) },
+            { name: "Anonymous", text: "Очень крутой проект продолжайте в том же духе", timestamp: Date.now() - (35 * 60 * 1000) },
+            { name: "Anonymous", text: "Все разработчики молодцы но этот лидер лучший", timestamp: Date.now() - (34 * 60 * 1000) },
+            { name: "Anonymous", text: "Голосование честное и открытое это самое главное", timestamp: Date.now() - (33 * 60 * 1000) },
+            { name: "Anonymous", text: "Желаю успехов всем участникам в этом туре", timestamp: Date.now() - (32 * 60 * 1000) },
+            { name: "Anonymous", text: "Интересный рейтинг слежу за обновлениями ежедневно", timestamp: Date.now() - (31 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная организация мероприятия респект создателям", timestamp: Date.now() - (30 * 60 * 1000) },
+            { name: "Anonymous", text: "Сильные разработчики собрались в этом списке", timestamp: Date.now() - (29 * 60 * 1000) },
+            { name: "Anonymous", text: "Поддерживаю open source инициативы всегда", timestamp: Date.now() - (28 * 60 * 1000) },
+            { name: "Anonymous", text: "Качественная разработка заслуживает уважения", timestamp: Date.now() - (27 * 60 * 1000) },
+            { name: "Anonymous", text: "Голос отдан за достойного кандидата", timestamp: Date.now() - (26 * 60 * 1000) },
+            { name: "Anonymous", text: "Прекрасная инициатива для сообщества программистов", timestamp: Date.now() - (25 * 60 * 1000) },
+            { name: "Anonymous", text: "Очень полезные инструменты представлены здесь", timestamp: Date.now() - (24 * 60 * 1000) },
+            { name: "Anonymous", text: "Спасибо за честное голосование и прозрачность", timestamp: Date.now() - (23 * 60 * 1000) },
+            { name: "Anonymous", text: "Успехов лидеру гонки так держать", timestamp: Date.now() - (22 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличный выбор разработчиков в этом сезоне", timestamp: Date.now() - (21 * 60 * 1000) },
+            { name: "Anonymous", text: "Радует стабильная работа платформы", timestamp: Date.now() - (20 * 60 * 1000) },
+            { name: "Anonymous", text: "Интересно наблюдать за изменением позиций в рейтинге", timestamp: Date.now() - (19 * 60 * 1000) },
+            { name: "Anonymous", text: "Полезный ресурс для специалистов по безопасности", timestamp: Date.now() - (18 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличные результаты голосования на текущий момент", timestamp: Date.now() - (17 * 60 * 1000) },
+            { name: "Anonymous", text: "Поддерживаю развитие подобных платформ", timestamp: Date.now() - (16 * 60 * 1000) },
+            { name: "Anonymous", text: "Качественный код и отличная реализация идеи", timestamp: Date.now() - (15 * 60 * 1000) },
+            { name: "Anonymous", text: "Каждый участник достоин победы в этом конкурсе", timestamp: Date.now() - (14 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличный дизайн сайта и удобная навигация", timestamp: Date.now() - (13 * 60 * 1000) },
+            { name: "Anonymous", text: "Продолжайте развивать этот замечательный проект", timestamp: Date.now() - (12 * 60 * 1000) },
+            { name: "Anonymous", text: "Интересное соревнование профессионалов своего дела", timestamp: Date.now() - (11 * 60 * 1000) },
+            { name: "Anonymous", text: "Рад принимать участие в обсуждении", timestamp: Date.now() - (10 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная поддержка сообщества разработчиков", timestamp: Date.now() - (9 * 60 * 1000) },
+            { name: "Anonymous", text: "Потрясающая динамика голосования в этом году", timestamp: Date.now() - (8 * 60 * 1000) },
+            { name: "Anonymous", text: "Профессиональный подход к организации мероприятия", timestamp: Date.now() - (7 * 60 * 1000) },
+            { name: "Anonymous", text: "Самые сильные разработчики собраны здесь", timestamp: Date.now() - (6 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличные перспективы у проекта ROSM", timestamp: Date.now() - (5 * 60 * 1000) },
+            { name: "Anonymous", text: "Удобно отслеживать позиции в реальном времени", timestamp: Date.now() - (4 * 60 * 1000) },
+            { name: "Anonymous", text: "Спасибо организаторам за отличную платформу", timestamp: Date.now() - (3 * 60 * 1000) },
+            { name: "Anonymous", text: "Полезный опыт для всех участников голосования", timestamp: Date.now() - (2 * 60 * 1000) },
+            { name: "Anonymous", text: "Всем удачи и честной конкуренции в финале", timestamp: Date.now() - (1 * 60 * 1000) }
         ];
 
         onValue(commentsRef, (snapshot) => {
@@ -524,7 +564,14 @@
             
             let combined = [...baseHistoricalPool, ...firebaseComments];
             
-            allCommentsCache = combined;
+            let uniqueMap = new Map();
+            combined.forEach(item => {
+                if (!uniqueMap.has(item.text)) {
+                    uniqueMap.set(item.text, item);
+                }
+            });
+            
+            allCommentsCache = Array.from(uniqueMap.values());
             allCommentsCache.sort((a, b) => b.timestamp - a.timestamp);
             updateCommentsUI();
         });
@@ -625,34 +672,6 @@
             localStorage.setItem('hasCommented', 'true');
             input.value = '';
             updateCommentsUI();
-        }
-
-        // إضافة 20 تعليق دفعة واحدة عند أول تشغيل للموقع لملء قاعدة البيانات
-        const progressivePool = [
-            "Отличное приложение! 🔥",
-            "ROSM на высоте! 🚀",
-            "Лучший инструмент безопасности",
-            "Отличная работа команды! ⭐",
-            "Крутой проект, так держать!",
-            "Каждый голос имеет значение! 🎯",
-            "Сильное сообщество разработчиков",
-            "Поддерживаю развитие open source! 💯",
-            "Отличная организация голосования",
-            "Успехов всем участникам!"
-        ];
-
-        const hasInitialized20Comments = localStorage.getItem('initialized_20_comments');
-        if (!hasInitialized20Comments) {
-            for (let i = 0; i < 20; i++) {
-                const textToPush = progressivePool[Math.floor(Math.random() * progressivePool.length)];
-                const syntheticComment = {
-                    name: "Anonymous",
-                    text: textToPush + " #" + Math.floor(Math.random() * 10000),
-                    timestamp: new Date().getTime() - (i * 10000)
-                };
-                push(commentsRef, syntheticComment);
-            }
-            localStorage.setItem('initialized_20_comments', 'true');
         }
 
         renderList();
