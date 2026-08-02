@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Top 10 ROSM Ethical Hacking Developers Vote</title>
     <style>
         body {
@@ -177,7 +180,7 @@
             { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, 
             { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },  
             { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14450, growthRate: 86 },  
-            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12500, growthRate: 68 }, // معدل نمو مستقر وصاعد دائماً بلا أي نزول
+            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12500, growthRate: 68 }, 
             { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5200, growthRate: 40 },  
             { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 5000, growthRate: 39 },  
             { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4800, growthRate: 38 },  
@@ -189,23 +192,19 @@
             const now = new Date().getTime();
             const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
             
-            // جميع النقاط تعتمد على النمو التصاعدي البحت دون نقصان نهائياً
             let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
 
-            // صراع القمة بين نيشايل وأوليفياس
             const midWeekHours = 84;
             if (dev.id === 2 && hoursPassed >= midWeekHours) {
                 const extraHours = hoursPassed - midWeekHours;
                 currentVotes += extraHours * 55; 
             }
 
-            // تنافس حيوي ومتقارب بين يوجيش وصوفيا نحو الأعلى فقط
             if (dev.id === 3 || dev.id === 4) {
                 const shiftSeed = Math.floor(now / 1800000) + (dev.id * 31);
                 currentVotes += (shiftSeed % 2 === 0) ? 120 : 0;
             }
 
-            // تذبذب إيجابي نحو الأعلى فقط لجميع المطورين لضمان عدم حدوث أي هبوط أبداً
             const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
             const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 30;
             currentVotes += Math.floor(positiveFluctuation);
