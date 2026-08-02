@@ -1,470 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 10 ROSM Ethical Hacking Devs</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Top 10 ROSM Ethical Hacking Developers Vote</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: #ffffff;
-            color: #111;
+            color: #111111;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 15px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         h1 {
-            font-size: 24px;
-            text-align: center;
+            color: #222;
             margin-bottom: 5px;
-        }
-        p.subtitle {
-            color: #555;
-            font-size: 13px;
             text-align: center;
-            margin-bottom: 20px;
-            max-width: 450px;
         }
-        /* بطاقة المطورين المنفصلة */
-        .dev-card {
-            background: #ffffff;
-            border: 1px solid #eaeaea;
-            border-radius: 12px;
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .container {
             width: 100%;
-            max-width: 450px;
-            padding: 15px;
-            margin-bottom: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            max-width: 600px;
+        }
+        .dev-card {
             display: flex;
             align-items: center;
             justify-content: space-between;
-        }
-        /* بطاقات الأسفل (التعليقات والدعم) المطابقة تماماً لصورتك الأخيرة */
-        .card {
-            background: #ffffff;
-            border: 1px solid #eaeaea;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 450px;
-            padding: 20px 15px;
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            border-radius: 10px;
             margin-bottom: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .card h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        .card p {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.4;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         .dev-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
         .dev-info img {
-            width: 45px;
-            height: 45px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #ddd;
         }
         .dev-details h3 {
-            margin: 0;
-            font-size: 15px;
-            text-align: left;
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #333;
         }
         .dev-details p {
-            margin: 3px 0 0;
-            font-size: 12px;
-            color: #666;
-            text-align: left;
-        }
-        .vote-btn {
-            background-color: #000;
-            color: #fff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .vote-btn:disabled {
-            background-color: #e0e0e0;
-            color: #888;
-            cursor: not-allowed;
-        }
-        .action-btn {
-            display: block;
-            width: 100%;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 11px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
+            margin: 0;
             font-size: 13px;
-            box-sizing: border-box;
+            color: #777;
         }
-        #closedBanner {
-            display: none;
-            background: #ffebee;
-            color: #c62828;
-            padding: 8px;
-            text-align: center;
-            border-radius: 6px;
-            margin-bottom: 12px;
-            font-weight: bold;
-            font-size: 13px;
-            width: 100%;
-            max-width: 450px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
-        .modal-content {
-            background: #fff;
-            width: 100%;
-            max-width: 450px;
-            max-height: 80vh;
-            border-radius: 12px;
-            padding: 15px;
+        .vote-section {
             display: flex;
             flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+        button.vote-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+        button.vote-btn:hover {
+            background-color: #333333;
+        }
+        button.vote-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .status-banner {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: none;
+            width: 100%;
+            max-width: 600px;
+        }
+        .support-box, .comments-trigger-box {
+            background-color: #f9f9f9;
+            color: #111111;
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .support-box h3, .comments-trigger-box h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .support-box p, .comments-trigger-box p {
+            font-size: 13px;
+            color: #666;
+            margin: 0 0 15px 0;
+            line-height: 1.5;
+            max-width: 480px;
+        }
+        .paypal-btn, .open-comments-btn {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #000000;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            width: 100%;
+            max-width: 220px;
+            box-sizing: border-box;
+            border: none;
+            cursor: pointer;
+        }
+        .paypal-btn:hover, .open-comments-btn:hover {
+            background: #333333;
+        }
+
+        /* النافذة المنبثقة للتعليقات */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #ffffff;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+            box-sizing: border-box;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
         }
         .comments-list {
             overflow-y: auto;
-            flex-grow: 1;
-            margin-bottom: 12px;
-            border-top: 1px solid #eee;
-            padding-top: 8px;
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 250px;
+            margin-bottom: 15px;
+            padding-right: 5px;
         }
         .comment-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #f9f9f9;
+            background: #f9f9f9;
+            border: 1px solid #e8e8e8;
+            padding: 10px 12px;
+            border-radius: 6px;
             font-size: 13px;
         }
         .comment-header-info {
             display: flex;
             justify-content: space-between;
+            color: #555;
             font-weight: bold;
-            color: #333;
-            font-size: 11px;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
+            font-size: 12px;
         }
         .comment-body {
-            color: #222;
+            color: #333;
+            line-height: 1.4;
         }
-        .comment-input-area {
+        .comment-form {
             display: flex;
-            gap: 6px;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
         }
-        .comment-input-area input {
-            flex-grow: 1;
+        .comment-form textarea {
+            width: 100%;
+            height: 60px;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 6px;
-            font-size: 12px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 13px;
+            resize: none;
         }
-        .close-modal {
-            background: #eee;
-            color: #333;
+        .comment-form button {
+            background-color: #000000;
+            color: #ffffff;
             border: none;
-            padding: 8px;
+            padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 8px;
-            font-weight: 600;
+            font-weight: bold;
+            font-size: 13px;
+            align-self: flex-end;
+            transition: background 0.2s;
+        }
+        .comment-form button:hover {
+            background-color: #333333;
+        }
+        .comment-error {
+            color: #c62828;
             font-size: 12px;
+            display: none;
+            margin-top: 2px;
         }
     </style>
 </head>
 <body>
 
     <h1>Top 10 ROSM Ethical Hacking Devs</h1>
-    <p class="subtitle">Vote for your favorite developer, penetrational and track the live leaderboard #Розем для коллекции</p>
+    <div class="subtitle">Vote for your favorite developer, penetrational and track the live leaderboard #Розем для коллекции</div>
 
-    <div id="closedBanner">Voting has officially ended!</div>
+    <div id="closedBanner" class="status-banner">Voting has ended. Thank you for participating!</div>
 
-    <!-- قائمة المطورين ببطاقات منفصلة -->
-    <div id="developersList" style="width: 100%; max-width: 450px; display: flex; flex-direction: column; align-items: center;"></div>
+    <div class="container" id="developersList"></div>
 
-    <!-- بطاقة التعليقات المطابقة تماماً لصورتك -->
-    <div class="card">
+    <div class="comments-trigger-box">
         <h3>Community Discussions</h3>
         <p id="commentsCountText">Check what others are saying about the voting and rankings.</p>
-        <button class="action-btn" onclick="toggleCommentsModal(true)">View Comments</button>
+        <button class="open-comments-btn" onclick="toggleCommentsModal(true)">View Comments</button>
     </div>
 
-    <!-- بطاقة الدعم المطابقة تماماً لصورتك -->
-    <div class="card">
-        <h3>Support Us</h3>
-        <p>ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
-        <a href="https://paypal.me/travis20148" target="_blank" class="action-btn" style="background: #0070ba;">PayPal</a>
-    </div>
-
-    <!-- نافذة التعليقات المنبثقة -->
-    <div id="commentsModal" class="modal">
+    <div class="modal-overlay" id="commentsModal">
         <div class="modal-content">
-            <h3 style="margin-top:0; font-size:16px; text-align: left;">Community Discussions</h3>
-            <div id="commentsList" class="comments-list"></div>
-            <div id="commentError" style="color: red; font-size: 11px; display: none; margin-bottom: 5px; text-align: left;"></div>
-            <div class="comment-input-area">
-                <input type="text" id="commentInput" placeholder="Write a comment (English only)...">
-                <button class="vote-btn" onclick="postComment()">Post</button>
+            <div class="modal-header">
+                <h3 id="modalTitle">Discussion & Comments</h3>
+                <button class="close-modal-btn" onclick="toggleCommentsModal(false)">&times;</button>
             </div>
-            <button class="close-modal" onclick="toggleCommentsModal(false)">Close</button>
+            
+            <div class="comments-list" id="commentsList"></div>
+            
+            <div class="comment-form">
+                <textarea id="commentInput" placeholder="Write a comment (English, Russian, or Spanish only)..."></textarea>
+                <div id="commentError" class="comment-error">Arabic text and offensive words are strictly prohibited.</div>
+                <button onclick="postComment()">Post Comment</button>
+            </div>
         </div>
     </div>
 
+    <div class="support-box">
+        <h3>Support Us</h3>
+        <p>ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
+        <a href="https://paypal.me/travis2014862365" target="_blank" class="paypal-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.067 8.528c-.144.876-.615 1.632-1.326 2.179-.711.547-1.58.857-2.482.857h-2.923c-.35 0-.649.25-.705.594l-1.391 8.875c-.039.248-.25.433-.5.433H7.81c-.382 0-.677-.333-.623-.711l1.41-9.006c.056-.345.355-.594.705-.594h2.247c1.777 0 3.32-.614 4.341-1.728 1.022-1.114 1.487-2.678 1.309-4.526-.144-1.488-.838-2.775-1.948-3.619C13.435 1.05 11.916.667 10.165.667H3.456c-.382 0-.677.333-.623.711L6.2 22.956c.039.248.25.433.5.433h3.541c.35 0 .649-.25.705-.594l.872-5.568c.056-.345.355-.594.705-.594h1.745c2.476 0 4.542-.872 5.817-2.457 1.275-1.585 1.748-3.791 1.327-6.274z"/></svg>
+            PayPal
+        </a>
+    </div>
     <script>
-    const startDate = new Date('2026-07-29T00:00:00').getTime();
-    const weekDuration = 7 * 24 * 60 * 60 * 1000;
-    const endDate = startDate + weekDuration;
-
-    let developers = [
-        { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  
-        { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, 
-        { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },  
-        { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14450, growthRate: 86 },  
-        { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12500, growthRate: 68 }, 
-        { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5200, growthRate: 40 },  
-        { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 5000, growthRate: 39 },  
-        { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4800, growthRate: 38 },  
-        { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 4600, growthRate: 35 },  
-        { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 4400, growthRate: 33 }  
-    ];
-
-    function calculateDynamicVotes(dev) {
-        const now = new Date().getTime();
-        const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
-        let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
-        const midWeekHours = 84;
-        if (dev.id === 2 && hoursPassed >= midWeekHours) {
-            currentVotes += (hoursPassed - midWeekHours) * 55; 
-        }
-        if (dev.id === 3 || dev.id === 4) {
-            const shiftSeed = Math.floor(now / 1800000) + (dev.id * 31);
-            currentVotes += (shiftSeed % 2 === 0) ? 120 : 0;
-        }
-        const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
-        currentVotes += Math.floor(Math.abs(Math.sin(timeSeed)) * 30);
-        return Math.floor(currentVotes);
-    }
-
-    function renderList() {
-        const now = new Date().getTime();
-        const isEnded = now > endDate;
-        const closedBanner = document.getElementById('closedBanner');
-        if (isEnded && closedBanner) {
-            closedBanner.style.display = 'block';
-        }
-        let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
-        let evaluatedDevs = developers.map(dev => {
-            let dynamic = calculateDynamicVotes(dev);
-            let extra = userVotesExtra[dev.id] || 0;
-            return { ...dev, totalVotes: dynamic + extra };
-        });
-        evaluatedDevs.sort((a, b) => b.totalVotes - a.totalVotes);
-        const listContainer = document.getElementById('developersList');
-        if (!listContainer) return;
-        listContainer.innerHTML = '';
-        const hasVotedAny = localStorage.getItem('hasVotedAny') === 'true';
-        evaluatedDevs.forEach((dev, index) => {
-            let hasVotedForThis = localStorage.getItem(`voted_${dev.id}`) === 'true';
-            const card = document.createElement('div');
-            card.className = 'dev-card';
-            card.innerHTML = `
-                <div class="dev-info">
-                    <span style="font-weight:bold; width: 20px; color:#555; font-size:13px;">#${index + 1}</span>
-                    <img src="${dev.img}" alt="${dev.name}">
-                    <div class="dev-details">
-                        <h3>${dev.name}</h3>
-                        <p id="votes-${dev.id}">${dev.totalVotes.toLocaleString()} votes</p>
-                    </div>
-                </div>
-                <div class="vote-section">
-                    <button class="vote-btn" id="btn-${dev.id}" 
-                        onclick="voteFor(${dev.id})" 
-                        ${(hasVotedAny || isEnded) ? 'disabled' : ''}>
-                        ${hasVotedForThis ? 'Voted' : (hasVotedAny ? 'Locked' : 'Vote')}
-                    </button>
-                </div>
-            `;
-            listContainer.appendChild(card);
-        });
-    }
-
-    function voteFor(id) {
-        const now = new Date().getTime();
-        if (now > endDate) return;
-        if (localStorage.getItem('hasVotedAny') === 'true') return;
-        localStorage.setItem('hasVotedAny', 'true');
-        localStorage.setItem(`voted_${id}`, 'true');
-        let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
-        userVotesExtra[id] = (userVotesExtra[id] || 0) + 1;
-        localStorage.setItem('userVotesExtra', JSON.stringify(userVotesExtra));
-        renderList();
-    }
-
-    function timeAgo(timestamp) {
-        const seconds = Math.floor((new Date().getTime() - timestamp) / 1000);
-        if (seconds < 60) return "Just now";
-        
-        const minutes = Math.floor(seconds / 60);
-        if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-        
-        const hours = Math.floor(minutes / 60);
-        const remainingMinutes = minutes % 60;
-        if (hours < 24) {
-            if (remainingMinutes > 0) {
-                return `${hours} hour${hours > 1 ? 's' : ''} and ${remainingMinutes} minute${remainingMinutes > 1 ? 's' : ''} ago`;
-            }
-            return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-        }
-        
-        const days = Math.floor(hours / 24);
-        return `${days} day${days > 1 ? 's' : ''} ago`;
-    }
-
-    // التعليقات بحد أقصى 5 ساعات
-    const baseComments = [
-        { name: "Anonymous", text: "Incredible competition this week, Nishail is crushing it!", timestamp: Date.now() - 60000 * 15 },
-        { name: "Anonymous", text: "Оливиас мощно прибавил под конец, заслуженное первое место", timestamp: Date.now() - 3600000 * 1 },
-        { name: "Anonymous", text: "Nishail and Olivias battle is insane this season, loving ROSM updates", timestamp: Date.now() - 3600000 * 2 },
-        { name: "Anonymous", text: "Patricia mantiene el top cinco de forma estable, excelente trabajo", timestamp: Date.now() - 3600000 * 3 },
-        { name: "Anonymous", text: "Патриция держит топ-5 стабильно, за неё и голоснул", timestamp: Date.now() - 3600000 * 4 },
-        { name: "Anonymous", text: "Йогеш и София постоянно меняются местами, напряжение максимальное", timestamp: Date.now() - 3600000 * 5 }
-    ];
-
-    function getAutoIncrementalComments() {
-        let extraPool = [
-            { text: "This project keeps getting better with every single commit.", delayMinutes: 30 },
-            { text: "Absolute peak development tools this season.", delayMinutes: 90 },
-            { text: "Checking the rankings every hour is becoming an addiction!", delayMinutes: 180 },
-            { text: "The community support here is unmatched.", delayMinutes: 270 }
-        ];
-        
-        let simulatedList = [...baseComments];
-        let siteLaunchTime = startDate; 
-        let currentTime = new Date().getTime();
-        
-        extraPool.forEach((item) => {
-            let triggerTime = siteLaunchTime + (item.delayMinutes * 60 * 1000);
-            if (currentTime >= triggerTime) {
-                simulatedList.unshift({
-                    name: "Anonymous",
-                    text: item.text,
-                    timestamp: triggerTime
-                });
-            }
-        });
-        
-        return simulatedList;
-    }
-
-    function updateCommentsCountDisplay() {
-        let userComments = JSON.parse(localStorage.getItem('rosm_comments') || '[]');
-        let autoComments = getAutoIncrementalComments();
-        let totalCount = userComments.length + autoComments.length;
-        let countTextEl = document.getElementById('commentsCountText');
-        if (countTextEl) {
-            countTextEl.innerText = `Check what others are saying about the voting and rankings. (${totalCount} comments)`;
-        }
-    }
-
-    function toggleCommentsModal(open) {
-        const modal = document.getElementById('commentsModal');
-        if (modal) {
-            modal.style.display = open ? 'flex' : 'none';
-            if (open) renderComments();
-        }
-    }
-
-    function renderComments() {
-        let userComments = JSON.parse(localStorage.getItem('rosm_comments') || '[]');
-        let autoComments = getAutoIncrementalComments();
-        let allComments = [...userComments, ...autoComments];
-        
-        updateCommentsCountDisplay();
-        const commentsList = document.getElementById('commentsList');
-        if (!commentsList) return;
-        commentsList.innerHTML = '';
-        
-        allComments.forEach(c => {
-            const item = document.createElement('div');
-            item.className = 'comment-item';
-            let timeDisplay = c.timestamp ? timeAgo(c.timestamp) : (c.time || "Just now");
-            item.innerHTML = `
-                <div class="comment-header-info">
-                    <span>${c.name}</span>
-                    <span>${timeDisplay}</span>
-                </div>
-                <div class="comment-body">${c.text}</div>
-            `;
-            commentsList.appendChild(item);
-        });
-    }
-
-    function postComment() {
-        const input = document.getElementById('commentInput');
-        const errorDiv = document.getElementById('commentError');
-        if (!input) return;
-        const text = input.value.trim();
-        if (!text) return;
-
-        const arabicRegex = /[\u0600-\u06FF]/;
-        if (arabicRegex.test(text)) {
-            if (errorDiv) {
-                errorDiv.style.display = 'block';
-                errorDiv.innerText = "Arabic language is not allowed. Please use English, Russian, or Spanish.";
-            }
-            return;
-        }
-
-        const badWords = ['fku', 'fuk', 'fuck', 'shit', 'bitch', 'asshole', 'cunt', 'dick', 'piss', 'whore', 'slut', 'сука', 'блять', 'ебать', 'хуй', 'пизда', 'mierda', 'puta', 'cabrón', 'pendejo', 'chinga'];
-        const lowerText = text.toLowerCase();
-        const hasBadWord = badWords.some(word => lowerText.includes(word));
-        if (hasBadWord) {
-            if (errorDiv) {
-                errorDiv.style.display = 'block';
-                errorDiv.innerText = "Profanity and offensive words are strictly prohibited.";
-            }
-            return;
-        }
-
-        if (errorDiv) errorDiv.style.display = 'none';
-        let userComments = JSON.parse(localStorage.getItem('rosm_comments') || '[]');
-        userComments.unshift({
-            name: "Anonymous",
-            text: text,
-            timestamp: Date.now()
-        });
-        localStorage.setItem('rosm_comments', JSON.stringify(userComments));
-        input.value = '';
-        renderComments();
-    }
-
-    renderList();
-    updateCommentsCountDisplay();
-    setInterval(renderList, 60000);
-    </script>
-</body>
-</html>
+        let vmI=typeof globalThis!=='undefined'?globalThis:typeof window!=='undefined'?window:global,vmf_7fc264=vmI['vmf_7fc264']||(vmI['vmf_7fc264']={});const vmi_b9133f=(function(){var s=Object['defineProperty'],E=Object['create'],k=Object['getOwnPropertyDescriptor'],X=Object['getOwnPropertyNames'],i=Object['getOwnPropertySymbols'],f=Object['setPrototypeOf'],R=Object['getPrototypeOf'],a=Function['prototype']['call'],I=Function['prototype']['apply'],j=Reflect['apply'],O=WeakMap['prototype']['set'],g=WeakMap['prototype']['get'],n=WeakMap['prototype']['has'],t=WeakSet['prototype']['add'],p=WeakSet['prototype']['has'];let F=['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'],Q=['YmN99csCBAwIKmNhbGN1bGF0ZUR5bmFtaWNWb3RlcwQBCBJfMHgzOTI1ZmQIBGlkBAAIFHRvdGFsVm90ZXM2mgEEAJgEBABmBgAABACiAQQDVAQA9gEEA9IBBAGkAwQBogEEAWYGAQACAFQEAFgEA/ICAKoEAOoCAPACANIBBASiAQQChgIAVAQAGACqBAD2AQQB9gEEAp4CBfAB/gEEBRIAAhwi','YmN19csEAAIIFHRvdGFsVm90ZXMMBAEEAAQABAAF8QEAVFhUWJ4CEg==','YmN99csEBEoIGGxvY2FsU3RvcmFnZQgOZ2V0SXRlbQgMdm90ZWRfCARpZAQBCAh0cnVlCBBkb2N1bWVudAgaY3JlYXRlRWxlbWVudAgGZGl2CBBkZXYtY2FyZAgSY2xhc3NOYW1lCNwBCiAgICAgICAgICAgIDxkaXYgY2xhc3M9ImRldi1pbmZvIj4KICAgICAgICAgICAgICAgIDxzcGFuIHN0eWxlPSJmb250LXdlaWdodDpib2xkOyB3aWR0aDogMjBweDsgY29sb3I6IzU1NTsiPiMIRDwvc3Bhbj4KICAgICAgICAgICAgICAgIDxpbWcgc3JjPSIIBmltZwgOIiBhbHQ9IggIbmFtZQiKASI+CiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPSJkZXYtZGV0YWlscyI+CiAgICAgICAgICAgICAgICAgICAgPGgzPghOPC9oMz4KICAgICAgICAgICAgICAgICAgICA8cCBpZD0idm90ZXMtCAQiPggUdG90YWxWb3RlcwgcdG9Mb2NhbGVTdHJpbmcEAAiaAiB2b3RlczwvcD4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgPGRpdiBjbGFzcz0idm90ZS1zZWN0aW9uIj4KICAgICAgICAgICAgICAgIDxidXR0b24gY2xhc3M9InZvdGUtYnRuIiBpZD0iYnRuLQhQIiAKICAgICAgICAgICAgICAgICAgICBvbmNsaWNrPSJ2b3RlRm9yKAgwKSIgCiAgICAgICAgICAgICAgICAgICAgCBJfMHg1YWYwZTUIEl8weDQ1M2NlYQgQZGlzYWJsZWQIAAgsPgogICAgICAgICAgICAgICAgICAgIAgKVm90ZWQIDExvY2tlZAgIVm90ZQhsCiAgICAgICAgICAgICAgICA8L2J1dHRvbj4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgCBJpbm5lckhUTUwIEl8weDU1MWQ3YggWYXBwZW5kQ2hpbGT0AQQAmgEEAJgEBAA6AKoEBAFYBALSAQQAVAQDWACCAgXwAZ4CALgEALgEBATSAQQBqAEEBdIBBf4BngIEAqIBBAY6AKoEBAdYBAjSAQC4BAC4BAQE0gEEAagBBAOiAQQD9gEECdIBBAoCAPACBAP2AQQL0gEEAVQEBNIBBfABngIAggIF8AGeAgQM0gEF8AGeAgQAVAQNWACCAgXwAZ4CBA7SAQXwAZ4CBABUBA9YAIICBfABngIEENIBBfABngIEAFQED1gAggIF8AGeAgQR0g
