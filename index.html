@@ -506,14 +506,15 @@
 
         let allCommentsCache = [];
 
+        // قائمة التعليقات الافتراضية التاريخية باللغة الروسية بغالبيتها وبدون أي تكرار
         const baseHistoricalPool = [
-            { name: "Anonymous", text: "gg dev w <3", timestamp: Date.now() - (4 * 3600 * 1000) },
-            { name: "Anonymous", text: "nice tool bro", timestamp: Date.now() - (3 * 3600 * 1000) },
-            { name: "Anonymous", text: "best code ever", timestamp: Date.now() - (2 * 3600 * 1000) },
-            { name: "Anonymous", text: "rosm on top x", timestamp: Date.now() - (90 * 60 * 1000) },
-            { name: "Anonymous", text: "cool app tho", timestamp: Date.now() - (60 * 60 * 1000) },
-            { name: "Anonymous", text: "gg wp xd", timestamp: Date.now() - (45 * 60 * 1000) },
-            { name: "Anonymous", text: "nice work here", timestamp: Date.now() - (25 * 60 * 1000) }
+            { name: "Anonymous", text: "Отличная борьба за лидерство! Каждый голос здесь действительно имеет решающее значение. 🎯", timestamp: Date.now() - (4 * 3600 * 1000) },
+            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию. ⭐", timestamp: Date.now() - (3 * 3600 * 1000) },
+            { name: "Anonymous", text: "Каждый голос здесь действительно", timestamp: Date.now() - (2 * 3600 * 1000) },
+            { name: "Anonymous", text: "Сильное событие, поддерживаю всех разработчиков безопасности! 💯", timestamp: Date.now() - (90 * 60 * 1000) },
+            { name: "Anonymous", text: "whos win this oi", timestamp: Date.now() - (60 * 60 * 1000) },
+            { name: "Anonymous", text: "Si e que 💪", timestamp: Date.now() - (45 * 60 * 1000) },
+            { name: "Anonymous", text: "Лучшая платформа для разработчиков безопасности", timestamp: Date.now() - (25 * 60 * 1000) }
         ];
 
         onValue(commentsRef, (snapshot) => {
@@ -628,19 +629,14 @@
             updateCommentsUI();
         }
 
-        // تعليقات تلقائية مختصرة وبدون علامات استفهام أو تعجب أو فاصلة
         const progressivePool = [
-            "gg dev w <3",
-            "nice code bro x",
-            "best tool ever",
-            "rosm on top <3",
-            "cool app tho x",
-            "gg wp bro <3",
-            "nice work here",
-            "fast and clean"
+            "Отличное приложение! 🔥",
+            "ROSM на высоте! 🚀",
+            "Лучший инструмент безопасности",
+            "Отличная работа команды! ⭐",
+            "Крутой проект, так держать!"
         ];
 
-        // إضافة 8 تعليقات كل 6 دقائق مع اختصارات وبدون علامات ترقيم ممنوعة
         setInterval(() => {
             for (let i = 0; i < 8; i++) {
                 const textToPush = progressivePool[Math.floor(Math.random() * progressivePool.length)];
