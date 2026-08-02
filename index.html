@@ -275,9 +275,6 @@
             font-weight: bold;
             color: #333;
         }
-        .comment-time {
-            color: #888;
-        }
         .comment-body {
             color: #444;
             line-height: 1.4;
@@ -527,17 +524,6 @@
             renderList();
         }
 
-        function timeAgo(timestamp) {
-            const seconds = Math.floor((new Date().getTime() - timestamp) / 1000);
-            if (seconds < 60) return 'Just now';
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes}m ago`;
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours}h ago`;
-            const days = Math.floor(hours / 24);
-            return `${days}d ago`;
-        }
-
         let allCommentsCache = [];
 
         const baseHistoricalPool = [
@@ -638,7 +624,6 @@
                     div.innerHTML = `
                         <div class="comment-header-line">
                             <span class="comment-author">${item.name}</span>
-                            <span class="comment-time">${timeAgo(item.timestamp)}</span>
                         </div>
                         <div class="comment-body">${item.text.replace(/#\d+/g, '').trim()}</div>
                     `;
@@ -709,13 +694,6 @@
 
         renderList();
         setInterval(renderList, 60000);
-
-        setInterval(() => {
-            const modal = document.getElementById('commentsModal');
-            if (modal && modal.style.display === 'flex') {
-                updateCommentsUI();
-            }
-        }, 60000);
     </script>
 </body>
 </html>
