@@ -549,4 +549,48 @@
             const text = input.value.trim();
 
             errorEl.style.display = 'none';
-        
+        if (!text) return;
+
+            const arabicRegex = /[\u0600-\u06FF]/;
+            if (arabicRegex.test(text)) {
+                errorEl.textContent = "Arabic text is strictly prohibited. Please use English or Russian.";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const profanityList = ['fku', 'fuck', 'shit', 'bitch', 'asshole', 'cunt', 'idiot', 'puta', 'mierda', 'сука', 'блять', 'хуй', 'пизда', 'ебать'];
+            const lowerText = text.toLowerCase();
+            const hasProfanity = profanityList.some(word => lowerText.includes(word));
+
+            if (hasProfanity) {
+                errorEl.textContent = "Offensive words are strictly prohibited.";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const newComment = {
+                name: "Anonymous",
+                text: text,
+                time: new Date().getTime()
+            };
+
+            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
+            userStored.unshift(newComment);
+            localStorage.setItem('rosm_user_comments', JSON.stringify(userStored));
+
+            input.value = '';
+            renderComments();
+        }
+
+        renderList();
+        updateCommentsCount();
+        setInterval(renderList, 60000);
+        setInterval(updateCommentsCount, 60000);
+        setInterval(() => {
+            if (document.getElementById('commentsModal').style.display === 'flex') {
+                renderComments();
+            }
+        }, 60000);
+    </script>
+</body>
+</html>
