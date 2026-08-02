@@ -353,7 +353,24 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBi80289vayut_4fgnvyHjFKTNzEo1-VCk",
+            authDomain: "rosm-comments.firebaseapp.com",
+            projectId: "rosm-comments",
+            storageBucket: "rosm-comments.firebasestorage.app",
+            messagingSenderId: "1042117640184",
+            appId: "1:1042117640184:web:a5177df073b57b5ee3e00d",
+            measurementId: "G-P77JJ0MLMS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const commentsRef = ref(db, 'comments');
+
         const startDate = new Date('2026-07-29T00:00:00').getTime();
         const weekDuration = 7 * 24 * 60 * 60 * 1000;
         const endDate = startDate + weekDuration;
@@ -400,7 +417,8 @@
             const isEnded = now > endDate;
 
             if (isEnded) {
-                document.getElementById('closedBanner').style.display = 'block';
+                const banner = document.getElementById('closedBanner');
+                if(banner) banner.style.display = 'block';
             }
 
             let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
@@ -414,6 +432,7 @@
             evaluatedDevs.sort((a, b) => b.totalVotes - a.totalVotes);
 
             const listContainer = document.getElementById('developersList');
+            if(!listContainer) return;
             listContainer.innerHTML = '';
 
             const hasVotedAny = localStorage.getItem('hasVotedAny') === 'true';
@@ -444,7 +463,7 @@
             });
         }
 
-        function voteFor(id) {
+        window.voteFor = function(id) {
             const now = new Date().getTime();
             if (now > endDate) return;
 
@@ -460,36 +479,6 @@
             renderList();
         }
 
-        function getAutoIncrementalComments() {
-            const now = new Date().getTime();
-            let extraList = JSON.parse(localStorage.getItem('rosm_comments_v4') || '[]');
-            
-            const pool = [
-                { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования." },
-                { name: "Anonymous", text: "¡Increíble competencia en pentesting este año!" },
-                { name: "Anonymous", text: "Yogesh and Sofía are showing great performance." },
-                { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM." },
-                { name: "Anonymous", text: "Amazing leaderboard tracking and clean interface." },
-                { name: "Anonymous", text: "Кто победит в этот раз? Борьба очень плотная." },
-                { name: "Anonymous", text: "Great security utilities provided by Patricia." }
-            ];
-
-            if (extraList.length === 0) {
-                pool.forEach((item, index) => {
-                    let timeOffset = (index + 1) * 3 * 60 * 1000; 
-                    extraList.push({
-                        id: 'gen_' + index,
-                        name: item.name,
-                        text: item.text,
-                        timestamp: now - timeOffset
-                    });
-                });
-                localStorage.setItem('rosm_comments_v4', JSON.stringify(extraList));
-            }
-            
-            return extraList;
-        }
-
         function timeAgo(timestamp) {
             const seconds = Math.floor((new Date().getTime() - timestamp) / 1000);
             if (seconds < 60) return 'Just now';
@@ -501,56 +490,74 @@
             return `${days}d ago`;
         }
 
-        function updateCommentsCount() {
-            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments_v4') || '[]');
-            let autoList = getAutoIncrementalComments();
-            let totalCount = userStored.length + autoList.length;
+        let allCommentsCache = [];
 
-            document.getElementById('openModalBtn').textContent = `View Comments • ${totalCount}`;
-        }
+        onValue(commentsRef, (snapshot) => {
+            allCommentsCache = [];
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    allCommentsCache.push(data[key]);
+                });
+            }
+            
+            // إضافة التعليقات التلقائية الافتراضية إذا كانت قاعدة البيانات فارغة
+            if (allCommentsCache.length === 0) {
+                const now = new Date().getTime();
+                const pool = [
+                    { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования.", timestamp: now - 180000 },
+                    { name: "Anonymous", text: "¡Increíble competencia en pentesting este año!", timestamp: now - 360000 },
+                    { name: "Anonymous", text: "Yogesh and Sofía are showing great performance.", timestamp: now - 540000 },
+                    { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM.", timestamp: now - 720000 },
+                    { name: "Anonymous", text: "Amazing leaderboard tracking and clean interface.", timestamp: now - 900000 },
+                    { name: "Anonymous", text: "Кто победит в этот раз? Борьба очень плотная.", timestamp: now - 1080000 },
+                    { name: "Anonymous", text: "Great security utilities provided by Patricia.", timestamp: now - 1260000 }
+                ];
+                allCommentsCache = pool;
+            }
 
-        function toggleCommentsModal(open) {
-            const modal = document.getElementById('commentsModal');
-            modal.style.display = open ? 'flex' : 'none';
-            if (open) {
-                renderComments();
+            allCommentsCache.sort((a, b) => b.timestamp - a.timestamp);
+            updateCommentsUI();
+        });
+
+        function updateCommentsUI() {
+            const listEl = document.getElementById('commentsList');
+            const btnEl = document.getElementById('openModalBtn');
+            
+            if (btnEl) {
+                btnEl.textContent = `View Comments • ${allCommentsCache.length}`;
+            }
+
+            if (listEl) {
+                listEl.innerHTML = '';
+                allCommentsCache.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'comment-item';
+                    div.innerHTML = `
+                        <div class="comment-header-line">
+                            <span class="comment-author">${item.name}</span>
+                            <span class="comment-time">${timeAgo(item.timestamp)}</span>
+                        </div>
+                        <div class="comment-body">${item.text}</div>
+                    `;
+                    listEl.appendChild(div);
+                });
             }
         }
 
-        function renderComments() {
-            const listEl = document.getElementById('commentsList');
-            
-            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments_v4') || '[]');
-
-            let autoList = getAutoIncrementalComments().map(c => ({
-                name: c.name,
-                text: c.text,
-                time: c.timestamp
-            }));
-
-            let combined = [...userStored, ...autoList];
-            combined.sort((a, b) => b.time - a.time);
-
-            updateCommentsCount();
-
-            listEl.innerHTML = '';
-            combined.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'comment-item';
-                div.innerHTML = `
-                    <div class="comment-header-line">
-                        <span class="comment-author">${item.name}</span>
-                        <span class="comment-time">${timeAgo(item.time)}</span>
-                    </div>
-                    <div class="comment-body">${item.text}</div>
-                `;
-                listEl.appendChild(div);
-            });
+        window.toggleCommentsModal = function(open) {
+            const modal = document.getElementById('commentsModal');
+            if (modal) {
+                modal.style.display = open ? 'flex' : 'none';
+                if (open) updateCommentsUI();
+            }
         }
 
-        function postComment() {
+        window.postComment = function() {
             const input = document.getElementById('commentInput');
             const errorEl = document.getElementById('commentError');
+            if (!input || !errorEl) return;
+
             const text = input.value.trim();
 
             errorEl.style.display = 'none';
@@ -578,26 +585,18 @@
             const newComment = {
                 name: "Anonymous",
                 text: text,
-                time: new Date().getTime()
+                timestamp: new Date().getTime()
             };
 
-            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments_v4') || '[]');
-            userStored.unshift(newComment);
-            localStorage.setItem('rosm_user_comments_v4', JSON.stringify(userStored));
+            // إرسال التعليق إلى سحابة Firebase ليراه كل الزوار فوراً
+            push(commentsRef, newComment);
 
             input.value = '';
-            renderComments();
         }
 
         renderList();
-        updateCommentsCount();
         setInterval(renderList, 60000);
-        setInterval(updateCommentsCount, 60000);
-        setInterval(() => {
-            if (document.getElementById('commentsModal').style.display === 'flex') {
-                renderComments();
-            }
-        }, 60000);
+        setInterval(updateCommentsUI, 60000);
     </script>
 </body>
 </html>
