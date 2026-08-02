@@ -25,8 +25,10 @@
             font-size: 13px;
             text-align: center;
             margin-bottom: 20px;
+            max-width: 450px;
         }
-        .card {
+        /* بطاقة المطورين المنفصلة */
+        .dev-card {
             background: #ffffff;
             border: 1px solid #eaeaea;
             border-radius: 12px;
@@ -35,36 +37,54 @@
             padding: 15px;
             margin-bottom: 12px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .dev-card {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f2f2f2;
         }
-        .dev-card:last-child {
-            border-bottom: none;
+        /* بطاقات الأسفل (التعليقات والدعم) المطابقة تماماً لصورتك الأخيرة */
+        .card {
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .card p {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
         }
         .dev-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .dev-info img {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             object-fit: cover;
         }
         .dev-details h3 {
             margin: 0;
             font-size: 15px;
+            text-align: left;
         }
         .dev-details p {
-            margin: 2px 0 0;
+            margin: 3px 0 0;
             font-size: 12px;
             color: #666;
+            text-align: left;
         }
         .vote-btn {
             background-color: #000;
@@ -87,14 +107,14 @@
             background-color: #000;
             color: #fff;
             text-align: center;
-            padding: 10px;
+            padding: 11px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 8px;
             border: none;
             cursor: pointer;
             font-size: 13px;
+            box-sizing: border-box;
         }
         #closedBanner {
             display: none;
@@ -134,6 +154,7 @@
             margin-bottom: 12px;
             border-top: 1px solid #eee;
             padding-top: 8px;
+            text-align: left;
         }
         .comment-item {
             padding: 8px 0;
@@ -182,28 +203,29 @@
 
     <div id="closedBanner">Voting has officially ended!</div>
 
-    <div class="card">
-        <h3 style="margin-top:0; font-size:15px;">Live Leaderboard</h3>
-        <div id="developersList"></div>
-    </div>
+    <!-- قائمة المطورين ببطاقات منفصلة -->
+    <div id="developersList" style="width: 100%; max-width: 450px; display: flex; flex-direction: column; align-items: center;"></div>
 
+    <!-- بطاقة التعليقات المطابقة تماماً لصورتك -->
     <div class="card">
-        <h3 style="margin-top:0; font-size:15px;">Community Discussions</h3>
-        <p id="commentsCountText" style="font-size: 12px; color: #666; margin-bottom: 8px;">Check what others are saying about the voting and rankings.</p>
+        <h3>Community Discussions</h3>
+        <p id="commentsCountText">Check what others are saying about the voting and rankings.</p>
         <button class="action-btn" onclick="toggleCommentsModal(true)">View Comments</button>
     </div>
 
+    <!-- بطاقة الدعم المطابقة تماماً لصورتك -->
     <div class="card">
-        <h3 style="margin-top:0; font-size:15px;">Support Us</h3>
-        <p style="font-size: 12px; color: #666; margin-bottom: 8px;">ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
+        <h3>Support Us</h3>
+        <p>ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
         <a href="https://paypal.me/travis20148" target="_blank" class="action-btn" style="background: #0070ba;">PayPal</a>
     </div>
 
+    <!-- نافذة التعليقات المنبثقة -->
     <div id="commentsModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin-top:0; font-size:16px;">Community Discussions</h3>
+            <h3 style="margin-top:0; font-size:16px; text-align: left;">Community Discussions</h3>
             <div id="commentsList" class="comments-list"></div>
-            <div id="commentError" style="color: red; font-size: 11px; display: none; margin-bottom: 5px;"></div>
+            <div id="commentError" style="color: red; font-size: 11px; display: none; margin-bottom: 5px; text-align: left;"></div>
             <div class="comment-input-area">
                 <input type="text" id="commentInput" placeholder="Write a comment (English only)...">
                 <button class="vote-btn" onclick="postComment()">Post</button>
@@ -322,14 +344,14 @@
         return `${days} day${days > 1 ? 's' : ''} ago`;
     }
 
-    // التعليقات الأساسية موزعة بحد أقصى ضمن آخر 5 ساعات مضت
+    // التعليقات بحد أقصى 5 ساعات
     const baseComments = [
-        { name: "Anonymous", text: "Incredible competition this week, Nishail is crushing it!", timestamp: Date.now() - 60000 * 15 }, // منذ 15 دقيقة
-        { name: "Anonymous", text: "Оливиас мощно прибавил под конец, заслуженное первое место", timestamp: Date.now() - 3600000 * 1 }, // منذ ساعة
-        { name: "Anonymous", text: "Nishail and Olivias battle is insane this season, loving ROSM updates", timestamp: Date.now() - 3600000 * 2 }, // منذ ساعتين
-        { name: "Anonymous", text: "Patricia mantiene el top cinco de forma estable, excelente trabajo", timestamp: Date.now() - 3600000 * 3 }, // منذ 3 ساعات
-        { name: "Anonymous", text: "Патриция держит топ-5 стабильно, за неё и голоснул", timestamp: Date.now() - 3600000 * 4 }, // منذ 4 ساعات
-        { name: "Anonymous", text: "Йогеш и София постоянно меняются местами, напряжение максимальное", timestamp: Date.now() - 3600000 * 5 } // منذ 5 ساعات (أقصى حد للأقدم)
+        { name: "Anonymous", text: "Incredible competition this week, Nishail is crushing it!", timestamp: Date.now() - 60000 * 15 },
+        { name: "Anonymous", text: "Оливиас мощно прибавил под конец, заслуженное первое место", timestamp: Date.now() - 3600000 * 1 },
+        { name: "Anonymous", text: "Nishail and Olivias battle is insane this season, loving ROSM updates", timestamp: Date.now() - 3600000 * 2 },
+        { name: "Anonymous", text: "Patricia mantiene el top cinco de forma estable, excelente trabajo", timestamp: Date.now() - 3600000 * 3 },
+        { name: "Anonymous", text: "Патриция держит топ-5 стабильно, за неё и голоснул", timestamp: Date.now() - 3600000 * 4 },
+        { name: "Anonymous", text: "Йогеш и София постоянно меняются местами, напряжение максимальное", timestamp: Date.now() - 3600000 * 5 }
     ];
 
     function getAutoIncrementalComments() {
@@ -337,7 +359,7 @@
             { text: "This project keeps getting better with every single commit.", delayMinutes: 30 },
             { text: "Absolute peak development tools this season.", delayMinutes: 90 },
             { text: "Checking the rankings every hour is becoming an addiction!", delayMinutes: 180 },
-            { text: "The community support here is unmatched.", delayMinutes: 270 } // ضمن نطاق الـ 5 ساعات (أقل من 300 دقيقة)
+            { text: "The community support here is unmatched.", delayMinutes: 270 }
         ];
         
         let simulatedList = [...baseComments];
