@@ -456,10 +456,7 @@
 
         function getAutoIncrementalComments() {
             const now = new Date().getTime();
-            const elapsedTotal = now - startDate;
             let extraList = JSON.parse(localStorage.getItem('rosm_comments') || '[]');
-            
-            let simulatedCount = Math.floor(elapsedTotal / 2500000) + 8;
             
             const pool = [
                 { name: "Anonymous", text: "Nishail is leading with amazing tools this year!" },
@@ -472,20 +469,19 @@
                 { name: "Anonymous", text: "Great security utilities provided by Patricia." }
             ];
 
-            while (extraList.length < simulatedCount) {
-                let index = extraList.length;
-                let randomTemplate = pool[index % pool.length];
-                let generatedTime = now - ((simulatedCount - index) * 2400000 + 120000);
-
-                extraList.push({
-                    id: 'gen_' + index,
-                    name: randomTemplate.name,
-                    text: randomTemplate.text,
-                    timestamp: generatedTime
+            if (extraList.length === 0) {
+                pool.forEach((item, index) => {
+                    let timeOffset = (pool.length - index) * 15 * 60 * 1000 + 30000; 
+                    extraList.push({
+                        id: 'gen_' + index,
+                        name: item.name,
+                        text: item.text,
+                        timestamp: now - timeOffset
+                    });
                 });
+                localStorage.setItem('rosm_comments', JSON.stringify(extraList));
             }
             
-            localStorage.setItem('rosm_comments', JSON.stringify(extraList));
             return extraList;
         }
 
@@ -553,49 +549,4 @@
             const text = input.value.trim();
 
             errorEl.style.display = 'none';
-
-            if (!text) return;
-
-            const arabicRegex = /[\u0600-\u06FF]/;
-            if (arabicRegex.test(text)) {
-                errorEl.textContent = "Arabic text is strictly prohibited. Please use English or Russian.";
-                errorEl.style.display = 'block';
-                return;
-            }
-
-            const profanityList = ['fku', 'fuck', 'shit', 'bitch', 'asshole', 'cunt', 'idiot', 'puta', 'mierda', 'сука', 'блять', 'хуй', 'пизда', 'ебать'];
-            const lowerText = text.toLowerCase();
-            const hasProfanity = profanityList.some(word => lowerText.includes(word));
-
-            if (hasProfanity) {
-                errorEl.textContent = "Offensive words are strictly prohibited.";
-                errorEl.style.display = 'block';
-                return;
-            }
-
-            const newComment = {
-                name: "Anonymous",
-                text: text,
-                time: new Date().getTime()
-            };
-
-            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
-            userStored.unshift(newComment);
-            localStorage.setItem('rosm_user_comments', JSON.stringify(userStored));
-
-            input.value = '';
-            renderComments();
-        }
-
-        renderList();
-        updateCommentsCount();
-        setInterval(renderList, 60000);
-        setInterval(updateCommentsCount, 60000);
-        setInterval(() => {
-            if (document.getElementById('commentsModal').style.display === 'flex') {
-                renderComments();
-            }
-        }, 60000);
-    </script>
-</body>
-</html>
+        
