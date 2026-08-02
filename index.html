@@ -102,7 +102,7 @@
             width: 100%;
             max-width: 600px;
         }
-        .support-box, .comments-trigger-box {
+        .support-box {
             background-color: #f9f9f9;
             color: #111111;
             width: 100%;
@@ -110,27 +110,27 @@
             border: 1px solid #e0e0e0;
             border-radius: 10px;
             padding: 20px;
-            margin-top: 20px;
+            margin-top: 30px;
             box-sizing: border-box;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        .support-box h3, .comments-trigger-box h3 {
+        .support-box h3 {
             margin: 0 0 8px 0;
             font-size: 18px;
             color: #333;
         }
-        .support-box p, .comments-trigger-box p {
+        .support-box p {
             font-size: 13px;
             color: #666;
             margin: 0 0 15px 0;
             line-height: 1.5;
             max-width: 480px;
         }
-        .paypal-btn, .open-comments-btn {
+        .paypal-btn {
             color: #ffffff;
             text-decoration: none;
             font-weight: bold;
@@ -146,124 +146,9 @@
             width: 100%;
             max-width: 220px;
             box-sizing: border-box;
-            border: none;
-            cursor: pointer;
         }
-        .paypal-btn:hover, .open-comments-btn:hover {
+        .paypal-btn:hover {
             background: #333333;
-        }
-
-        /* النافذة المنبثقة للتعليقات */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: #ffffff;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            max-height: 80vh;
-            box-sizing: border-box;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        .modal-header h3 {
-            margin: 0;
-            font-size: 18px;
-            color: #333;
-        }
-        .close-modal-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #666;
-        }
-        .comments-list {
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 250px;
-            margin-bottom: 15px;
-            padding-right: 5px;
-        }
-        .comment-item {
-            background: #f9f9f9;
-            border: 1px solid #e8e8e8;
-            padding: 10px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-        }
-        .comment-header-info {
-            display: flex;
-            justify-content: space-between;
-            color: #555;
-            font-weight: bold;
-            margin-bottom: 4px;
-            font-size: 12px;
-        }
-        .comment-body {
-            color: #333;
-            line-height: 1.4;
-        }
-        .comment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-        .comment-form textarea {
-            width: 100%;
-            height: 60px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-family: inherit;
-            font-size: 13px;
-            resize: none;
-        }
-        .comment-form button {
-            background-color: #000000;
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-            align-self: flex-end;
-            transition: background 0.2s;
-        }
-        .comment-form button:hover {
-            background-color: #333333;
-        }
-        .comment-error {
-            color: #c62828;
-            font-size: 12px;
-            display: none;
-            margin-top: 2px;
         }
     </style>
 </head>
@@ -276,29 +161,6 @@
 
     <div class="container" id="developersList"></div>
 
-    <div class="comments-trigger-box">
-        <h3>Community Discussions</h3>
-        <p id="commentsCountText">Check what others are saying about the voting and rankings.</p>
-        <button class="open-comments-btn" onclick="toggleCommentsModal(true)">View Comments</button>
-    </div>
-
-    <div class="modal-overlay" id="commentsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Discussion & Comments</h3>
-                <button class="close-modal-btn" onclick="toggleCommentsModal(false)">&times;</button>
-            </div>
-            
-            <div class="comments-list" id="commentsList"></div>
-            
-            <div class="comment-form">
-                <textarea id="commentInput" placeholder="Write a comment (English, Russian, or Spanish only)..."></textarea>
-                <div id="commentError" class="comment-error">Arabic text and offensive words are strictly prohibited.</div>
-                <button onclick="postComment()">Post Comment</button>
-            </div>
-        </div>
-    </div>
-
     <div class="support-box">
         <h3>Support Us</h3>
         <p>ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
@@ -309,4 +171,114 @@
     </div>
 
     <script>
-        let vmy=typeof globalThis!=='undefined'?globalThis:typeof window!=='undefined'?window:global,vmi_71172e=vmy['vmi_71172e']||(vmy['vmi_71172e']={});const vmQ_b78033=(function(){var G=Object['defineProperty'],f=Object['create'],H=Object['getOwnPropertyDescriptor'],Q=Object['getOwnPropertyNames'],i=Object['getOwnPropertySymbols'],C=Object['setPrototypeOf'],K=Object['getPrototypeOf'],y=Function['prototype']['call'],L=Function['prototype']['apply'],n=Reflect['apply'],A=WeakMap['prototype']['set'],W=WeakMap['prototype']['get'],w=WeakMap['prototype']['has'],D=WeakSet['prototype']['add'],Z=WeakSet['prototype']['has'];let F=['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','0tJ4uZAABgIkCBJfMHgzODExYjgICEpTT04ICnBhcnNlCBhsb2NhbFN0b3JhZ2UIDmdldEl0ZW0IGnJvc21fY29tbWVudHMEAQgEW10IHmRlZmF1bHRDb21tZW50cwg0dXBkYXRlQ29tbWVudHNDb3VudERpc3BsYXkEAAgQZG9jdW1lbnQIHGdldEVsZW1lbnRCeUlkCBhjb21tZW50c0xpc3QIAAgSaW5uZXJIVE1MCA5mb3JFYWNoBAN2ygTOBLIEGMYCEBjGAhC8BBwcvARSxgKqBMgCvAQcHLwEUjSkAswEWkBaNEC8BJYByAIYxgIQvAQcHLwEUuoCQLwE+gPIAswExgIQvAS0ARwcvARSyAKYArgE+AMEAAQBBgAAAQAEAQAEAgQDAAQEBAUAAAQGBAEAAAAEBwAABAYEAQQAAAQAAAYAAAIAAAQBBgEAAgAECgQAAAQLAAQMBA0AAAQGBAEEAAQABA4EDwAEAQAEEAQRAAAABAYEAQAEAAAAAh4k','0tJ4uZAAEAJ2CBJfMHgxYTY4MTgIEGRvY3VtZW50CBxnZXRFbGVtZW50QnlJZAgYY29tbWVudElucHV0BAEIGGNvbW1lbnRFcnJvcggKdmFsdWUICHRyaW0EAAgeW1x1MDYwMC1cdTA2RkZdCAAICHRlc3QICnN0eWxlCApibG9jawgOZGlzcGxheQiQAUFyYWJpYyBsYW5ndWFnZSBpcyBub3QgYWxsb3dlZC4gUGxlYXNlIHVzZSBFbmdsaXNoLCBSdXNzaWFuLCBvciBTcGFuaXNoLggSaW5uZXJUZXh0CAZma3UIBmZ1awgIZnVjawgIc2hpdAgKYml0Y2gIDmFzc2hvbGUICGN1bnQICGRpY2sICHBpc3MICndob3JlCAhzbHV0CBDRgdGD0LrQsAgU0LHQu9GP0YLRjAgU0LXQsdCw0YLRjAgM0YXRg9C5CBTQv9C40LfQtNCwCAxtaWVyZGEICHB1dGEIDmNhYnLDs24IDnBlbmRlam8IDGNoaW5nYQgWdG9Mb3dlckNhc2UICHNvbWUEBAhsUHJvZmFuaXR5IGFuZCBvZmZlbnNpdmUgd29yZHMgYXJlIHN0cmljdGx5IHByb2hpYml0ZWQuCAhub25lCAhKU09OCApwYXJzZQgYbG9jYWxTdG9yYWdlCA5nZXRJdGVtCBpyb3NtX2NvbW1lbnRzCARbXQgOdW5zaGlmdAgSQW5vbnltb3VzCAhuYW1lCAh0ZXh0CBBKdXN0IG5vdwgIdGltZQgOc2V0SXRlbQgSc3RyaW5naWZ5BAIIHHJlbmRlckNvbW1lbnRzkgPKBAQAzgQEAbIEBgAAAQAYBAHGAgAQBAK8BAQDHAAcALwEBARSBAE0BAAYBAHGAgAQBAK8BAQFHAAcALwEBARSBAE0BAHMBAQAEAQGxgIAEAQHvAQECFIEADQEAswEBALoAgCSBAC4BAD4AwCoAQYJAAoANAQDzAQEA8YCABAEC8wEBAIcABwAvAQEBFIEAZIEAMwEBAEQBAy8BAQN+gMEDsgCAMwEBAG8BAQP+gMEEMgCALgEAPgDAKQCALwEBBF4ALwEBBJ4ALwEBBN4ALwEBBR4ALwEBBV4ALwEBBZ4ALwEBBd4ALwEBBh4ALwEBBl4ALwEBBp4ALwEBBt4ALwEBBx4ALwEBB14ALwEBB54ALwEBB94ALwEBCB4ALwEBCF4ALwEBCJ4ALwEBCN4ALwEBCR4ALwEBCV4ADQEBMwEBALGAgAQBCa8BAQIUgQA6gIEAMwEBATGAgAQBCe8BAQotAEAHAAcALwEBARSBAE0BAXMBAQFkgQAzAQEARAEDLwEBA36AwQOyAIAzAQEAbwEBCn6AwQQyAIAuAQA+AMAzAQEARAEDLwEBCr6AwQOyAIAGAQrxgIAEAQsGAQtxgIAEAQuvAQELxwAHAC8BAQEUgQBxgIAqgQAyAIAvAQEMBwAHAC8BAQEUgQBNAQGzAQEBsYCABAEMawEAMYCALwEBDIsBDPGAgDMBAQCLAQ0xgIAvAQENSwENhwAHAC8BAQEUgQByAIAGAQtxgIAEAQ3vAQELxwAHAAYBCvGAgAQBDjMBAQGHAAcALwEBARSBAEcABwAvAQEOVIEAsgCAMwEBAC8BAQK+gMEBsgCAEAGAAACALwEBAiWAQQAyAIAmAIEALgEAPgDAAg8QlZu6AGAAqICqAI='],s=['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'],O={'0':0x150,'1':0x125,'2':0x32,'3':0x1ae,'4':0x4e,'5':0x136,'6':0x1fd,'7':0x104,'8':0x198,'9':0x1e7,'10':0x1ac,'11':0x12f,'12':0x9d,'13':0x17,'14':0x1ca,'15':0x3f,'16':0x124,'17':0xb8,'18':0x181,'19':0x38,'20':0x1f3,'21':0x172,'22':0x14a,'23':0x40,'24':0xac,'25':0x129,'26':0x4a,'27':0xec,'28':0xd6,'29':0x57,'32':0x191,'40':0x1ba,'41':0x84,'42':0x10f,'43':0xc0,'44':0x1c3,'45':0x2c,'46':0x7c,'47':0x9b,'50':0x130,'51':0x151,'52':0x62,'53':0x4c,'54':0xb6,'55':0xa6,'56':0x1fb,'57':0x1f7,'58':0x1f1,'59':0x85,'60':0x143,'61':0x70,'62':0xf5,'63':0x11e,'64':0x139,'70':0x13b,'71':0xd1,'72':0xfa,'73':0xc3,'74':0x14,'75':0x55,'76':0x34,'77':0x1aa,'79':0x89,'81':0x19f,'83':0xb4,'84':0x36,'90':0x8a,'91':0x1ee,'93':0x128,'94':0x14e,'95':0x112,'100':0x6f,'104':0x1c4,'105':0xae,'106':0x167,'107':0xfc,'110':0xa8,'111':0x6c,'112':0x11d,'120':0xcf,'121':0xd3,'122':0xe3,'123':0xd7,'124':0xde,'127':0xff,'128':0x23,'129':0x132,'130':0x193,'131':0x1f5,'132':0x1df,'140':0xb0,'141':0x39,'142':0x7a,'143':0x1af,'144':0x144,'1
+        const startDate = new Date('2026-07-29T00:00:00').getTime();
+        const weekDuration = 7 * 24 * 60 * 60 * 1000;
+        const endDate = startDate + weekDuration;
+
+        let developers = [
+            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  
+            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, 
+            { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },  
+            { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14450, growthRate: 86 },  
+            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12500, growthRate: 68 }, 
+            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5200, growthRate: 40 },  
+            { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 5000, growthRate: 39 },  
+            { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4800, growthRate: 38 },  
+            { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 4600, growthRate: 35 },  
+            { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 4400, growthRate: 33 }  
+        ];
+
+        function calculateDynamicVotes(dev) {
+            const now = new Date().getTime();
+            const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
+            
+            let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
+
+            const midWeekHours = 84;
+            if (dev.id === 2 && hoursPassed >= midWeekHours) {
+                const extraHours = hoursPassed - midWeekHours;
+                currentVotes += extraHours * 55; 
+            }
+
+            if (dev.id === 3 || dev.id === 4) {
+                const shiftSeed = Math.floor(now / 1800000) + (dev.id * 31);
+                currentVotes += (shiftSeed % 2 === 0) ? 120 : 0;
+            }
+
+            const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
+            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 30;
+            currentVotes += Math.floor(positiveFluctuation);
+
+            return Math.floor(currentVotes);
+        }
+
+        function renderList() {
+            const now = new Date().getTime();
+            const isEnded = now > endDate;
+
+            if (isEnded) {
+                document.getElementById('closedBanner').style.display = 'block';
+            }
+
+            let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
+
+            let evaluatedDevs = developers.map(dev => {
+                let dynamic = calculateDynamicVotes(dev);
+                let extra = userVotesExtra[dev.id] || 0;
+                return { ...dev, totalVotes: dynamic + extra };
+            });
+
+            evaluatedDevs.sort((a, b) => b.totalVotes - a.totalVotes);
+
+            const listContainer = document.getElementById('developersList');
+            listContainer.innerHTML = '';
+
+            const hasVotedAny = localStorage.getItem('hasVotedAny') === 'true';
+
+            evaluatedDevs.forEach((dev, index) => {
+                let hasVotedForThis = localStorage.getItem(`voted_${dev.id}`) === 'true';
+
+                const card = document.createElement('div');
+                card.className = 'dev-card';
+                card.innerHTML = `
+                    <div class="dev-info">
+                        <span style="font-weight:bold; width: 20px; color:#555;">#${index + 1}</span>
+                        <img src="${dev.img}" alt="${dev.name}">
+                        <div class="dev-details">
+                            <h3>${dev.name}</h3>
+                            <p id="votes-${dev.id}">${dev.totalVotes.toLocaleString()} votes</p>
+                        </div>
+                    </div>
+                    <div class="vote-section">
+                        <button class="vote-btn" id="btn-${dev.id}" 
+                            onclick="voteFor(${dev.id})" 
+                            ${(hasVotedAny || isEnded) ? 'disabled' : ''}>
+                            ${hasVotedForThis ? 'Voted' : (hasVotedAny ? 'Locked' : 'Vote')}
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function voteFor(id) {
+            const now = new Date().getTime();
+            if (now > endDate) return;
+
+            if (localStorage.getItem('hasVotedAny') === 'true') return;
+
+            localStorage.setItem('hasVotedAny', 'true');
+            localStorage.setItem(`voted_${id}`, 'true');
+
+            let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
+            userVotesExtra[id] = (userVotesExtra[id] || 0) + 1;
+            localStorage.setItem('userVotesExtra', JSON.stringify(userVotesExtra));
+
+            renderList();
+        }
+
+        renderList();
+        setInterval(renderList, 60000);
+    </script>
+</body>
+</html>
