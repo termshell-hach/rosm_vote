@@ -506,14 +506,10 @@
 
         let allCommentsCache = [];
 
-        // قائمة التعليقات الافتراضية التاريخية باللغة الروسية بغالبيتها وبدون أي تكرار
         const baseHistoricalPool = [
-            { name: "Anonymous", text: "Отличная борьба за лидерство! Каждый голос здесь действительно имеет решающее значение. 🎯", timestamp: Date.now() - (4 * 3600 * 1000) },
-            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию. ⭐", timestamp: Date.now() - (3 * 3600 * 1000) },
-            { name: "Anonymous", text: "Каждый голос здесь действительно", timestamp: Date.now() - (2 * 3600 * 1000) },
-            { name: "Anonymous", text: "Сильное событие, поддерживаю всех разработчиков безопасности! 💯", timestamp: Date.now() - (90 * 60 * 1000) },
-            { name: "Anonymous", text: "whos win this oi", timestamp: Date.now() - (60 * 60 * 1000) },
-            { name: "Anonymous", text: "Si e que 💪", timestamp: Date.now() - (45 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная борьба за лидерство! Каждый голос здесь действительно имеет решающее значение. ", timestamp: Date.now() - (4 * 3600 * 1000) },
+            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию. ", timestamp: Date.now() - (3 * 3600 * 1000) },
+            { name: "Anonymous", text: "Сильное событие, поддерживаю всех разработчиков безопасности! ", timestamp: Date.now() - (90 * 60 * 1000) },
             { name: "Anonymous", text: "Лучшая платформа для разработчиков безопасности", timestamp: Date.now() - (25 * 60 * 1000) }
         ];
 
@@ -526,7 +522,9 @@
                 });
             }
             
-            allCommentsCache = [...baseHistoricalPool, ...firebaseComments];
+            let combined = [...baseHistoricalPool, ...firebaseComments];
+            
+            allCommentsCache = combined;
             allCommentsCache.sort((a, b) => b.timestamp - a.timestamp);
             updateCommentsUI();
         });
@@ -629,29 +627,36 @@
             updateCommentsUI();
         }
 
+        // إضافة 20 تعليق دفعة واحدة عند أول تشغيل للموقع لملء قاعدة البيانات
         const progressivePool = [
             "Отличное приложение! 🔥",
             "ROSM на высоте! 🚀",
             "Лучший инструмент безопасности",
             "Отличная работа команды! ⭐",
-            "Крутой проект, так держать!"
+            "Крутой проект, так держать!",
+            "Каждый голос имеет значение! 🎯",
+            "Сильное сообщество разработчиков",
+            "Поддерживаю развитие open source! 💯",
+            "Отличная организация голосования",
+            "Успехов всем участникам!"
         ];
 
-        setInterval(() => {
-            for (let i = 0; i < 8; i++) {
+        const hasInitialized20Comments = localStorage.getItem('initialized_20_comments');
+        if (!hasInitialized20Comments) {
+            for (let i = 0; i < 20; i++) {
                 const textToPush = progressivePool[Math.floor(Math.random() * progressivePool.length)];
                 const syntheticComment = {
                     name: "Anonymous",
-                    text: textToPush,
-                    timestamp: new Date().getTime() + i
+                    text: textToPush + " #" + Math.floor(Math.random() * 10000),
+                    timestamp: new Date().getTime() - (i * 10000)
                 };
                 push(commentsRef, syntheticComment);
             }
-        }, 360000);
+            localStorage.setItem('initialized_20_comments', 'true');
+        }
 
         renderList();
         setInterval(renderList, 60000);
-        setInterval(updateCommentsUI, 10000);
     </script>
 </body>
 </html>
