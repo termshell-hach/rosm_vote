@@ -326,7 +326,7 @@
     <h1>Top 10 ROSM Ethical Hacking Devs</h1>
     <div class="subtitle">Vote for your favorite developer, penetrational and track the live leaderboard #Розем для коллекции</div>
 
-    <div id="closedBanner" class="status-banner">Voting has ended. Thank you for participating!</div>
+    <div id="closedBanner" class="status-banner">Voting has ended. Thank you for participating</div>
 
     <div class="container" id="developersList"></div>
 
@@ -338,7 +338,7 @@
 
     <div class="support-box">
         <h3>Support Us</h3>
-        <p>ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
+        <p>ROSM is and always with you and open source. However you can be with us by making a donation.</p>
         <a href="https://paypal.me/travis2014862365" target="_blank" class="paypal-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.067 8.528c-.144.876-.615 1.632-1.326 2.179-.711.547-1.58.857-2.482.857h-2.923c-.35 0-.649.25-.705.594l-1.391 8.875c-.039.248-.25.433-.5.433H7.81c-.382 0-.677-.333-.623-.711l1.41-9.006c.056-.345.355-.594.705-.594h2.247c1.777 0 3.32-.614 4.341-1.728 1.022-1.114 1.487-2.678 1.309-4.526-.144-1.488-.838-2.775-1.948-3.619C13.435 1.05 11.916.667 10.165.667H3.456c-.382 0-.677.333-.623.711L6.2 22.956c.039.248.25.433.5.433h3.541c.35 0 .649-.25.705-.594l.872-5.568c.056-.345.355-.594.705-.594h1.745c2.476 0 4.542-.872 5.817-2.457 1.275-1.585 1.748-3.791 1.327-6.274z"/></svg>
             PayPal
@@ -354,7 +354,7 @@
             <div class="comments-list" id="commentsList"></div>
             
             <div class="comment-form" id="commentFormContainer">
-                <textarea id="commentInput" placeholder="Write a comment (English, Russian or Spanish with emojis)..."></textarea>
+                <textarea id="commentInput" placeholder="Write a short comment..."></textarea>
                 <div id="commentError" class="comment-error"></div>
                 <div class="comment-form-footer">
                     <button onclick="postComment()">Post Comment</button>
@@ -362,7 +362,7 @@
             </div>
             
             <div class="comment-notice" id="commentNotice">
-                You have already posted a comment. Thank you for your contribution!
+                You have already posted a comment. Thank you for your contribution
             </div>
         </div>
     </div>
@@ -507,13 +507,13 @@
         let allCommentsCache = [];
 
         const baseHistoricalPool = [
-            { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования и кибербезопасности! 🔥", timestamp: Date.now() - (4 * 3600 * 1000) },
-            { name: "Anonymous", text: "¡Increíble competencia en pentesting este año! Muy reñido. 🚀", timestamp: Date.now() - (3 * 3600 * 1000) },
-            { name: "Anonymous", text: "Yogesh and Sofía are showing great performance on the leaderboard. 👏", timestamp: Date.now() - (2 * 3600 * 1000) },
-            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию. ⭐", timestamp: Date.now() - (90 * 60 * 1000) },
-            { name: "Anonymous", text: "Si e que 💪", timestamp: Date.now() - (60 * 60 * 1000) },
-            { name: "Anonymous", text: "whos win this oi", timestamp: Date.now() - (45 * 60 * 1000) },
-            { name: "Anonymous", text: "Отличная борьба за лидерство! Каждый голос здесь действительно имеет решающее значение. 🎯", timestamp: Date.now() - (25 * 60 * 1000) }
+            { name: "Anonymous", text: "gg dev w <3", timestamp: Date.now() - (4 * 3600 * 1000) },
+            { name: "Anonymous", text: "nice tool bro", timestamp: Date.now() - (3 * 3600 * 1000) },
+            { name: "Anonymous", text: "best code ever", timestamp: Date.now() - (2 * 3600 * 1000) },
+            { name: "Anonymous", text: "rosm on top x", timestamp: Date.now() - (90 * 60 * 1000) },
+            { name: "Anonymous", text: "cool app tho", timestamp: Date.now() - (60 * 60 * 1000) },
+            { name: "Anonymous", text: "gg wp xd", timestamp: Date.now() - (45 * 60 * 1000) },
+            { name: "Anonymous", text: "nice work here", timestamp: Date.now() - (25 * 60 * 1000) }
         ];
 
         onValue(commentsRef, (snapshot) => {
@@ -590,30 +590,27 @@
 
             if (!text) return;
 
-            // حظر اللغة العربية تماماً
             const arabicRegex = /[\u0600-\u06FF]/;
             if (arabicRegex.test(text)) {
-                errorEl.textContent = "Arabic text is strictly prohibited. Please use English, Russian or Spanish.";
+                errorEl.textContent = "Arabic text is strictly prohibited";
                 errorEl.style.display = 'block';
                 return;
             }
 
-            // حظر الإيموجي والرموز غير المرغوب فيها والمطلوب حظرها
             const bannedEmojis = ['💩', '🤡', '🖕'];
             const hasBannedEmoji = bannedEmojis.some(emoji => text.includes(emoji));
             if (hasBannedEmoji) {
-                errorEl.textContent = "This emoji or symbol is strictly prohibited.";
+                errorEl.textContent = "This symbol is strictly prohibited";
                 errorEl.style.display = 'block';
                 return;
             }
 
-            // حظر الكلمات النابية
             const profanityList = ['fku', 'fuck', 'shit', 'bitch', 'asshole', 'cunt', 'idiot', 'puta', 'mierda', 'сука', 'блять', 'хуй', 'пизда', 'ебать'];
             const lowerText = text.toLowerCase();
             const hasProfanity = profanityList.some(word => lowerText.includes(word));
 
             if (hasProfanity) {
-                errorEl.textContent = "Offensive words are strictly prohibited.";
+                errorEl.textContent = "Offensive words are strictly prohibited";
                 errorEl.style.display = 'block';
                 return;
             }
@@ -631,29 +628,30 @@
             updateCommentsUI();
         }
 
-        // قائمة تعليقات تلقائية متزايدة تحتوي على إيموجي طبيعية ولطيفة لتضفي حيوية على الموقع
+        // تعليقات تلقائية مختصرة وبدون علامات استفهام أو تعجب أو فاصلة
         const progressivePool = [
-            "Amazing event, supporting all security developers here! 💯",
-            "Невероятная активность на голосовании в этом сезоне. 🔥",
-            "¡Excelente iniciativa para la comunidad de ciberseguridad! 🚀",
-            "The leaderboard shifts so fast, incredible competition! ⚡",
-            "Отличная организация и прозрачный подсчет голосов. 👍",
-            "Keep up the great work ROSM team! 🌟",
-            "Muy reñido el primer puesto entre los desarrolladores. 💻",
-            "Wonderful tools and automated ranking system. 🎯"
+            "gg dev w <3",
+            "nice code bro x",
+            "best tool ever",
+            "rosm on top <3",
+            "cool app tho x",
+            "gg wp bro <3",
+            "nice work here",
+            "fast and clean"
         ];
 
-        let loopCounter = 0;
+        // إضافة 8 تعليقات كل 6 دقائق مع اختصارات وبدون علامات ترقيم ممنوعة
         setInterval(() => {
-            const textToPush = progressivePool[loopCounter % progressivePool.length];
-            const syntheticComment = {
-                name: "Anonymous",
-                text: textToPush,
-                timestamp: new Date().getTime()
-            };
-            push(commentsRef, syntheticComment);
-            loopCounter++;
-        }, 90000);
+            for (let i = 0; i < 8; i++) {
+                const textToPush = progressivePool[Math.floor(Math.random() * progressivePool.length)];
+                const syntheticComment = {
+                    name: "Anonymous",
+                    text: textToPush,
+                    timestamp: new Date().getTime() + i
+                };
+                push(commentsRef, syntheticComment);
+            }
+        }, 360000);
 
         renderList();
         setInterval(renderList, 60000);
