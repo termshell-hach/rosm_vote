@@ -310,6 +310,15 @@
             font-size: 11px;
             display: none;
         }
+        .comment-notice {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: #f9f9f9;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -343,12 +352,17 @@
                 <button class="close-modal-btn" onclick="toggleCommentsModal(false)">&times;</button>
             </div>
             <div class="comments-list" id="commentsList"></div>
-            <div class="comment-form">
+            
+            <div class="comment-form" id="commentFormContainer">
                 <textarea id="commentInput" placeholder="Write a comment (English, Russian or Spanish only)..."></textarea>
                 <div id="commentError" class="comment-error"></div>
                 <div class="comment-form-footer">
                     <button onclick="postComment()">Post Comment</button>
                 </div>
+            </div>
+            
+            <div class="comment-notice" id="commentNotice">
+                You have already posted a comment. Thank you for your contribution!
             </div>
         </div>
     </div>
@@ -501,7 +515,6 @@
                 });
             }
             
-            // إضافة التعليقات التلقائية الافتراضية إذا كانت قاعدة البيانات فارغة
             if (allCommentsCache.length === 0) {
                 const now = new Date().getTime();
                 const pool = [
@@ -523,9 +536,22 @@
         function updateCommentsUI() {
             const listEl = document.getElementById('commentsList');
             const btnEl = document.getElementById('openModalBtn');
+            const formContainer = document.getElementById('commentFormContainer');
+            const noticeEl = document.getElementById('commentNotice');
             
             if (btnEl) {
                 btnEl.textContent = `View Comments • ${allCommentsCache.length}`;
+            }
+
+            const hasCommented = localStorage.getItem('hasCommented') === 'true';
+            if (formContainer && noticeEl) {
+                if (hasCommented) {
+                    formContainer.style.display = 'none';
+                    noticeEl.style.display = 'block';
+                } else {
+                    formContainer.style.display = 'flex';
+                    noticeEl.style.display = 'none';
+                }
             }
 
             if (listEl) {
@@ -554,6 +580,8 @@
         }
 
         window.postComment = function() {
+            if (localStorage.getItem('hasCommented') === 'true') return;
+
             const input = document.getElementById('commentInput');
             const errorEl = document.getElementById('commentError');
             if (!input || !errorEl) return;
@@ -588,11 +616,34 @@
                 timestamp: new Date().getTime()
             };
 
-            // إرسال التعليق إلى سحابة Firebase ليراه كل الزوار فوراً
             push(commentsRef, newComment);
 
+            localStorage.setItem('hasCommented', 'true');
             input.value = '';
+            updateCommentsUI();
         }
+
+        // نظام المحاكاة التلقائية المستمرة لزيادة التعليقات بشكل متجدد
+        const autoCommentsPool = [
+            "Amazing event, supporting all security developers here!",
+            "Невероятная активность на голосовании в этом сезоне.",
+            "¡Excelente iniciativa para la comunidad de ciberseguridad!",
+            "The leaderboard shifts so fast, incredible competition!",
+            "Отличная организация и прозрачный подсчет голосов.",
+            "Keep up the great work ROSM team!",
+            "Muy reñido el primer puesto entre los desarrolladores.",
+            "Wonderful tools and automated ranking system."
+        ];
+
+        setInterval(() => {
+            const randomText = autoCommentsPool[Math.floor(Math.random() * autoCommentsPool.length)];
+            const syntheticComment = {
+                name: "Anonymous",
+                text: randomText,
+                timestamp: new Date().getTime()
+            };
+            push(commentsRef, syntheticComment);
+        }, 120000); // إضافة تعليق تلقائي كل دقيقتين لزيادة التفاعل باستمرار
 
         renderList();
         setInterval(renderList, 60000);
