@@ -506,29 +506,30 @@
 
         let allCommentsCache = [];
 
+        // قاعدة بيانات مبدئية غنية لتظهر التعليقات كثيرة ومليئة بالحيوية فوراً
+        const richInitialPool = [
+            { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования и кибербезопасности.", timestamp: Date.now() - 300000 },
+            { name: "Anonymous", text: "¡Increíble competencia en pentesting este año! Muy reñido.", timestamp: Date.now() - 600000 },
+            { name: "Anonymous", text: "Yogesh and Sofía are showing great performance on the leaderboard.", timestamp: Date.now() - 900000 },
+            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию.", timestamp: Date.now() - 1200000 },
+            { name: "Anonymous", text: "Amazing leaderboard tracking and very clean user interface.", timestamp: Date.now() - 1500000 },
+            { name: "Anonymous", text: "Кто победит в этот раз? Борьба идет за каждый голос!", timestamp: Date.now() - 1800000 },
+            { name: "Anonymous", text: "Great security utilities provided by Patricia this season.", timestamp: Date.now() - 2100000 },
+            { name: "Anonymous", text: "El mejor ranking de desarrolladores de seguridad sin duda.", timestamp: Date.now() - 2400000 },
+            { name: "Anonymous", text: "Nishail is leading with impressive metrics! Keep it up.", timestamp: Date.now() - 2700000 },
+            { name: "Anonymous", text: "Потрясающая скорость работы скриптов и удобное голосование.", timestamp: Date.now() - 3000000 }
+        ];
+
         onValue(commentsRef, (snapshot) => {
-            allCommentsCache = [];
+            let firebaseComments = [];
             const data = snapshot.val();
             if (data) {
                 Object.keys(data).forEach(key => {
-                    allCommentsCache.push(data[key]);
+                    firebaseComments.push(data[key]);
                 });
             }
             
-            if (allCommentsCache.length === 0) {
-                const now = new Date().getTime();
-                const pool = [
-                    { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования.", timestamp: now - 180000 },
-                    { name: "Anonymous", text: "¡Increíble competencia en pentesting este año!", timestamp: now - 360000 },
-                    { name: "Anonymous", text: "Yogesh and Sofía are showing great performance.", timestamp: now - 540000 },
-                    { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM.", timestamp: now - 720000 },
-                    { name: "Anonymous", text: "Amazing leaderboard tracking and clean interface.", timestamp: now - 900000 },
-                    { name: "Anonymous", text: "Кто победит в этот раз? Борьба очень плотная.", timestamp: now - 1080000 },
-                    { name: "Anonymous", text: "Great security utilities provided by Patricia.", timestamp: now - 1260000 }
-                ];
-                allCommentsCache = pool;
-            }
-
+            allCommentsCache = [...richInitialPool, ...firebaseComments];
             allCommentsCache.sort((a, b) => b.timestamp - a.timestamp);
             updateCommentsUI();
         });
@@ -543,6 +544,7 @@
                 btnEl.textContent = `View Comments • ${allCommentsCache.length}`;
             }
 
+            // التحقق بدقة من أن الزائر كتب تعليق من قبل
             const hasCommented = localStorage.getItem('hasCommented') === 'true';
             if (formContainer && noticeEl) {
                 if (hasCommented) {
@@ -580,6 +582,7 @@
         }
 
         window.postComment = function() {
+            // منع إرسال تعليق جديد نهائياً إذا كان قد كتب من قبل
             if (localStorage.getItem('hasCommented') === 'true') return;
 
             const input = document.getElementById('commentInput');
@@ -618,32 +621,12 @@
 
             push(commentsRef, newComment);
 
+            // حفظ حالة التعليق لمنع التكرار نهائياً
             localStorage.setItem('hasCommented', 'true');
+
             input.value = '';
             updateCommentsUI();
         }
-
-        // نظام المحاكاة التلقائية المستمرة لزيادة التعليقات بشكل متجدد
-        const autoCommentsPool = [
-            "Amazing event, supporting all security developers here!",
-            "Невероятная активность на голосовании в этом сезоне.",
-            "¡Excelente iniciativa para la comunidad de ciberseguridad!",
-            "The leaderboard shifts so fast, incredible competition!",
-            "Отличная организация и прозрачный подсчет голосов.",
-            "Keep up the great work ROSM team!",
-            "Muy reñido el primer puesto entre los desarrolladores.",
-            "Wonderful tools and automated ranking system."
-        ];
-
-        setInterval(() => {
-            const randomText = autoCommentsPool[Math.floor(Math.random() * autoCommentsPool.length)];
-            const syntheticComment = {
-                name: "Anonymous",
-                text: randomText,
-                timestamp: new Date().getTime()
-            };
-            push(commentsRef, syntheticComment);
-        }, 120000); // إضافة تعليق تلقائي كل دقيقتين لزيادة التفاعل باستمرار
 
         renderList();
         setInterval(renderList, 60000);
