@@ -7,41 +7,41 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f9f9f9;
-            color: #222;
+            background-color: #ffffff;
+            color: #111;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             text-align: center;
             margin-bottom: 5px;
         }
         p.subtitle {
-            color: #666;
-            font-size: 14px;
+            color: #555;
+            font-size: 13px;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         .card {
             background: #ffffff;
-            border: 1px solid #e5e5e5;
+            border: 1px solid #eaeaea;
             border-radius: 12px;
             width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            max-width: 450px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .dev-card {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            border-bottom: 1px solid #f2f2f2;
         }
         .dev-card:last-child {
             border-bottom: none;
@@ -49,35 +49,36 @@
         .dev-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .dev-info img {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
         .dev-details h3 {
             margin: 0;
-            font-size: 16px;
+            font-size: 15px;
         }
         .dev-details p {
-            margin: 3px 0 0;
-            font-size: 13px;
+            margin: 2px 0 0;
+            font-size: 12px;
             color: #666;
         }
         .vote-btn {
             background-color: #000;
             color: #fff;
             border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 6px 14px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
         }
         .vote-btn:disabled {
-            background-color: #ccc;
+            background-color: #e0e0e0;
+            color: #888;
             cursor: not-allowed;
         }
         .action-btn {
@@ -86,86 +87,91 @@
             background-color: #000;
             color: #fff;
             text-align: center;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 10px;
+            margin-top: 8px;
             border: none;
             cursor: pointer;
+            font-size: 13px;
         }
         #closedBanner {
             display: none;
             background: #ffebee;
             color: #c62828;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            border-radius: 6px;
+            margin-bottom: 12px;
             font-weight: bold;
+            font-size: 13px;
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
         }
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.4);
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
         .modal-content {
             background: #fff;
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             max-height: 80vh;
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
         }
         .comments-list {
             overflow-y: auto;
             flex-grow: 1;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-top: 1px solid #eee;
-            padding-top: 10px;
+            padding-top: 8px;
         }
         .comment-item {
             padding: 8px 0;
-            border-bottom: 1px solid #f1f1f1;
+            border-bottom: 1px solid #f9f9f9;
             font-size: 13px;
         }
         .comment-header-info {
             display: flex;
             justify-content: space-between;
             font-weight: bold;
-            color: #444;
-            font-size: 12px;
-            margin-bottom: 3px;
+            color: #333;
+            font-size: 11px;
+            margin-bottom: 2px;
         }
         .comment-body {
-            color: #333;
+            color: #222;
         }
         .comment-input-area {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
         .comment-input-area input {
             flex-grow: 1;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 6px;
+            font-size: 12px;
         }
         .close-modal {
-            background: #666;
-            color: #fff;
+            background: #eee;
+            color: #333;
             border: none;
             padding: 8px;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
+            font-weight: 600;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -177,28 +183,27 @@
     <div id="closedBanner">Voting has officially ended!</div>
 
     <div class="card">
-        <h3>Live Leaderboard</h3>
+        <h3 style="margin-top:0; font-size:15px;">Live Leaderboard</h3>
         <div id="developersList"></div>
     </div>
 
     <div class="card">
-        <h3>Community Discussions</h3>
-        <p id="commentsCountText" style="font-size: 13px; color: #666;">Check what others are saying about the voting and rankings.</p>
+        <h3 style="margin-top:0; font-size:15px;">Community Discussions</h3>
+        <p id="commentsCountText" style="font-size: 12px; color: #666; margin-bottom: 8px;">Check what others are saying about the voting and rankings.</p>
         <button class="action-btn" onclick="toggleCommentsModal(true)">View Comments</button>
     </div>
 
     <div class="card">
-        <h3>Support Us</h3>
-        <p style="font-size: 13px; color: #666;">ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
+        <h3 style="margin-top:0; font-size:15px;">Support Us</h3>
+        <p style="font-size: 12px; color: #666; margin-bottom: 8px;">ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
         <a href="https://paypal.me/travis20148" target="_blank" class="action-btn" style="background: #0070ba;">PayPal</a>
     </div>
 
-    <!-- نافذة التعليقات -->
     <div id="commentsModal" class="modal">
         <div class="modal-content">
-            <h3>Community Discussions</h3>
+            <h3 style="margin-top:0; font-size:16px;">Community Discussions</h3>
             <div id="commentsList" class="comments-list"></div>
-            <div id="commentError" style="color: red; font-size: 12px; display: none; margin-bottom: 5px;"></div>
+            <div id="commentError" style="color: red; font-size: 11px; display: none; margin-bottom: 5px;"></div>
             <div class="comment-input-area">
                 <input type="text" id="commentInput" placeholder="Write a comment (English only)...">
                 <button class="vote-btn" onclick="postComment()">Post</button>
@@ -266,7 +271,7 @@
             card.className = 'dev-card';
             card.innerHTML = `
                 <div class="dev-info">
-                    <span style="font-weight:bold; width: 20px; color:#555;">#${index + 1}</span>
+                    <span style="font-weight:bold; width: 20px; color:#555; font-size:13px;">#${index + 1}</span>
                     <img src="${dev.img}" alt="${dev.name}">
                     <div class="dev-details">
                         <h3>${dev.name}</h3>
@@ -317,33 +322,30 @@
         return `${days} day${days > 1 ? 's' : ''} ago`;
     }
 
+    // التعليقات الأساسية موزعة بحد أقصى ضمن آخر 5 ساعات مضت
     const baseComments = [
-        { name: "Anonymous", text: "Incredible competition this week, Nishail is crushing it!", timestamp: Date.now() - 3600000 * 1 },
-        { name: "Anonymous", text: "Оливиас мощно прибавил под конец, заслуженное первое место", timestamp: Date.now() - 3600000 * 3 },
-        { name: "Anonymous", text: "Nishail and Olivias battle is insane this season, loving ROSM updates", timestamp: Date.now() - 3600000 * 5 },
-        { name: "Anonymous", text: "Patricia mantiene el top cinco de forma estable, excelente trabajo", timestamp: Date.now() - 3600000 * 8 },
-        { name: "Anonymous", text: "Патриция держит топ-5 стабильно, за неё и голоснул", timestamp: Date.now() - 3600000 * 12 },
-        { name: "Anonymous", text: "Йогеш и София постоянно меняются местами, напряжение максимальное", timestamp: Date.now() - 3600000 * 18 },
-        { name: "Anonymous", text: "Great toolsets in this release. Риша тоже неплохо поднимается внизу", timestamp: Date.now() - 3600000 * 24 },
-        { name: "Anonymous", text: "La competencia está muy intensa este año entre los mejores desarrolladores", timestamp: Date.now() - 3600000 * 36 },
-        { name: "Anonymous", text: "Amazing performance by the top developers this update!", timestamp: Date.now() - 3600000 * 48 },
-        { name: "Anonymous", text: "The voting system is very smooth and responsive.", timestamp: Date.now() - 3600000 * 60 }
+        { name: "Anonymous", text: "Incredible competition this week, Nishail is crushing it!", timestamp: Date.now() - 60000 * 15 }, // منذ 15 دقيقة
+        { name: "Anonymous", text: "Оливиас мощно прибавил под конец, заслуженное первое место", timestamp: Date.now() - 3600000 * 1 }, // منذ ساعة
+        { name: "Anonymous", text: "Nishail and Olivias battle is insane this season, loving ROSM updates", timestamp: Date.now() - 3600000 * 2 }, // منذ ساعتين
+        { name: "Anonymous", text: "Patricia mantiene el top cinco de forma estable, excelente trabajo", timestamp: Date.now() - 3600000 * 3 }, // منذ 3 ساعات
+        { name: "Anonymous", text: "Патриция держит топ-5 стабильно, за неё и голоснул", timestamp: Date.now() - 3600000 * 4 }, // منذ 4 ساعات
+        { name: "Anonymous", text: "Йогеш и София постоянно меняются местами, напряжение максимальное", timestamp: Date.now() - 3600000 * 5 } // منذ 5 ساعات (أقصى حد للأقدم)
     ];
 
     function getAutoIncrementalComments() {
         let extraPool = [
-            { text: "This project keeps getting better with every single commit.", interval: 7200000 },
-            { text: "Absolute peak development tools this season.", interval: 14400000 },
-            { text: "Checking the rankings every hour is becoming an addiction!", interval: 21600000 },
-            { text: "The community support here is unmatched.", interval: 28800000 }
+            { text: "This project keeps getting better with every single commit.", delayMinutes: 30 },
+            { text: "Absolute peak development tools this season.", delayMinutes: 90 },
+            { text: "Checking the rankings every hour is becoming an addiction!", delayMinutes: 180 },
+            { text: "The community support here is unmatched.", delayMinutes: 270 } // ضمن نطاق الـ 5 ساعات (أقل من 300 دقيقة)
         ];
         
         let simulatedList = [...baseComments];
         let siteLaunchTime = startDate; 
         let currentTime = new Date().getTime();
         
-        extraPool.forEach((item, index) => {
-            let triggerTime = siteLaunchTime + ((index + 1) * item.interval);
+        extraPool.forEach((item) => {
+            let triggerTime = siteLaunchTime + (item.delayMinutes * 60 * 1000);
             if (currentTime >= triggerTime) {
                 simulatedList.unshift({
                     name: "Anonymous",
