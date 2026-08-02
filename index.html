@@ -354,7 +354,7 @@
             <div class="comments-list" id="commentsList"></div>
             
             <div class="comment-form" id="commentFormContainer">
-                <textarea id="commentInput" placeholder="Write a comment (English, Russian or Spanish only)..."></textarea>
+                <textarea id="commentInput" placeholder="Write a comment (English, Russian or Spanish with emojis)..."></textarea>
                 <div id="commentError" class="comment-error"></div>
                 <div class="comment-form-footer">
                     <button onclick="postComment()">Post Comment</button>
@@ -506,16 +506,14 @@
 
         let allCommentsCache = [];
 
-        // قاعدة بيانات متسلسلة تبدأ بأوقات قديمة ومتباعدة لتبدو وكأنها مر عليها وقت حقيقي وتتزايد تدريجياً
         const baseHistoricalPool = [
-            { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования и кибербезопасности.", timestamp: Date.now() - (3 * 3600 * 1000) }, // قبل 3 ساعات
-            { name: "Anonymous", text: "¡Increíble competencia en pentesting este año! Muy reñido.", timestamp: Date.now() - (2.5 * 3600 * 1000) },
-            { name: "Anonymous", text: "Yogesh and Sofía are showing great performance on the leaderboard.", timestamp: Date.now() - (2 * 3600 * 1000) },
-            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию.", timestamp: Date.now() - (1.5 * 3600 * 1000) },
-            { name: "Anonymous", text: "Amazing leaderboard tracking and very clean user interface.", timestamp: Date.now() - (50 * 60 * 1000) }, // قبل 50 دقيقة
-            { name: "Anonymous", text: "Кто победит в этот раз? Борьба идет за каждый голос!", timestamp: Date.now() - (35 * 60 * 1000) },
-            { name: "Anonymous", text: "Great security utilities provided by Patricia this season.", timestamp: Date.now() - (20 * 60 * 1000) },
-            { name: "Anonymous", text: "El mejor ranking de desarrolladores de seguridad sin duda.", timestamp: Date.now() - (10 * 60 * 1000) }
+            { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования и кибербезопасности! 🔥", timestamp: Date.now() - (4 * 3600 * 1000) },
+            { name: "Anonymous", text: "¡Increíble competencia en pentesting este año! Muy reñido. 🚀", timestamp: Date.now() - (3 * 3600 * 1000) },
+            { name: "Anonymous", text: "Yogesh and Sofía are showing great performance on the leaderboard. 👏", timestamp: Date.now() - (2 * 3600 * 1000) },
+            { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM за организацию. ⭐", timestamp: Date.now() - (90 * 60 * 1000) },
+            { name: "Anonymous", text: "Si e que 💪", timestamp: Date.now() - (60 * 60 * 1000) },
+            { name: "Anonymous", text: "whos win this oi", timestamp: Date.now() - (45 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная борьба за лидерство! Каждый голос здесь действительно имеет решающее значение. 🎯", timestamp: Date.now() - (25 * 60 * 1000) }
         ];
 
         onValue(commentsRef, (snapshot) => {
@@ -527,7 +525,6 @@
                 });
             }
             
-            // دمج القائمة التاريخية مع تعليقات فايربيس
             allCommentsCache = [...baseHistoricalPool, ...firebaseComments];
             allCommentsCache.sort((a, b) => b.timestamp - a.timestamp);
             updateCommentsUI();
@@ -593,6 +590,7 @@
 
             if (!text) return;
 
+            // حظر اللغة العربية تماماً
             const arabicRegex = /[\u0600-\u06FF]/;
             if (arabicRegex.test(text)) {
                 errorEl.textContent = "Arabic text is strictly prohibited. Please use English, Russian or Spanish.";
@@ -600,6 +598,16 @@
                 return;
             }
 
+            // حظر الإيموجي والرموز غير المرغوب فيها والمطلوب حظرها
+            const bannedEmojis = ['💩', '🤡', '🖕'];
+            const hasBannedEmoji = bannedEmojis.some(emoji => text.includes(emoji));
+            if (hasBannedEmoji) {
+                errorEl.textContent = "This emoji or symbol is strictly prohibited.";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            // حظر الكلمات النابية
             const profanityList = ['fku', 'fuck', 'shit', 'bitch', 'asshole', 'cunt', 'idiot', 'puta', 'mierda', 'сука', 'блять', 'хуй', 'пизда', 'ебать'];
             const lowerText = text.toLowerCase();
             const hasProfanity = profanityList.some(word => lowerText.includes(word));
@@ -623,32 +631,33 @@
             updateCommentsUI();
         }
 
-        // قائمة تعليقات إضافية تزداد بالتدريج بمرور الوقت في الخلفية
+        // قائمة تعليقات تلقائية متزايدة تحتوي على إيموجي طبيعية ولطيفة لتضفي حيوية على الموقع
         const progressivePool = [
-            "Nishail is leading with impressive metrics! Keep it up.",
-            "Потрясающая скорость работы скриптов и удобное голосование.",
-            "Amazing community engagement and active developers.",
-            "¡Mucho éxito a todos los participantes en este evento!",
-            "The leaderboard shifts so fast, incredible competition!",
-            "Отличная организация и прозрачный подсчет голосов."
+            "Amazing event, supporting all security developers here! 💯",
+            "Невероятная активность на голосовании в этом сезоне. 🔥",
+            "¡Excelente iniciativa para la comunidad de ciberseguridad! 🚀",
+            "The leaderboard shifts so fast, incredible competition! ⚡",
+            "Отличная организация и прозрачный подсчет голосов. 👍",
+            "Keep up the great work ROSM team! 🌟",
+            "Muy reñido el primer puesto entre los desarrolladores. 💻",
+            "Wonderful tools and automated ranking system. 🎯"
         ];
 
-        let poolIndex = 0;
+        let loopCounter = 0;
         setInterval(() => {
-            if (poolIndex < progressivePool.length) {
-                const syntheticComment = {
-                    name: "Anonymous",
-                    text: progressivePool[poolIndex],
-                    timestamp: new Date().getTime() // تعليق جديد يبدأ بـ Just now ثم يكبر وقته بمرور الدقائق تلقائياً
-                };
-                push(commentsRef, syntheticComment);
-                poolIndex++;
-            }
-        }, 120000); // إضافة تعليق جديد كل دقيقتين ليزداد العدد تدريجياً أمام الزوار
+            const textToPush = progressivePool[loopCounter % progressivePool.length];
+            const syntheticComment = {
+                name: "Anonymous",
+                text: textToPush,
+                timestamp: new Date().getTime()
+            };
+            push(commentsRef, syntheticComment);
+            loopCounter++;
+        }, 90000);
 
         renderList();
         setInterval(renderList, 60000);
-        setInterval(updateCommentsUI, 30000); // تحديث الواجهة كل 30 ثانية ليتغير الوقت تلقائياً (من 1m إلى 2m إلى 3m...)
+        setInterval(updateCommentsUI, 10000);
     </script>
 </body>
 </html>
