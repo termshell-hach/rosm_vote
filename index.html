@@ -150,6 +150,162 @@
         .paypal-btn:hover {
             background: #333333;
         }
+        .comments-section-toggle {
+            width: 100%;
+            max-width: 600px;
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .comments-section-toggle h3 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .comments-section-toggle p {
+            font-size: 13px;
+            color: #666;
+            margin: 0 0 15px 0;
+        }
+        .open-modal-btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .open-modal-btn:hover {
+            background-color: #333333;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 550px;
+            max-height: 85vh;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #222;
+        }
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+        .comments-list {
+            padding: 15px 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #fafafa;
+        }
+        .comment-item {
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        .comment-header-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+        .comment-author {
+            font-weight: bold;
+            color: #333;
+        }
+        .comment-time {
+            color: #888;
+        }
+        .comment-body {
+            color: #444;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+        .comment-form {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .comment-form textarea {
+            width: 100%;
+            height: 60px;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            resize: none;
+            font-family: inherit;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: #000;
+        }
+        .comment-form button {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+        .comment-form button:hover {
+            background: #333;
+        }
+        .comment-error {
+            color: #c62828;
+            font-size: 11px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -161,6 +317,12 @@
 
     <div class="container" id="developersList"></div>
 
+    <div class="comments-section-toggle">
+        <h3>Community Discussions</h3>
+        <p>Check what others are saying about the voting and rankings.</p>
+        <button class="open-modal-btn" id="openModalBtn" onclick="toggleCommentsModal(true)">View Comments • 0</button>
+    </div>
+
     <div class="support-box">
         <h3>Support Us</h3>
         <p>ROSM is, and always with you, and open source. However, you can be with us by making a donation.</p>
@@ -168,6 +330,21 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.067 8.528c-.144.876-.615 1.632-1.326 2.179-.711.547-1.58.857-2.482.857h-2.923c-.35 0-.649.25-.705.594l-1.391 8.875c-.039.248-.25.433-.5.433H7.81c-.382 0-.677-.333-.623-.711l1.41-9.006c.056-.345.355-.594.705-.594h2.247c1.777 0 3.32-.614 4.341-1.728 1.022-1.114 1.487-2.678 1.309-4.526-.144-1.488-.838-2.775-1.948-3.619C13.435 1.05 11.916.667 10.165.667H3.456c-.382 0-.677.333-.623.711L6.2 22.956c.039.248.25.433.5.433h3.541c.35 0 .649-.25.705-.594l.872-5.568c.056-.345.355-.594.705-.594h1.745c2.476 0 4.542-.872 5.817-2.457 1.275-1.585 1.748-3.791 1.327-6.274z"/></svg>
             PayPal
         </a>
+    </div>
+
+    <div class="modal-overlay" id="commentsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Discussion & Comments</h3>
+                <button class="close-modal-btn" onclick="toggleCommentsModal(false)">&times;</button>
+            </div>
+            <div class="comments-list" id="commentsList"></div>
+            <div class="comment-form">
+                <textarea id="commentInput" placeholder="Write a comment (English or Russian only)..."></textarea>
+                <div id="commentError" class="comment-error">Arabic text and offensive words are strictly prohibited.</div>
+                <button onclick="postComment()">Post Comment</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -277,8 +454,148 @@
             renderList();
         }
 
+        function getAutoIncrementalComments() {
+            const now = new Date().getTime();
+            const elapsedTotal = now - startDate;
+            let extraList = JSON.parse(localStorage.getItem('rosm_comments') || '[]');
+            
+            let simulatedCount = Math.floor(elapsedTotal / 2500000) + 8;
+            
+            const pool = [
+                { name: "Anonymous", text: "Nishail is leading with amazing tools this year!" },
+                { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования." },
+                { name: "Anonymous", text: "¡Increíble competencia en pentesting este año!" },
+                { name: "Anonymous", text: "Yogesh and Sofía are showing great performance." },
+                { name: "Anonymous", text: "Отличный открытый проект, респект команде ROSM." },
+                { name: "Anonymous", text: "Amazing leaderboard tracking and clean interface." },
+                { name: "Anonymous", text: "Кто победит в этот раз? Борьба очень плотная." },
+                { name: "Anonymous", text: "Great security utilities provided by Patricia." }
+            ];
+
+            while (extraList.length < simulatedCount) {
+                let index = extraList.length;
+                let randomTemplate = pool[index % pool.length];
+                let generatedTime = now - ((simulatedCount - index) * 2400000 + 120000);
+
+                extraList.push({
+                    id: 'gen_' + index,
+                    name: randomTemplate.name,
+                    text: randomTemplate.text,
+                    timestamp: generatedTime
+                });
+            }
+            
+            localStorage.setItem('rosm_comments', JSON.stringify(extraList));
+            return extraList;
+        }
+
+        function timeAgo(timestamp) {
+            const seconds = Math.floor((new Date().getTime() - timestamp) / 1000);
+            if (seconds < 60) return 'Just now';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes}m ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours}h ago`;
+            const days = Math.floor(hours / 24);
+            return `${days}d ago`;
+        }
+
+        function updateCommentsCount() {
+            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
+            let autoList = getAutoIncrementalComments();
+            let totalCount = userStored.length + autoList.length;
+
+            document.getElementById('openModalBtn').textContent = `View Comments • ${totalCount}`;
+        }
+
+        function toggleCommentsModal(open) {
+            const modal = document.getElementById('commentsModal');
+            modal.style.display = open ? 'flex' : 'none';
+            if (open) {
+                renderComments();
+            }
+        }
+
+        function renderComments() {
+            const listEl = document.getElementById('commentsList');
+            
+            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
+
+            let autoList = getAutoIncrementalComments().map(c => ({
+                name: c.name,
+                text: c.text,
+                time: c.timestamp
+            }));
+
+            let combined = [...userStored, ...autoList];
+            combined.sort((a, b) => b.time - a.time);
+
+            updateCommentsCount();
+
+            listEl.innerHTML = '';
+            combined.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'comment-item';
+                div.innerHTML = `
+                    <div class="comment-header-line">
+                        <span class="comment-author">${item.name}</span>
+                        <span class="comment-time">${timeAgo(item.time)}</span>
+                    </div>
+                    <div class="comment-body">${item.text}</div>
+                `;
+                listEl.appendChild(div);
+            });
+        }
+
+        function postComment() {
+            const input = document.getElementById('commentInput');
+            const errorEl = document.getElementById('commentError');
+            const text = input.value.trim();
+
+            errorEl.style.display = 'none';
+
+            if (!text) return;
+
+            const arabicRegex = /[\u0600-\u06FF]/;
+            if (arabicRegex.test(text)) {
+                errorEl.textContent = "Arabic text is strictly prohibited. Please use English or Russian.";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const profanityList = ['fku', 'fuck', 'shit', 'bitch', 'asshole', 'cunt', 'idiot', 'puta', 'mierda', 'сука', 'блять', 'хуй', 'пизда', 'ебать'];
+            const lowerText = text.toLowerCase();
+            const hasProfanity = profanityList.some(word => lowerText.includes(word));
+
+            if (hasProfanity) {
+                errorEl.textContent = "Offensive words are strictly prohibited.";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const newComment = {
+                name: "Anonymous",
+                text: text,
+                time: new Date().getTime()
+            };
+
+            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
+            userStored.unshift(newComment);
+            localStorage.setItem('rosm_user_comments', JSON.stringify(userStored));
+
+            input.value = '';
+            renderComments();
+        }
+
         renderList();
+        updateCommentsCount();
         setInterval(renderList, 60000);
+        setInterval(updateCommentsCount, 60000);
+        setInterval(() => {
+            if (document.getElementById('commentsModal').style.display === 'flex') {
+                renderComments();
+            }
+        }, 60000);
     </script>
 </body>
 </html>
