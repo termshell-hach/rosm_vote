@@ -456,10 +456,9 @@
 
         function getAutoIncrementalComments() {
             const now = new Date().getTime();
-            let extraList = JSON.parse(localStorage.getItem('rosm_comments') || '[]');
+            let extraList = JSON.parse(localStorage.getItem('rosm_comments_v2') || '[]');
             
             const pool = [
-                { name: "Anonymous", text: "Nishail is leading with amazing tools this year!" },
                 { name: "Anonymous", text: "Поддерживаю Olivias, отличные скрипты для тестирования." },
                 { name: "Anonymous", text: "¡Increíble competencia en pentesting este año!" },
                 { name: "Anonymous", text: "Yogesh and Sofía are showing great performance." },
@@ -471,7 +470,7 @@
 
             if (extraList.length === 0) {
                 pool.forEach((item, index) => {
-                    let timeOffset = (pool.length - index) * 15 * 60 * 1000 + 30000; 
+                    let timeOffset = (index + 1) * 3 * 60 * 1000; 
                     extraList.push({
                         id: 'gen_' + index,
                         name: item.name,
@@ -479,7 +478,7 @@
                         timestamp: now - timeOffset
                     });
                 });
-                localStorage.setItem('rosm_comments', JSON.stringify(extraList));
+                localStorage.setItem('rosm_comments_v2', JSON.stringify(extraList));
             }
             
             return extraList;
@@ -497,7 +496,7 @@
         }
 
         function updateCommentsCount() {
-            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
+            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments_v2') || '[]');
             let autoList = getAutoIncrementalComments();
             let totalCount = userStored.length + autoList.length;
 
@@ -515,7 +514,7 @@
         function renderComments() {
             const listEl = document.getElementById('commentsList');
             
-            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
+            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments_v2') || '[]');
 
             let autoList = getAutoIncrementalComments().map(c => ({
                 name: c.name,
@@ -549,10 +548,11 @@
             const text = input.value.trim();
 
             errorEl.style.display = 'none';
-               if (!text) return;
+
+            if (!text) return;
 
             const arabicRegex = /[\u0600-\u06FF]/;
-            if (arabicRegex.test(text)) {
+            if (arabRegex.test(text)) {
                 errorEl.textContent = "Arabic text is strictly prohibited. Please use English or Russian.";
                 errorEl.style.display = 'block';
                 return;
@@ -574,9 +574,9 @@
                 time: new Date().getTime()
             };
 
-            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments') || '[]');
+            let userStored = JSON.parse(localStorage.getItem('rosm_user_comments_v2') || '[]');
             userStored.unshift(newComment);
-            localStorage.setItem('rosm_user_comments', JSON.stringify(userStored));
+            localStorage.setItem('rosm_user_comments_v2', JSON.stringify(userStored));
 
             input.value = '';
             renderComments();
@@ -593,4 +593,4 @@
         }, 60000);
     </script>
 </body>
-</html> 
+</html>
