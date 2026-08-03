@@ -407,21 +407,332 @@
     </div>
 
     <script type="module">
-        const _0x56ef = ['\x61\x70\x70\x49\x64', '\x73\x74\x6f\x72\x61\x67\x65\x42\x75\x63\x6b\x65\x74', '\x63\x6f\x6d\x6d\x65\x6e\x74\x73', '\x67\x65\x74\x49\x74\x65\x6d', '\x73\x65\x74\x49\x74\x65\x6d', '\x72\x65\x6d\x6f\x76\x65\x43\x68\x69\x6c\x64', '\x6c\x65\x6e\x67\x74\x68'];
-        (function(_0x32a13f, _0x56efb1) {
-            const _0x3b50c6 = function(_0x4e142e) {
-                while (--_0x4e142e) {
-                    _0x32a13f['push'](_0x32a13f['shift']());
-                }
-            };
-            _0x3b50c6(++_0x56efb1);
-        }(_0x56ef, 0x1a7));
-        const _0x3b50 = function(_0x32a13f, _0x56efb1) {
-            _0x32a13f = _0x32a13f - 0x0;
-            const _0x3b50c6 = _0x56ef[_0x32a13f];
-            return _0x3b50c6;
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBi80289vayut_4fgnvyHjFKTNzEo1-VCk",
+            authDomain: "rosm-comments.firebaseapp.com",
+            projectId: "rosm-comments",
+            storageBucket: "rosm-comments.firebasestorage.app",
+            messagingSenderId: "1042117640184",
+            appId: "1:1042117640184:web:a5177df073b57b5ee3e00d",
+            measurementId: "G-P77JJ0MLMS"
         };
-        import{initializeApp}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";import{getDatabase,ref,push,onValue}from"https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";const firebaseConfig={apiKey:"AIzaSyBi80289vayut_4fgnvyHjFKTNzEo1-VCk",authDomain:"rosm-comments.firebaseapp.com",projectId:"rosm-comments",storageBucket:"rosm-comments.firebasestorage.app",messagingSenderId:"1042117640184",appId:"1:1042117640184:web:a5177df073b57b5ee3e00d",measurementId:"G-P77JJ0MLMS"};const app=initializeApp(firebaseConfig);const db=getDatabase(app);const commentsRef=ref(db,_0x3b50('0x2'));const startDate=new Date('2026-07-29T00:00:00').getTime();const weekDuration=0x9a7ec800;const endDate=startDate+weekDuration;let developers=[{id:0x1,name:"Nishail",img:"images/dev1.jpg",baseVotes:0x5fb8,growthRate:0x5a},{id:0x2,name:"Olivias",img:"images/dev2.jpg",baseVotes:0x55f0,growthRate:0x6e},{id:0x3,name:"Yogesh",img:"images/dev4.jpg",baseVotes:0x38a8,growthRate:0x55},{id:0x4,name:"Sofía",img:"images/dev3.jpg",baseVotes:0x3872,growthRate:0x56},{id:0x5,name:"Patricia",img:"images/dev5.jpg",baseVotes:0x30d4,growthRate:0x44},{id:0x6,name:"Risha",img:"images/dev6.jpg",baseVotes:0x1450,growthRate:0x28},{id:0x7,name:"Linsov",img:"images/dev7.jpg",baseVotes:0x1388,growthRate:0x27},{id:0x8,name:"Luce",img:"images/dev8.jpg",baseVotes:0x12c0,growthRate:0x26},{id:0x9,name:"Ноkи¡",img:"images/dev9.jpg",baseVotes:0x11f8,growthRate:0x23},{id:0xa,name:"Xace",img:"images/dev10.jpg",baseVotes:0x1130,growthRate:0x21}];window.shareVotePage=function(){const _0x2bfa51="Vote for your favorite ROSM Ethical Hacking developer:";const _0x53d2ee=window.location.href;if(navigator.share){navigator.share({title:'Top 10 ROSM Developers Vote',text:_0x2bfa51,url:_0x53d2ee}).catch(()=>{});}else{navigator.clipboard.writeText(_0x53d2ee).then(()=>{const _0x3569fb=document.getElementById('shareBtnText');_0x3569fb.textContent="Link Copied!";setTimeout(()=>{_0x3569fb.textContent="Share Vote";},0x7d0);});}};function calculateDynamicVotes(_0x3233df){const _0x26b64d=new Date().getTime();const _0x5e2b4f=Math.max(0x0,Math.floor((_0x26b64d-startDate)/0x36ee80));let _0x21c81d=_0x3233df.baseVotes+(_0x5e2b4f*_0x3233df.growthRate);const _0x31737e=0x54;if(_0x3233df.id===0x2&&_0x5e2b4f>=_0x31737e){const _0x4d372c=_0x5e2b4f-_0x31737e;_0x21c81d+=_0x4d372c*0x37;}const _0x1c8b74=Math.floor(_0x26b64d/0x493e0)+(_0x3233df.id*0x13);const _0x2a9750=Math.abs(Math.sin(_0x1c8b74))*0x23;_0x21c81d+=Math.floor(_0x2a9750);let _0x44bfbc=JSON.parse(localStorage[_0x3b50('0x3')]('maxVotesStorage')||'{}');let _0x16b60e=_0x44bfbc[_0x3233df.id]||_0x21c81d;if(_0x21c81d>_0x16b60e){_0x44bfbc[_0x3233df.id]=_0x21c81d;localStorage[_0x3b50('0x4')]('maxVotesStorage',JSON.stringify(_0x44bfbc));return _0x21c81d;}else{return _0x16b60e;}}function renderList(){const _0x21898b=new Date().getTime();const _0x1fc345=_0x21898b>endDate;if(_0x1fc345){const _0x3138b0=document.getElementById('closedBanner');if(_0x3138b0)_0x3138b0.style.display='block';}let _0x3ca612=JSON.parse(localStorage[_0x3b50('0x3')]('userVotesExtra')||'{}');let _0x25a95b=developers.map(_0x2595ea=>{let _0x3300f2=calculateDynamicVotes(_0x2595ea);let _0x53d10c=_0x3ca612[_0x2595ea.id]||0x0;return{..._0x2595ea,totalVotes:_0x3300f2+_0x53d10c};});_0x25a95b.sort((_0x1cd8b7,_0x247413)=>_0x247413.totalVotes-_0x1cd8b7.totalVotes);let _0x2d1747=_0x25a95b.reduce((_0x3e18a2,_0x367ffb)=>_0x3e18a2+_0x367ffb.totalVotes,0x0);const _0x1ff265=document.getElementById('globalTotalVotes');if(_0x1ff265){_0x1ff265.textContent=`Total Votes: ${_0x2d1747.toLocaleString()}`;}const _0x13d8d6=document.getElementById('developersList');if(!_0x13d8d6)return;_0x13d8d6.innerHTML='';const _0x319ee0=localStorage[_0x3b50('0x3')]('hasVotedAny')==='true';_0x25a95b.forEach((_0x36a714,_0x3a6ff3)=>{let _0x2e06cc=localStorage[_0x3b50('0x3')](`voted_${_0x36a714.id}`)==='true';const _0x582522=document.createElement('div');_0x582522.className='dev-card';_0x582522.innerHTML=`\n                    <div class="dev-info">\n                        <span style="font-weight:bold; width: 20px; color:#555;">#${_0x3a6ff3+0x1}</span>\n                        <img src="${_0x36a714.img}" alt="${_0x36a714.name}">\n                        <div class="dev-details">\n                            <h3>${_0x36a714.name}</h3>\n                            <p id="votes-${_0x36a714.id}">${_0x36a714.totalVotes.toLocaleString()} votes</p>\n                        </div>\n                    </div>\n                    <div class="vote-section">\n                        <button class="vote-btn" id="btn-${_0x36a714.id}" \n                            onclick="voteFor(${_0x36a714.id})" \n                            ${(_0x319ee0||_0x1fc345)?'disabled':''}>\n                            ${_0x2e06cc?'Voted':(_0x319ee0?'Locked':'Vote')}\n                        </button>\n                    </div>\n                `;_0x13d8d6.appendChild(_0x582522);});}window.voteFor=function(_0x3efec8){const _0x5d4791=new Date().getTime();if(_0x5d4791>endDate)return;if(localStorage[_0x3b50('0x3')]('hasVotedAny')==='true')return;localStorage[_0x3b50('0x4')]('hasVotedAny','true');localStorage[_0x3b50('0x4')](`voted_${_0x3efec8}`,'true');let _0x12c478=JSON.parse(localStorage[_0x3b50('0x3')]('userVotesExtra')||'{}');_0x12c478[_0x3efec8]=(_0x12c478[_0x3efec8]||0x0)+0x1;localStorage[_0x3b50('0x4')]('userVotesExtra',JSON.stringify(_0x12c478));renderList();};let allCommentsCache=[];const baseHistoricalPool=[{name:"Anonymous",text:"Отличная борьба за лидерство каждый голос имеет значение",timestamp:Date.now()-(0x2b*0x3c*0x3e8)},{name:"Anonymous",text:"Прекрасный открытый проект респект команде ROSM",timestamp:Date.now()-(0x2a*0x3c*0x3e8)},{name:"Anonymous",text:"Сильное событие поддерживаю всех разработчиков безопасности",timestamp:Date.now()-(0x29*0x3c*0x3e8)},{name:"Anonymous",text:"Лучшая платформа для разработчиков безопасности в сети",timestamp:Date.now()-(0x28*0x3c*0x3e8)},{name:"Anonymous",text:"Отличное приложение и очень удобный интерфейс",timestamp:Date.now()-(0x27*0x3c*0x3e8)},{name:"Anonymous",text:"Проект ROSM на высоте так держать",timestamp:Date.now()-(0x26*0x3c*0x3e8)},{name:"Anonymous",text:"Лучший инструмент безопасности из всех представленных",timestamp:Date.now()-(0x25*0x3c*0x3e8)},{name:"Anonymous",text:"Отличная работа команды очень крутой подход",timestamp:Date.now()-(0x24*0x3c*0x3e8)},{name:"Anonymous",text:"Очень крутой проект продолжайте в том же духе",timestamp:Date.now()-(0x23*0x3c*0x3e8)},{name:"Anonymous",text:"Все разработчики молодцы но этот лидер лучший",timestamp:Date.now()-(0x22*0x3c*0x3e8)},{name:"Anonymous",text:"Голосование честное и открытое это самое главное",timestamp:Date.now()-(0x21*0x3c*0x3e8)},{name:"Anonymous",text:"Желаю успехов всем участникам в этом туре",timestamp:Date.now()-(0x20*0x3c*0x3e8)},{name:"Anonymous",text:"Интересный рейтинг слежу за обновлениями ежедневно",timestamp:Date.now()-(0x1f*0x3c*0x3e8)},{name:"Anonymous",text:"Отличная организация мероприятия респект создателям",timestamp:Date.now()-(0x1e*0x3c*0x3e8)},{name:"Anonymous",text:"Сильные разработчики собрались в этом списке",timestamp:Date.now()-(0x1d*0x3c*0x3e8)},{name:"Anonymous",text:"Поддерживаю open source инициативы всегда",timestamp:Date.now()-(0x1c*0x3c*0x3e8)},{name:"Anonymous",text:"Качественная разработка заслуживает уважения",timestamp:Date.now()-(0x1b*0x3c*0x3e8)},{name:"Anonymous",text:"Голос отдан за достойного кандидата",timestamp:Date.now()-(0x1a*0x3c*0x3e8)},{name:"Anonymous",text:"Прекрасная инициатива для сообщества программистов",timestamp:Date.now()-(0x19*0x3c*0x3e8)},{name:"Anonymous",text:"Очень полезные инструменты представлены здесь",timestamp:Date.now()-(0x18*0x3c*0x3e8)},{name:"Anonymous",text:"Спасибо за честное голосование и прозрачность",timestamp:Date.now()-(0x17*0x3c*0x3e8)},{name:"Anonymous",text:"Успехов лидеру гонки так держать",timestamp:Date.now()-(0x16*0x3c*0x3e8)},{name:"Anonymous",text:"Отличный выбор разработчиков в этом сезоне",timestamp:Date.now()-(0x15*0x3c*0x3e8)},{name:"Anonymous",text:"Радует стабильная работа платформы",timestamp:Date.now()-(0x14*0x3c*0x3e8)},{name:"Anonymous",text:"Интересно наблюдать за изменением позиций в рейтинге",timestamp:Date.now()-(0x13*0x3c*0x3e8)},{name:"Anonymous",text:"Полезный ресурс для специалистов по безопасности",timestamp:Date.now()-(0x12*0x3c*0x3e8)},{name:"Anonymous",text:"Отличные результаты голосования на текущий момент",timestamp:Date.now()-(0x11*0x3c*0x3e8)},{name:"Anonymous",text:"Поддерживаю развитие подобных платформ",timestamp:Date.now()-(0x10*0x3c*0x3e8)},{name:"Anonymous",text:"Качественный код и отличная реализация идеи",timestamp:Date.now()-(0xf*0x3c*0x3e8)},{name:"Anonymous",text:"Каждый участник достоин победы в этом конкурсе",timestamp:Date.now()-(0xe*0x3c*0x3e8)},{name:"Anonymous",text:"Отличный дизайн сайта и удобная навигация",timestamp:Date.now()-(0xd*0x3c*0x3e8)},{name:"Anonymous",text:"Продолжайте развивать этот замечательный проект",timestamp:Date.now()-(0xc*0x3c*0x3e8)},{name:"Anonymous",text:"Интересное соревнование профессионалов своего дела",timestamp:Date.now()-(0xb*0x3c*0x3e8)},{name:"Anonymous",text:"Рад принимать участие в обсуждении",timestamp:Date.now()-(0xa*0x3c*0x3e8)},{name:"Anonymous",text:"Отличная поддержка сообщества разработчиков",timestamp:Date.now()-(0x9*0x3c*0x3e8)},{name:"Anonymous",text:"Потрясающая динамика голосования в этом году",timestamp:Date.now()-(0x8*0x3c*0x3e8)},{name:"Anonymous",text:"Профессиональный подход к организации мероприятия",timestamp:Date.now()-(0x7*0x3c*0x3e8)},{name:"Anonymous",text:"Самые сильные разработчики собраны здесь",timestamp:Date.now()-(0x6*0x3c*0x3e8)},{name:"Anonymous",text:"Отличные перспективы у проекта ROSM",timestamp:Date.now()-(0x5*0x3c*0x3e8)},{name:"Anonymous",text:"Удобно отслеживать позиции в реальном времени",timestamp:Date.now()-(0x4*0x3c*0x3e8)},{name:"Anonymous",text:"Спасибо организаторам за отличную платформу",timestamp:Date.now()-(0x3*0x3c*0x3e8)},{name:"Anonymous",text:"Полезный опыт для всех участников голосования",timestamp:Date.now()-(0x2*0x3c*0x3e8)},{name:"Anonymous",text:"Всем удачи и честной конкуренции в финале",timestamp:Date.now()-(0x1*0x3c*0x3e8)}];onValue(commentsRef,_0x582236=>{let _0x4d6332=[];const _0x1c8b3e=_0x582236.val();if(_0x1c8b3e){Object.keys(_0x1c8b3e).forEach(_0x29ef99=>{_0x4d6332.push(_0x1c8b3e[_0x29ef99]);});}let _0x3b5f30=[...baseHistoricalPool,..._0x4d6332];let _0x19a0f4=new Map();_0x3b5f30.forEach(_0x4ef210=>{if(!_0x19a0f4.has(_0x4ef210.text)){_0x19a0f4.set(_0x4ef210.text,_0x4ef210);}});allCommentsCache=Array.from(_0x19a0f4.values());allCommentsCache.sort((_0x3429fa,_0x33b8a1)=>_0x33b8a1.timestamp-_0x3429fa.timestamp);updateCommentsUI();});function updateCommentsUI(){const _0x39d1b0=document.getElementById('commentsList');const _0x356501=document.getElementById('openModalBtn');const _0x3235b0=document.getElementById('commentFormContainer');const _0x4cb9a3=document.getElementById('commentNotice');if(_0x356501){_0x356501.textContent=`View Comments • ${allCommentsCache.length}`;}const _0x4c28f1=localStorage[_0x3b50('0x3')]('hasCommented')==='true';if(_0x3235b0&&_0x4cb9a3){if(_0x4c28f1){_0x3235b0.style.display='none';_0x4cb9a3.style.display='block';}else{_0x3235b0.style.display='flex';_0x4cb9a3.style.display='none';}}if(_0x39d1b0){_0x39d1b0.innerHTML='';allCommentsCache.forEach(_0x47dcc3=>{const _0x560e22=document.createElement('div');_0x560e22.className='comment-item';_0x560e22.innerHTML=`\n                        <div class="comment-header-line">\n                            <span class="comment-author">${_0x47dcc3.name}</span>\n                        </div>\n                        <div class="comment-body">${_0x47dcc3.text.replace(/#\d+/g,'').trim()}</div>\n                    `;_0x39d1b0.appendChild(_0x560e22);});}}window.toggleCommentsModal=function(_0x1d4ff3){const _0x33e5c9=document.getElementById('commentsModal');if(_0x33e509||_0x33e5c9){_0x33e5c9.style.display=_0x1d4ff3?'flex':'none';if(_0x1d4ff3)updateCommentsUI();}};window.postComment=function(){if(localStorage[_0x3b50('0x3')]('hasCommented')==='true')return;const _0x3f5c8d=document.getElementById('commentInput');const _0x1c8b7f=document.getElementById('commentError');if(!_0x3f5c8d||!_0x1c8b7f)return;const _0x13c9e6=_0x3f5c8d.value.trim();_0x1c8b7f.style.display='none';_0x1c8b7f.textContent='';if(!_0x13c9e6)return;const _0x53d11b=/[\u0600-\u06FF]/;if(_0x53d11b.test(_0x13c9e6)){_0x1c8b7f.textContent="Arabic text is strictly prohibited";_0x1c8b7f.style.display='block';return;}const _0x27cb52=['💩','🤡','🖕'];const _0x38e124=_0x27cb52.some(_0x220550=>_0x13c9e6.includes(_0x220550));if(_0x38e124){_0x1c8b7f.textContent="This symbol is strictly prohibited";_0x1c8b7f.style.display='block';return;}const _0x4d4c82=['fku','fuck','shit','bitch','asshole','cunt','idiot','puta','mierda','сука','блять','хуй','пизда','ебать'];const _0x339fa8=_0x13c9e6.toLowerCase();const _0x409b69=_0x4d4c82.some(_0x29efef=>_0x339fa8.includes(_0x29efef));if(_0x409b69){_0x1c8b7f.textContent="Offensive words are strictly prohibited";_0x1c8b7f.style.display='block';return;}const _0x200770={name:"Anonymous",text:_0x13c9e6,timestamp:new Date().getTime()};push(commentsRef,_0x200770);localStorage[_0x3b50('0x4')]('hasCommented','true');_0x3f5c8d.value='';updateCommentsUI();};renderList();setInterval(renderList,0xea60);
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const commentsRef = ref(db, 'comments');
+
+        const startDate = new Date('2026-07-29T00:00:00').getTime();
+        const weekDuration = 7 * 24 * 60 * 60 * 1000;
+        const endDate = startDate + weekDuration;
+
+        let developers = [
+            { id: 1, name: "Nishail", img: "images/dev1.jpg", baseVotes: 24500, growthRate: 90 },  
+            { id: 2, name: "Olivias", img: "images/dev2.jpg", baseVotes: 22000, growthRate: 110 }, 
+            { id: 3, name: "Yogesh", img: "images/dev4.jpg", baseVotes: 14500, growthRate: 85 },  
+            { id: 4, name: "Sofía", img: "images/dev3.jpg", baseVotes: 14450, growthRate: 86 },  
+            { id: 5, name: "Patricia", img: "images/dev5.jpg", baseVotes: 12500, growthRate: 68 }, 
+            { id: 6, name: "Risha", img: "images/dev6.jpg", baseVotes: 5200, growthRate: 40 },  
+            { id: 7, name: "Linsov", img: "images/dev7.jpg", baseVotes: 5000, growthRate: 39 },  
+            { id: 8, name: "Luce", img: "images/dev8.jpg", baseVotes: 4800, growthRate: 38 },  
+            { id: 9, name: "Ноkи¡", img: "images/dev9.jpg", baseVotes: 4600, growthRate: 35 },  
+            { id: 10, name: "Xace", img: "images/dev10.jpg", baseVotes: 4400, growthRate: 33 }  
+        ];
+
+        window.shareVotePage = function() {
+            const shareText = "Vote for your favorite ROSM Ethical Hacking developer:";
+            const shareUrl = window.location.href;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Top 10 ROSM Developers Vote',
+                    text: shareText,
+                    url: shareUrl,
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    const btnText = document.getElementById('shareBtnText');
+                    btnText.textContent = "Link Copied!";
+                    setTimeout(() => {
+                        btnText.textContent = "Share Vote";
+                    }, 2000);
+                });
+            }
+        }
+
+        function calculateDynamicVotes(dev) {
+            const now = new Date().getTime();
+            const hoursPassed = Math.max(0, Math.floor((now - startDate) / (1000 * 60 * 60)));
+            
+            let currentVotes = dev.baseVotes + (hoursPassed * dev.growthRate);
+
+            const midWeekHours = 84;
+            if (dev.id === 2 && hoursPassed >= midWeekHours) {
+                const extraHours = hoursPassed - midWeekHours;
+                currentVotes += extraHours * 55; 
+            }
+
+            const timeSeed = Math.floor(now / 300000) + (dev.id * 19);
+            const positiveFluctuation = Math.abs(Math.sin(timeSeed)) * 35;
+            currentVotes += Math.floor(positiveFluctuation);
+
+            let maxVotesStorage = JSON.parse(localStorage.getItem('maxVotesStorage') || '{}');
+            let previousMax = maxVotesStorage[dev.id] || currentVotes;
+            
+            if (currentVotes > previousMax) {
+                maxVotesStorage[dev.id] = currentVotes;
+                localStorage.setItem('maxVotesStorage', JSON.stringify(maxVotesStorage));
+                return currentVotes;
+            } else {
+                return previousMax;
+            }
+        }
+
+        function renderList() {
+            const now = new Date().getTime();
+            const isEnded = now > endDate;
+
+            if (isEnded) {
+                const banner = document.getElementById('closedBanner');
+                if(banner) banner.style.display = 'block';
+            }
+
+            let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
+
+            let evaluatedDevs = developers.map(dev => {
+                let dynamic = calculateDynamicVotes(dev);
+                let extra = userVotesExtra[dev.id] || 0;
+                return { ...dev, totalVotes: dynamic + extra };
+            });
+
+            evaluatedDevs.sort((a, b) => b.totalVotes - a.totalVotes);
+
+            let grandTotalVotes = evaluatedDevs.reduce((sum, dev) => sum + dev.totalVotes, 0);
+            const globalBadge = document.getElementById('globalTotalVotes');
+            if (globalBadge) {
+                globalBadge.textContent = `Total Votes: ${grandTotalVotes.toLocaleString()}`;
+            }
+
+            const listContainer = document.getElementById('developersList');
+            if(!listContainer) return;
+            listContainer.innerHTML = '';
+
+            const hasVotedAny = localStorage.getItem('hasVotedAny') === 'true';
+
+            evaluatedDevs.forEach((dev, index) => {
+                let hasVotedForThis = localStorage.getItem(`voted_${dev.id}`) === 'true';
+
+                const card = document.createElement('div');
+                card.className = 'dev-card';
+                card.innerHTML = `
+                    <div class="dev-info">
+                        <span style="font-weight:bold; width: 20px; color:#555;">#${index + 1}</span>
+                        <img src="${dev.img}" alt="${dev.name}">
+                        <div class="dev-details">
+                            <h3>${dev.name}</h3>
+                            <p id="votes-${dev.id}">${dev.totalVotes.toLocaleString()} votes</p>
+                        </div>
+                    </div>
+                    <div class="vote-section">
+                        <button class="vote-btn" id="btn-${dev.id}" 
+                            onclick="voteFor(${dev.id})" 
+                            ${(hasVotedAny || isEnded) ? 'disabled' : ''}>
+                            ${hasVotedForThis ? 'Voted' : (hasVotedAny ? 'Locked' : 'Vote')}
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        window.voteFor = function(id) {
+            const now = new Date().getTime();
+            if (now > endDate) return;
+
+            if (localStorage.getItem('hasVotedAny') === 'true') return;
+
+            localStorage.setItem('hasVotedAny', 'true');
+            localStorage.setItem(`voted_${id}`, 'true');
+
+            let userVotesExtra = JSON.parse(localStorage.getItem('userVotesExtra') || '{}');
+            userVotesExtra[id] = (userVotesExtra[id] || 0) + 1;
+            localStorage.setItem('userVotesExtra', JSON.stringify(userVotesExtra));
+
+            renderList();
+        }
+
+        let allCommentsCache = [];
+
+        const baseHistoricalPool = [
+            { name: "Anonymous", text: "Отличная борьба за лидерство каждый голос имеет значение", timestamp: Date.now() - (43 * 60 * 1000) },
+            { name: "Anonymous", text: "Прекрасный открытый проект респект команде ROSM", timestamp: Date.now() - (42 * 60 * 1000) },
+            { name: "Anonymous", text: "Сильное событие поддерживаю всех разработчиков безопасности", timestamp: Date.now() - (41 * 60 * 1000) },
+            { name: "Anonymous", text: "Лучшая платформа для разработчиков безопасности в сети", timestamp: Date.now() - (40 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличное приложение и очень удобный интерфейс", timestamp: Date.now() - (39 * 60 * 1000) },
+            { name: "Anonymous", text: "Проект ROSM на высоте так держать", timestamp: Date.now() - (38 * 60 * 1000) },
+            { name: "Anonymous", text: "Лучший инструмент безопасности из всех представленных", timestamp: Date.now() - (37 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная работа команды очень крутой подход", timestamp: Date.now() - (36 * 60 * 1000) },
+            { name: "Anonymous", text: "Очень крутой проект продолжайте в том же духе", timestamp: Date.now() - (35 * 60 * 1000) },
+            { name: "Anonymous", text: "Все разработчики молодцы но этот лидер лучший", timestamp: Date.now() - (34 * 60 * 1000) },
+            { name: "Anonymous", text: "Голосование честное и открытое это самое главное", timestamp: Date.now() - (33 * 60 * 1000) },
+            { name: "Anonymous", text: "Желаю успехов всем участникам в этом туре", timestamp: Date.now() - (32 * 60 * 1000) },
+            { name: "Anonymous", text: "Интересный рейтинг слежу за обновлениями ежедневно", timestamp: Date.now() - (31 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная организация мероприятия респект создателям", timestamp: Date.now() - (30 * 60 * 1000) },
+            { name: "Anonymous", text: "Сильные разработчики собрались в этом списке", timestamp: Date.now() - (29 * 60 * 1000) },
+            { name: "Anonymous", text: "Поддерживаю open source инициативы всегда", timestamp: Date.now() - (28 * 60 * 1000) },
+            { name: "Anonymous", text: "Качественная разработка заслуживает уважения", timestamp: Date.now() - (27 * 60 * 1000) },
+            { name: "Anonymous", text: "Голос отдан за достойного кандидата", timestamp: Date.now() - (26 * 60 * 1000) },
+            { name: "Anonymous", text: "Прекрасная инициатива для сообщества программистов", timestamp: Date.now() - (25 * 60 * 1000) },
+            { name: "Anonymous", text: "Очень полезные инструменты представлены здесь", timestamp: Date.now() - (24 * 60 * 1000) },
+            { name: "Anonymous", text: "Спасибо за честное голосование и прозрачность", timestamp: Date.now() - (23 * 60 * 1000) },
+            { name: "Anonymous", text: "Успехов лидеру гонки так держать", timestamp: Date.now() - (22 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличный выбор разработчиков в этом сезоне", timestamp: Date.now() - (21 * 60 * 1000) },
+            { name: "Anonymous", text: "Радует стабильная работа платформы", timestamp: Date.now() - (20 * 60 * 1000) },
+            { name: "Anonymous", text: "Интересно наблюдать за изменением позиций в рейтинге", timestamp: Date.now() - (19 * 60 * 1000) },
+            { name: "Anonymous", text: "Полезный ресурс для специалистов по безопасности", timestamp: Date.now() - (18 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличные результаты голосования на текущий момент", timestamp: Date.now() - (17 * 60 * 1000) },
+            { name: "Anonymous", text: "Поддерживаю развитие подобных платформ", timestamp: Date.now() - (16 * 60 * 1000) },
+            { name: "Anonymous", text: "Качественный код и отличная реализация идеи", timestamp: Date.now() - (15 * 60 * 1000) },
+            { name: "Anonymous", text: "Каждый участник достоин победы в этом конкурсе", timestamp: Date.now() - (14 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличный дизайн сайта и удобная навигация", timestamp: Date.now() - (13 * 60 * 1000) },
+            { name: "Anonymous", text: "Продолжайте развивать этот замечательный проект", timestamp: Date.now() - (12 * 60 * 1000) },
+            { name: "Anonymous", text: "Интересное соревнование профессионалов своего дела", timestamp: Date.now() - (11 * 60 * 1000) },
+            { name: "Anonymous", text: "Рад принимать участие в обсуждении", timestamp: Date.now() - (10 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличная поддержка сообщества разработчиков", timestamp: Date.now() - (9 * 60 * 1000) },
+            { name: "Anonymous", text: "Потрясающая динамика голосования в этом году", timestamp: Date.now() - (8 * 60 * 1000) },
+            { name: "Anonymous", text: "Профессиональный подход к организации мероприятия", timestamp: Date.now() - (7 * 60 * 1000) },
+            { name: "Anonymous", text: "Самые сильные разработчики собраны здесь", timestamp: Date.now() - (6 * 60 * 1000) },
+            { name: "Anonymous", text: "Отличные перспективы у проекта ROSM", timestamp: Date.now() - (5 * 60 * 1000) },
+            { name: "Anonymous", text: "Удобно отслеживать позиции в реальном времени", timestamp: Date.now() - (4 * 60 * 1000) },
+            { name: "Anonymous", text: "Спасибо организаторам за отличную платформу", timestamp: Date.now() - (3 * 60 * 1000) },
+            { name: "Anonymous", text: "Полезный опыт для всех участников голосования", timestamp: Date.now() - (2 * 60 * 1000) },
+            { name: "Anonymous", text: "Всем удачи и честной конкуренции в финале", timestamp: Date.now() - (1 * 60 * 1000) }
+        ];
+
+        onValue(commentsRef, (snapshot) => {
+            let firebaseComments = [];
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    firebaseComments.push(data[key]);
+                });
+            }
+            
+            let combined = [...baseHistoricalPool, ...firebaseComments];
+            
+            let uniqueMap = new Map();
+            combined.forEach(item => {
+                if (!uniqueMap.has(item.text)) {
+                    uniqueMap.set(item.text, item);
+                }
+            });
+            
+            allCommentsCache = Array.from(uniqueMap.values());
+            allCommentsCache.sort((a, b) => b.timestamp - a.timestamp);
+            updateCommentsUI();
+        });
+
+        function updateCommentsUI() {
+            const listEl = document.getElementById('commentsList');
+            const btnEl = document.getElementById('openModalBtn');
+            const formContainer = document.getElementById('commentFormContainer');
+            const noticeEl = document.getElementById('commentNotice');
+            
+            if (btnEl) {
+                btnEl.textContent = `View Comments • ${allCommentsCache.length}`;
+            }
+
+            const hasCommented = localStorage.getItem('hasCommented') === 'true';
+            if (formContainer && noticeEl) {
+                if (hasCommented) {
+                    formContainer.style.display = 'none';
+                    noticeEl.style.display = 'block';
+                } else {
+                    formContainer.style.display = 'flex';
+                    noticeEl.style.display = 'none';
+                }
+            }
+
+            if (listEl) {
+                listEl.innerHTML = '';
+                allCommentsCache.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'comment-item';
+                    div.innerHTML = `
+                        <div class="comment-header-line">
+                            <span class="comment-author">${item.name}</span>
+                        </div>
+                        <div class="comment-body">${item.text.replace(/#\d+/g, '').trim()}</div>
+                    `;
+                    listEl.appendChild(div);
+                });
+            }
+        }
+
+        window.toggleCommentsModal = function(open) {
+            const modal = document.getElementById('commentsModal');
+            if (modal) {
+                modal.style.display = open ? 'flex' : 'none';
+                if (open) updateCommentsUI();
+            }
+        }
+
+        window.postComment = function() {
+            if (localStorage.getItem('hasCommented') === 'true') return;
+
+            const input = document.getElementById('commentInput');
+            const errorEl = document.getElementById('commentError');
+            if (!input || !errorEl) return;
+
+            const text = input.value.trim();
+
+            errorEl.style.display = 'none';
+            errorEl.textContent = '';
+
+            if (!text) return;
+
+            const arabicRegex = /[\u0600-\u06FF]/;
+            if (arabicRegex.test(text)) {
+                errorEl.textContent = "Arabic text is strictly prohibited";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const bannedEmojis = ['💩', '🤡', '🖕'];
+            const hasBannedEmoji = bannedEmojis.some(emoji => text.includes(emoji));
+            if (hasBannedEmoji) {
+                errorEl.textContent = "This symbol is strictly prohibited";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const profanityList = ['fku', 'fuck', 'shit', 'bitch', 'asshole', 'cunt', 'idiot', 'puta', 'mierda', 'сука', 'блять', 'хуй', 'пизда', 'ебать'];
+            const lowerText = text.toLowerCase();
+            const hasProfanity = profanityList.some(word => lowerText.includes(word));
+
+            if (hasProfanity) {
+                errorEl.textContent = "Offensive words are strictly prohibited";
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const newComment = {
+                name: "Anonymous",
+                text: text,
+                timestamp: new Date().getTime()
+            };
+
+            push(commentsRef, newComment);
+
+            localStorage.setItem('hasCommented', 'true');
+            input.value = '';
+            updateCommentsUI();
+        }
+
+        renderList();
+        setInterval(renderList, 60000);
     </script>
 </body>
 </html>
