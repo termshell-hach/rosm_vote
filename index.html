@@ -672,7 +672,7 @@
         let allCommentsCache = [];
 
         const baseHistoricalPool = [
-            // Russian Comments about site and competition (1-70)
+            // [Russian Pool - Set 1]
             { name: "Anonymous", text: "Этот сайт ROSM устроен великолепно, очень удобный интерфейс для голосования", timestamp: Date.now() - (400 * 60 * 1000) },
             { name: "Anonymous", text: "Конкуренция между разработчиками кибербезопасности здесь просто безумная", timestamp: Date.now() - (395 * 60 * 1000) },
             { name: "Anonymous", text: "Платформа работает стабильно, таблица лидеров обновляется молниеносно", timestamp: Date.now() - (390 * 60 * 1000) },
@@ -744,7 +744,7 @@
             { name: "Anonymous", text: "Надежная платформа с честным алгоритмом подсчета голосов", timestamp: Date.now() - (60 * 60 * 1000) },
             { name: "Anonymous", text: "Этот турнир разработчиков стал легендарным в сообществе", timestamp: Date.now() - (55 * 60 * 1000) },
 
-            // English Comments about site and competition (71-140)
+            // [English Pool - Set 1]
             { name: "Anonymous", text: "This ROSM voting platform is amazingly well built and very smooth", timestamp: Date.now() - (398 * 60 * 1000) },
             { name: "Anonymous", text: "The competition among cybersecurity developers here is absolutely insane", timestamp: Date.now() - (393 * 60 * 1000) },
             { name: "Anonymous", text: "The website runs stably and the live leaderboard updates instantly", timestamp: Date.now() - (388 * 60 * 1000) },
@@ -816,7 +816,7 @@
             { name: "Anonymous", text: "A reliable platform featuring a fair vote counting algorithm", timestamp: Date.now() - (58 * 60 * 1000) },
             { name: "Anonymous", text: "This developer tournament became legendary in the community", timestamp: Date.now() - (53 * 60 * 1000) },
 
-            // Spanish Comments about site and competition (141-200)
+            // [Spanish Pool - Set 1]
             { name: "Anonymous", text: "Esta plataforma de votacion ROSM esta increiblemente bien hecha", timestamp: Date.now() - (396 * 60 * 1000) },
             { name: "Anonymous", text: "La competencia entre desarrolladores de ciberseguridad es brutal", timestamp: Date.now() - (391 * 60 * 1000) },
             { name: "Anonymous", text: "El sitio web funciona muy estable y la tabla se actualiza al instante", timestamp: Date.now() - (386 * 60 * 1000) },
@@ -886,7 +886,24 @@
             { name: "Anonymous", text: "Cada elemento visual esta en su lugar correcto, excelente", timestamp: Date.now() - (66 * 60 * 1000) },
             { name: "Anonymous", text: "La batalla por el liderazgo llego a su punto mas intenso", timestamp: Date.now() - (61 * 60 * 1000) },
             { name: "Anonymous", text: "Una plataforma confiable con un algoritmo de votos justo", timestamp: Date.now() - (56 * 60 * 1000) },
-            { name: "Anonymous", text: "Este torneo de desarrolladores ya es legendario", timestamp: Date.now() - (51 * 60 * 1000) }
+            { name: "Anonymous", text: "Este torneo de desarrolladores ya es legendario", timestamp: Date.now() - (51 * 60 * 1000) },
+
+            // [500 Additional Extended Comments Pool - EN / RU / ES Expansion]
+            ...Array.from({ length: 500 }, (_, i) => {
+                const types = [
+                    { lang: 'en', text: `Extra community note #${i + 1}: The performance of all developers in this round is astonishingly high.` },
+                    { lang: 'ru', text: `Дополнительный отзыв #${i + 1}: Наблюдать за этой кибернетической гонкой невероятно интересно.` },
+                    { lang: 'es', text: `Comentario adicional #${i + 1}: La transparencia de este sistema de votacion es impecable.` },
+                    { lang: 'en', text: `System feedback #${i + 1}: Security protocols and site speed are working at full throttle.` },
+                    { lang: 'ru', text: `Мнение эксперта #${i + 1}: ROSM задает планку качества для всех открытых платформ.` }
+                ];
+                const selected = types[i % types.length];
+                return {
+                    name: "Anonymous",
+                    text: selected.text,
+                    timestamp: Date.now() - ((500 - i) * 30 * 1000)
+                };
+            })
         ];
 
         onValue(commentsRef, (snapshot) => {
