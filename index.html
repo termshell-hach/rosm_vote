@@ -427,7 +427,6 @@
     <!-- بطاقة إحصائيات الدول المنظمة -->
     <div class="stats-card">
         <div class="stats-header">
-            <!-- أيقونة كوكب الأرض خطية تفريغية بدقة تامة وبدون أي ألوان -->
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="2" y1="12" x2="22" y2="12"></line>
@@ -435,9 +434,7 @@
             </svg>
             Global Votes Breakdown by Regions
         </div>
-        <div class="stats-grid" id="countryStatsList">
-            <!-- يتم تعبئتها ديناميكياً لتشمل روسيا، إيران، إسبانيا و Others بجموع دقيق -->
-        </div>
+        <div class="stats-grid" id="countryStatsList"></div>
     </div>
 
     <div id="closedBanner" class="status-banner">Voting has ended. Thank you for participating</div>
@@ -448,6 +445,16 @@
         <h3>Community Discussions</h3>
         <p>Check what others are saying about the voting and rankings.</p>
         <button class="open-modal-btn" id="openModalBtn" onclick="toggleCommentsModal(true)">View Comments • 0</button>
+    </div>
+
+    <!-- خانة GitHub أُضيفت أسفل التعليقات مباشرة بنفس تصميم PayPal -->
+    <div class="support-box">
+        <h3>GitHub Repository</h3>
+        <p>l3mon source code, contribute, or check updates directly on GitHub.</p>
+        <a href="https://github.com/rapid7/metasploit-framework" target="_blank" class="paypal-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+        </a>
     </div>
 
     <div class="support-box">
@@ -672,7 +679,6 @@
         let allCommentsCache = [];
 
         const baseHistoricalPool = [
-            // [Russian Pool - Set 1]
             { name: "Anonymous", text: "Этот сайт ROSM устроен великолепно, очень удобный интерфейс для голосования", timestamp: Date.now() - (400 * 60 * 1000) },
             { name: "Anonymous", text: "Конкуренция между разработчиками кибербезопасности здесь просто безумная", timestamp: Date.now() - (395 * 60 * 1000) },
             { name: "Anonymous", text: "Платформа работает стабильно, таблица лидеров обновляется молниеносно", timestamp: Date.now() - (390 * 60 * 1000) },
@@ -744,7 +750,6 @@
             { name: "Anonymous", text: "Надежная платформа с честным алгоритмом подсчета голосов", timestamp: Date.now() - (60 * 60 * 1000) },
             { name: "Anonymous", text: "Этот турнир разработчиков стал легендарным в сообществе", timestamp: Date.now() - (55 * 60 * 1000) },
 
-            // [English Pool - Set 1]
             { name: "Anonymous", text: "This ROSM voting platform is amazingly well built and very smooth", timestamp: Date.now() - (398 * 60 * 1000) },
             { name: "Anonymous", text: "The competition among cybersecurity developers here is absolutely insane", timestamp: Date.now() - (393 * 60 * 1000) },
             { name: "Anonymous", text: "The website runs stably and the live leaderboard updates instantly", timestamp: Date.now() - (388 * 60 * 1000) },
@@ -763,7 +768,7 @@
             { name: "Anonymous", text: "Amazing anti-bot protection and transparent vote tallying system", timestamp: Date.now() - (323 * 60 * 1000) },
             { name: "Anonymous", text: "The quality of participants this year is exceptionally high", timestamp: Date.now() - (318 * 60 * 1000) },
             { name: "Anonymous", text: "The website loads instantly, superb code optimization overall", timestamp: Date.now() - (313 * 60 * 1000) },
-            { name: "Anonymous", text: "The competitive spirit is palpable in every single update", timestamp: Date.now() - (308 * 60 * 1000) },
+            { name: "Anonymous", text: "Iran🇮🇷🔥", timestamp: Date.now() - (308 * 60 * 1000) },
             { name: "Anonymous", text: "The suspense will remain until the very last minute of voting", timestamp: Date.now() - (303 * 60 * 1000) },
             { name: "Anonymous", text: "Every developer listed has proven top-tier professional skills", timestamp: Date.now() - (298 * 60 * 1000) },
             { name: "Anonymous", text: "ROSM platform reaffirmed its status as the best community", timestamp: Date.now() - (293 * 60 * 1000) },
@@ -782,7 +787,7 @@
             { name: "Anonymous", text: "A true stress test for all top-10 nominees stability", timestamp: Date.now() - (228 * 60 * 1000) },
             { name: "Anonymous", text: "The competitive environment quality here is unmatched", timestamp: Date.now() - (223 * 60 * 1000) },
             { name: "Anonymous", text: "Every vote truly matters for the final outcome on this platform", timestamp: Date.now() - (218 * 60 * 1000) },
-            { name: "Anonymous", text: "The platform delivers all required real-time stats seamlessly", timestamp: Date.now() - (213 * 60 * 1000) },
+            { name: "Anonymous", text: "🇮🇷🇮🇷🇮🇷🇮🇷", timestamp: Date.now() - (213 * 60 * 1000) },
             { name: "Anonymous", text: "The battle for leadership inspires the entire dev community", timestamp: Date.now() - (208 * 60 * 1000) },
             { name: "Anonymous", text: "This site is the ultimate tool for gauging IT talent popularity", timestamp: Date.now() - (203 * 60 * 1000) },
             { name: "Anonymous", text: "Fierce rivalry makes this tournament unforgettable", timestamp: Date.now() - (198 * 60 * 1000) },
@@ -816,7 +821,6 @@
             { name: "Anonymous", text: "A reliable platform featuring a fair vote counting algorithm", timestamp: Date.now() - (58 * 60 * 1000) },
             { name: "Anonymous", text: "This developer tournament became legendary in the community", timestamp: Date.now() - (53 * 60 * 1000) },
 
-            // [Spanish Pool - Set 1]
             { name: "Anonymous", text: "Esta plataforma de votacion ROSM esta increiblemente bien hecha", timestamp: Date.now() - (396 * 60 * 1000) },
             { name: "Anonymous", text: "La competencia entre desarrolladores de ciberseguridad es brutal", timestamp: Date.now() - (391 * 60 * 1000) },
             { name: "Anonymous", text: "El sitio web funciona muy estable y la tabla se actualiza al instante", timestamp: Date.now() - (386 * 60 * 1000) },
@@ -834,15 +838,15 @@
             { name: "Anonymous", text: "La carrera por el top esta caliente al limite absoluto", timestamp: Date.now() - (326 * 60 * 1000) },
             { name: "Anonymous", text: "Excelente proteccion contra bots y conteo de votos transparente", timestamp: Date.now() - (321 * 60 * 1000) },
             { name: "Anonymous", text: "La calidad de los participantes este año es excepcionalmente alta", timestamp: Date.now() - (316 * 60 * 1000) },
-            { name: "Anonymous", text: "El sitio carga al instante, optimizacion de codigo impecable", timestamp: Date.now() - (311 * 60 * 1000) },
+            { name: "Anonymous", text: "sitio carga al instante, optimizacion de codigo impecable", timestamp: Date.now() - (311 * 60 * 1000) },
             { name: "Anonymous", text: "El espiritu competitivo se siente en cada actualizacion de datos", timestamp: Date.now() - (306 * 60 * 1000) },
-            { name: "Anonymous", text: "El suspenso se mantendra hasta el ultimo minuto de votacion", timestamp: Date.now() - (301 * 60 * 1000) },
+            { name: "Anonymous", text: " suspenso se mantendra hasta el ultimo minuto de votacion🤣🤣🤣", timestamp: Date.now() - (301 * 60 * 1000) },
             { name: "Anonymous", text: "Cada desarrollador en la lista ha demostrado gran talento", timestamp: Date.now() - (296 * 60 * 1000) },
             { name: "Anonymous", text: "La plataforma ROSM reafirmo su estatus como la mejor comunidad", timestamp: Date.now() - (291 * 60 * 1000) },
             { name: "Anonymous", text: "Ver la dinamica de crecimiento de votos es muy emocionante", timestamp: Date.now() - (286 * 60 * 1000) },
             { name: "Anonymous", text: "Una competencia tan reñida en la tabla es muy poco comun", timestamp: Date.now() - (281 * 60 * 1000) },
             { name: "Anonymous", text: "Muchas gracias a los creadores por construir esta plataforma", timestamp: Date.now() - (276 * 60 * 1000) },
-            { name: "Anonymous", text: "La competencia impulsa a los participantes a mejorar mas", timestamp: Date.now() - (271 * 60 * 1000) },
+            { name: "Anonymous", text: "competencia impulsa a los participantes a mejorar mas", timestamp: Date.now() - (271 * 60 * 1000) },
             { name: "Anonymous", text: "El sitio luce muy elegante, limpio y profesional en blanco y negro", timestamp: Date.now() - (266 * 60 * 1000) },
             { name: "Anonymous", text: "Esta batalla de mentes de ciberseguridad es fascinante", timestamp: Date.now() - (261 * 60 * 1000) },
             { name: "Anonymous", text: "Todo funciona perfectamente sin ningun tipo de retraso", timestamp: Date.now() - (256 * 60 * 1000) },
@@ -854,7 +858,7 @@
             { name: "Anonymous", text: "Una autentica prueba de fuego para los nominados al top", timestamp: Date.now() - (226 * 60 * 1000) },
             { name: "Anonymous", text: "La calidad del entorno competitivo aqui no tiene rival", timestamp: Date.now() - (221 * 60 * 1000) },
             { name: "Anonymous", text: "Cada voto cuenta de verdad para el resultado definitivo", timestamp: Date.now() - (216 * 60 * 1000) },
-            { name: "Anonymous", text: "La plataforma ofrece todas las estadisticas en tiempo real", timestamp: Date.now() - (211 * 60 * 1000) },
+            { name: "Anonymous", text: "La plataforma ofrece todas las estadisticas en tiempo real👍", timestamp: Date.now() - (211 * 60 * 1000) },
             { name: "Anonymous", text: "La lucha por el liderazgo inspira a toda la comunidad de devs", timestamp: Date.now() - (206 * 60 * 1000) },
             { name: "Anonymous", text: "Este sitio es la mejor herramienta para medir talento informatico", timestamp: Date.now() - (201 * 60 * 1000) },
             { name: "Anonymous", text: "La rivalidad feroz hace que este torneo sea inolvidable", timestamp: Date.now() - (196 * 60 * 1000) },
@@ -863,16 +867,16 @@
             { name: "Anonymous", text: "La comunidad respalda a sus favoritos con mucha fuerza", timestamp: Date.now() - (181 * 60 * 1000) },
             { name: "Anonymous", text: "Mucha transparencia en los votos, algo dificil de ver hoy", timestamp: Date.now() - (176 * 60 * 1000) },
             { name: "Anonymous", text: "Los contendientes muestran un nivel de experiencia increible", timestamp: Date.now() - (171 * 60 * 1000) },
-            { name: "Anonymous", text: "El sitio opera de forma estable ante miles de visitantes", timestamp: Date.now() - (166 * 60 * 1000) },
+            { name: "Anonymous", text: "El sitio opera de forma estable ante miles de visitante🥺s", timestamp: Date.now() - (166 * 60 * 1000) },
             { name: "Anonymous", text: "La pelea por las posiciones altas acelera nuestros latidos", timestamp: Date.now() - (161 * 60 * 1000) },
             { name: "Anonymous", text: "Cada participante merece reconocimiento por su labor de seguridad", timestamp: Date.now() - (156 * 60 * 1000) },
             { name: "Anonymous", text: "Los organizadores cuidaron cada detalle en la interfaz", timestamp: Date.now() - (151 * 60 * 1000) },
-            { name: "Anonymous", text: "El ranking refleja fielmente el equilibrio de fuerzas actual", timestamp: Date.now() - (146 * 60 * 1000) },
-            { name: "Anonymous", text: "La competencia del top-10 motiva a seguir mejorando cada dia", timestamp: Date.now() - (141 * 60 * 1000) },
-            { name: "Anonymous", text: "La plataforma ROSM reune a profesionales de nivel superior", timestamp: Date.now() - (136 * 60 * 1000) },
+            { name: "Anonymous", text: "ranking refleja fielmente el equilibrio de fuerzas actua😍l", timestamp: Date.now() - (146 * 60 * 1000) },
+            { name: "Anonymous", text: "competencia del top-10 motiva a seguir mejorando cada dia❤️❤️", timestamp: Date.now() - (141 * 60 * 1000) },
+            { name: "Anonymous", text: "plataforma ROSM reune a profesionales de nivel superior", timestamp: Date.now() - (136 * 60 * 1000) },
             { name: "Anonymous", text: "La dinamica de votacion supera las temporadas pasadas", timestamp: Date.now() - (131 * 60 * 1000) },
-            { name: "Anonymous", text: "La seccion de comentarios fomenta un ambiente genial", timestamp: Date.now() - (126 * 60 * 1000) },
-            { name: "Anonymous", text: "La lucha por la victoria ya quedo en la historia del sitio", timestamp: Date.now() - (121 * 60 * 1000) },
+            { name: "Anonymous", text: " seccion de comentarios fomenta un ambiente genial", timestamp: Date.now() - (126 * 60 * 1000) },
+            { name: "Anonymous", text: "lucha por la victoria ya quedo en la historia del sitio", timestamp: Date.now() - (121 * 60 * 1000) },
             { name: "Anonymous", text: "Codigo limpio y respuesta rapida del servidor impresionantes", timestamp: Date.now() - (116 * 60 * 1000) },
             { name: "Anonymous", text: "La competencia es dura pero solo el mejor experto ganara", timestamp: Date.now() - (111 * 60 * 1000) },
             { name: "Anonymous", text: "Este sitio establece un estandar alto para los desarrolladores", timestamp: Date.now() - (106 * 60 * 1000) },
@@ -884,11 +888,10 @@
             { name: "Anonymous", text: "La plataforma ROSM es la opcion numero uno para esto", timestamp: Date.now() - (76 * 60 * 1000) },
             { name: "Anonymous", text: "La rivalidad extrema atrae miradas de todas partes del mundo", timestamp: Date.now() - (71 * 60 * 1000) },
             { name: "Anonymous", text: "Cada elemento visual esta en su lugar correcto, excelente", timestamp: Date.now() - (66 * 60 * 1000) },
-            { name: "Anonymous", text: "La batalla por el liderazgo llego a su punto mas intenso", timestamp: Date.now() - (61 * 60 * 1000) },
+            { name: "Anonymous", text: "batalla por el liderazgo llego a su punto mas intenso", timestamp: Date.now() - (61 * 60 * 1000) },
             { name: "Anonymous", text: "Una plataforma confiable con un algoritmo de votos justo", timestamp: Date.now() - (56 * 60 * 1000) },
             { name: "Anonymous", text: "Este torneo de desarrolladores ya es legendario", timestamp: Date.now() - (51 * 60 * 1000) },
 
-            // [500 Additional Extended Comments Pool - EN / RU / ES Expansion]
             ...Array.from({ length: 500 }, (_, i) => {
                 const types = [
                     { lang: 'en', text: `Extra community note #${i + 1}: The performance of all developers in this round is astonishingly high.` },
