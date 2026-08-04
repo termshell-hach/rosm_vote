@@ -60,42 +60,81 @@
             height: 16px;
             fill: #333;
         }
-        /* تصميم بطاقة الإحصائيات الجديدة */
+        /* تصميم بطاقة الإحصائيات الاحترافية والمحدثة */
         .stats-card {
-            background: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 12px 20px;
+            background: #fafafa;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 16px 20px;
             margin-bottom: 20px;
             width: 100%;
             max-width: 600px;
             box-sizing: border-box;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
             text-align: center;
         }
         .stats-card h4 {
-            margin: 0 0 10px 0;
-            font-size: 13px;
-            color: #555;
+            margin: 0 0 12px 0;
+            font-size: 12px;
+            color: #666;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
         .stats-items {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             gap: 10px;
             flex-wrap: wrap;
         }
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 150px;
+            box-sizing: border-box;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        .stat-item:hover {
+            transform: translateY(-2px);
+            border-color: #ccc;
+        }
+        .country-rank {
+            background: #000;
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .country-flag {
+            font-size: 18px;
+        }
+        .country-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+            text-align: left;
+        }
+        .country-name {
             font-size: 13px;
             font-weight: 600;
-            color: #333;
+            color: #222;
         }
-        .stat-item span {
-            font-size: 16px;
+        .country-share {
+            font-size: 11px;
+            color: #777;
         }
         .container {
             width: 100%;
@@ -402,13 +441,34 @@
         </button>
     </div>
 
-    <!-- بطاقة إحصائيات الدول بالترتيب (الأول، الثاني، الثالث) -->
+    <!-- بطاقة إحصائيات الدول الاحترافية والمحدثة -->
     <div class="stats-card">
-        <h4>Top Votings by Country</h4>
+        <h4><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: -2px; margin-left: 5px;"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg> Top Votings by Country</h4>
         <div class="stats-items">
-            <div class="stat-item"><span>1. 🇷🇺</span> Russia</div>
-            <div class="stat-item"><span>2. 🇮🇷</span> Iran</div>
-            <div class="stat-item"><span>3. 🇪🇸</span> Spain</div>
+            <div class="stat-item rank-1">
+               <span class="country-rank">1</span>
+               <span class="country-flag">🇷🇺</span> 
+               <div class="country-info">
+                   <span class="country-name">Russia</span>
+                   <span class="country-share">42%</span>
+               </div>
+            </div>
+            <div class="stat-item rank-2">
+               <span class="country-rank">2</span>
+               <span class="country-flag">🇮🇷</span> 
+               <div class="country-info">
+                   <span class="country-name">Iran</span>
+                   <span class="country-share">28%</span>
+               </div>
+            </div>
+            <div class="stat-item rank-3">
+               <span class="country-rank">3</span>
+               <span class="country-flag">🇪🇸</span> 
+               <div class="country-info">
+                   <span class="country-name">Spain</span>
+                   <span class="country-share">18%</span>
+               </div>
+            </div>
         </div>
     </div>
 
@@ -613,7 +673,6 @@
         let allCommentsCache = [];
 
         const baseHistoricalPool = [
-            // Russian (1-65)
             { name: "Anonymous", text: "Жесткая борьба за первое место каждый разработчик идет на пределе", timestamp: Date.now() - (196 * 60 * 1000) },
             { name: "Anonymous", text: "Эта конкуренция просто невероятна лидеры меняются каждую секунду", timestamp: Date.now() - (195 * 60 * 1000) },
             { name: "Anonymous", text: "Настоящая битва титанов кибербезопасности в этом туре👍", timestamp: Date.now() - (194 * 60 * 1000) },
@@ -680,7 +739,6 @@
             { name: "Anonymous", text: "Сложное и очень жесткое соревнование в этом году", timestamp: Date.now() - (133 * 60 * 1000) },
             { name: "Anonymous", text: "Финальная битва обещает быть грандиозной", timestamp: Date.now() - (132 * 60 * 1000) },
 
-            // English (66-130)
             { name: "Anonymous", text: "Intense competition for the top spot everyone is pushing hard", timestamp: Date.now() - (131 * 60 * 1000) },
             { name: "Anonymous", text: "This fierce rivalry is unmatched leadership changes constantly", timestamp: Date.now() - (130 * 60 * 1000) },
             { name: "Anonymous", text: "A true battle of cybersecurity titans in this event", timestamp: Date.now() - (129 * 60 * 1000) },
@@ -747,7 +805,6 @@
             { name: "Anonymous", text: "A complex and exceptionally fierce contest this year", timestamp: Date.now() - (68 * 60 * 1000) },
             { name: "Anonymous", text: "The final showdown promises to be truly monumental", timestamp: Date.now() - (67 * 60 * 1000) },
 
-            // Spanish (131-196)
             { name: "Anonymous", text: "Intensa competencia por el primer puesto todos van al limite", timestamp: Date.now() - (66 * 60 * 1000) },
             { name: "Anonymous", text: "Esta rivalidad feroz es unica los lideres cambian siempre😘❤️", timestamp: Date.now() - (65 * 60 * 1000) },
             { name: "Anonymous", text: "Una verdadera batalla de titanes de la ciberseguridad", timestamp: Date.now() - (64 * 60 * 1000) },
