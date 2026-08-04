@@ -32,7 +32,7 @@
         .top-actions {
             display: flex;
             gap: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -60,12 +60,12 @@
             height: 16px;
             fill: #333;
         }
-        /* بطاقة إحصائيات الدول بالأرقام الحقيقية بدلاً من النسب */
+        /* بطاقة إحصائيات الدول المنظمة الجديدة */
         .stats-card {
             background: #f9f9f9;
             border: 1px solid #e0e0e0;
             border-radius: 10px;
-            padding: 12px 18px;
+            padding: 14px 18px;
             margin-bottom: 20px;
             width: 100%;
             max-width: 600px;
@@ -74,19 +74,21 @@
         }
         .stats-header {
             font-size: 13px;
-            color: #555;
+            color: #444;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
         }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 10px;
         }
-        @media (max-width: 500px) {
+        @media (max-width: 520px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -94,18 +96,32 @@
         .stat-item {
             background: #ffffff;
             border: 1px solid #eaeaea;
-            padding: 6px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #333;
+            padding: 10px 8px;
+            border-radius: 8px;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.01);
+            transition: transform 0.15s ease;
         }
-        .stat-item span {
-            font-weight: bold;
+        .stat-item:hover {
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
+        }
+        .stat-country {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #555;
+            font-weight: 500;
+        }
+        .stat-item span.count {
+            font-weight: 700;
             color: #111;
+            font-size: 13px;
         }
         .container {
             width: 100%;
@@ -412,14 +428,18 @@
         </button>
     </div>
 
-    <!-- بطاقة إحصائيات الدول بالأرقام الإجمالية الحقيقية المتناسقة مع إجمالي الأصوات -->
+    <!-- بطاقة إحصائيات الدول المنظمة بالأيقونة التقنية الجديدة -->
     <div class="stats-card">
         <div class="stats-header">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            Votes by Country
+            <!-- أيقونة شبكة وتوزيع تقنية بديلة للكرة الأرضية -->
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            Global Votes Breakdown by Region
         </div>
         <div class="stats-grid" id="countryStatsList">
-            <!-- يتم تعبئتها ديناميكياً بأرقام الأصوات -->
+            <!-- يتم تعبئتها ديناميكياً -->
         </div>
     </div>
 
@@ -549,7 +569,6 @@
         }
 
         function updateCountryStats(grandTotal) {
-            // توزيع إجمالي الأصوات الحقيقي على الدول بناءً على النسب الثابتة تقريبياً لتجنب الاختلافات العشوائية الحادة
             let vRussia = Math.floor(grandTotal * 0.42);
             let vIran = Math.floor(grandTotal * 0.28);
             let vSpain = Math.floor(grandTotal * 0.18);
@@ -558,10 +577,22 @@
             const statsListEl = document.getElementById('countryStatsList');
             if (statsListEl) {
                 statsListEl.innerHTML = `
-                    <div class="stat-item">🇷🇺 Russia<span>${vRussia.toLocaleString()}</span></div>
-                    <div class="stat-item">🇮🇷 Iran<span>${vIran.toLocaleString()}</span></div>
-                    <div class="stat-item">🇪🇸 Spain<span>${vSpain.toLocaleString()}</span></div>
-                    <div class="stat-item">🌐 Other<span>${vOther.toLocaleString()}</span></div>
+                    <div class="stat-item">
+                        <div class="stat-country">🇷🇺 Russia</div>
+                        <span class="count">${vRussia.toLocaleString()}</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-country">🇮🇷 Iran</div>
+                        <span class="count">${vIran.toLocaleString()}</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-country">🇪🇸 Spain</div>
+                        <span class="count">${vSpain.toLocaleString()}</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-country">🌐 Other</div>
+                        <span class="count">${vOther.toLocaleString()}</span>
+                    </div>
                 `;
             }
         }
@@ -839,9 +870,7 @@
             { name: "Anonymous", text: "Ganar en medio de tal competencia no tiene precio", timestamp: Date.now() - (6 * 60 * 1000) },
             { name: "Anonymous", text: "Saltos rapidos de rating prueban la pasion intensa", timestamp: Date.now() - (5 * 60 * 1000) },
             { name: "Anonymous", text: "Lucha sin concesiones de las mejores mentes comunitarias", timestamp: Date.now() - (4 * 60 * 1000) },
-            { name: "Anonymous", text: "Un concurso complejo y excepcionalmente feroz hoy", timestamp: Date.now() - (3 * 60 * 1000) },
-            { name: "Anonymous", text: "El enfrentamiento final promete ser algo monumental", timestamp: Date.now() - (2 * 60 * 1000) },
-            { name: "Anonymous", text: "Cierre epico de votaciones с maxima tension", timestamp: Date.now() - (1 * 60 * 1000) }
+            { name: "Anonymous", text: "Anuncio de cierre y maxima tension acumulada", timestamp: Date.now() - (3 * 60 * 1000) }
         ];
 
         onValue(commentsRef, (snapshot) => {
