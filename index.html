@@ -60,7 +60,7 @@
             height: 16px;
             fill: #333;
         }
-        /* بطاقة إحصائيات الدول المنظمة الجديدة */
+        /* بطاقة إحصائيات الدول المنظمة */
         .stats-card {
             background: #f9f9f9;
             border: 1px solid #e0e0e0;
@@ -85,18 +85,18 @@
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
         }
         @media (max-width: 520px) {
             .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         .stat-item {
             background: #ffffff;
             border: 1px solid #eaeaea;
-            padding: 10px 8px;
+            padding: 10px 6px;
             border-radius: 8px;
             text-align: center;
             display: flex;
@@ -110,18 +110,14 @@
             transform: translateY(-1px);
         }
         .stat-country {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-size: 12px;
+            font-size: 11px;
             color: #555;
             font-weight: 500;
         }
         .stat-item span.count {
             font-weight: 700;
             color: #111;
-            font-size: 13px;
+            font-size: 12px;
         }
         .container {
             width: 100%;
@@ -431,16 +427,16 @@
     <!-- بطاقة إحصائيات الدول المنظمة -->
     <div class="stats-card">
         <div class="stats-header">
-            <!-- أيقونة كوكب الأرض بدلاً من الترس -->
+            <!-- أيقونة كوكب الأرض خطية تفريغية بدقة تامة وبدون أي ألوان -->
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="2" y1="12" x2="22" y2="12"></line>
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
-            Global Votes Breakdown by Region
+            Global Votes Breakdown by Regions
         </div>
         <div class="stats-grid" id="countryStatsList">
-            <!-- يتم تعبئتها ديناميكياً بدون أعلام ودون others -->
+            <!-- يتم تعبئتها ديناميكياً لتشمل روسيا، إيران، إسبانيا و Others بجموع دقيق -->
         </div>
     </div>
 
@@ -570,9 +566,10 @@
         }
 
         function updateCountryStats(grandTotal) {
-            let vRussia = Math.floor(grandTotal * 0.48);
-            let vIran = Math.floor(grandTotal * 0.32);
-            let vSpain = grandTotal - (vRussia + vIran);
+            let vRussia = Math.floor(grandTotal * 0.42);
+            let vIran = Math.floor(grandTotal * 0.28);
+            let vSpain = Math.floor(grandTotal * 0.18);
+            let vOthers = grandTotal - (vRussia + vIran + vSpain);
 
             const statsListEl = document.getElementById('countryStatsList');
             if (statsListEl) {
@@ -588,6 +585,10 @@
                     <div class="stat-item">
                         <div class="stat-country">Spain</div>
                         <span class="count">${vSpain.toLocaleString()}</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-country">Others</div>
+                        <span class="count">${vOthers.toLocaleString()}</span>
                     </div>
                 `;
             }
