@@ -85,12 +85,12 @@
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
         @media (max-width: 520px) {
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         .stat-item {
@@ -428,18 +428,19 @@
         </button>
     </div>
 
-    <!-- بطاقة إحصائيات الدول المنظمة بالأيقونة التقنية الجديدة -->
+    <!-- بطاقة إحصائيات الدول المنظمة -->
     <div class="stats-card">
         <div class="stats-header">
-            <!-- أيقونة شبكة وتوزيع تقنية بديلة للكرة الأرضية -->
+            <!-- أيقونة كوكب الأرض بدلاً من الترس -->
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
             Global Votes Breakdown by Region
         </div>
         <div class="stats-grid" id="countryStatsList">
-            <!-- يتم تعبئتها ديناميكياً -->
+            <!-- يتم تعبئتها ديناميكياً بدون أعلام ودون others -->
         </div>
     </div>
 
@@ -569,29 +570,24 @@
         }
 
         function updateCountryStats(grandTotal) {
-            let vRussia = Math.floor(grandTotal * 0.42);
-            let vIran = Math.floor(grandTotal * 0.28);
-            let vSpain = Math.floor(grandTotal * 0.18);
-            let vOther = grandTotal - (vRussia + vIran + vSpain);
+            let vRussia = Math.floor(grandTotal * 0.48);
+            let vIran = Math.floor(grandTotal * 0.32);
+            let vSpain = grandTotal - (vRussia + vIran);
 
             const statsListEl = document.getElementById('countryStatsList');
             if (statsListEl) {
                 statsListEl.innerHTML = `
                     <div class="stat-item">
-                        <div class="stat-country">🇷🇺 Russia</div>
+                        <div class="stat-country">Russia</div>
                         <span class="count">${vRussia.toLocaleString()}</span>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-country">🇮🇷 Iran</div>
+                        <div class="stat-country">Iran</div>
                         <span class="count">${vIran.toLocaleString()}</span>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-country">🇪🇸 Spain</div>
+                        <div class="stat-country">Spain</div>
                         <span class="count">${vSpain.toLocaleString()}</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-country">🌐 Other</div>
-                        <span class="count">${vOther.toLocaleString()}</span>
                     </div>
                 `;
             }
